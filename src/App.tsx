@@ -1,26 +1,19 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { Routes, Route } from "react-router-dom";
+import MainView from "./view/main/MainView";
+import ProjectView from "./view/project/ProjectView";
+import GroupView from "./view/group/GroupView";
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    <Routes>
+        <Route path="/">
+            <Route index element={<MainView />} />
+            <Route path="project" element={<ProjectView />} />
+            <Route path="group" element={<GroupView />} />
+        </Route>
+    </Routes>
+  )
 }
 
-export default App;
+export default App
