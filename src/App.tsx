@@ -1,5 +1,5 @@
 import React from 'react';
-import { Routes, Route } from "react-router-dom";
+import {Route, Routes} from "react-router-dom";
 import MainView from "./view/main/MainView";
 import ProjectView from "./view/project/ProjectView";
 import GroupView from "./view/group/GroupView";

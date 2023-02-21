@@ -4,7 +4,8 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import {BrowserRouter} from "react-router-dom";
-import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
+import {createMuiTheme, MuiThemeProvider} from '@material-ui/core/styles';
+
 const theme = createMuiTheme({
     palette: {
         primary: {
