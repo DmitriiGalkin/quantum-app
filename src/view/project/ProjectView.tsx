@@ -5,9 +5,16 @@ import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
-import {Container} from "@material-ui/core";
+import {Avatar, Container, Grid} from "@material-ui/core";
 import ForwardBar from "../../components/ForwardBar";
 import ProjectTimeline from "./ProjectTimeLine";
+import ProjectInfo from "./ProjectInfo";
+import {useProject} from "../../modules/project/hook";
+import {
+    useParams
+} from "react-router-dom";
+import {useProjectUsers} from "../../modules/user/hook";
+import {Card, CardHeader} from "@material-ui/core";
 
 interface TabPanelProps {
     children?: React.ReactNode;
@@ -47,11 +54,20 @@ const useStyles = makeStyles((theme: Theme) => ({
         flexGrow: 1,
         backgroundColor: theme.palette.background.paper,
     },
+    large: {
+        width: theme.spacing(7),
+        height: theme.spacing(7),
+    },
 }));
+
+const PROJECT_ID = 1
 
 export default function ProjectView() {
     const classes = useStyles();
     const [value, setValue] = React.useState(0);
+    const { id } = useParams();
+    const project = useProject(Number(id))
+    const users = useProjectUsers()
 
     const handleChange = (event: React.ChangeEvent<{}>, newValue: number) => {
         setValue(newValue);
@@ -59,21 +75,45 @@ export default function ProjectView() {
 
     return (
         <div className={classes.root}>
-            <ForwardBar/>
+            <ForwardBar title={project.title}/>
             <AppBar position="static">
                 <Tabs value={value} onChange={handleChange} aria-label="simple tabs example">
-                    <Tab label="Встречи" {...a11yProps(0)} />
-                    <Tab label="Участники" {...a11yProps(0)} />
+                    <Tab label="Общее" {...a11yProps(0)} />
+                    <Tab label="Встречи" {...a11yProps(1)} />
+                    <Tab label="Участники" {...a11yProps(2)} />
                 </Tabs>
             </AppBar>
             <TabPanel value={value} index={0}>
                 <Container maxWidth="sm" style={{ paddingTop: 20 }}>
-                    <ProjectTimeline/>
+                    <ProjectInfo {...project} />
                 </Container>
             </TabPanel>
             <TabPanel value={value} index={1}>
                 <Container maxWidth="sm" style={{ paddingTop: 20 }}>
-                    участники
+                    <ProjectTimeline/>
+                </Container>
+            </TabPanel>
+            <TabPanel value={value} index={2}>
+                <Container maxWidth="sm" style={{ paddingTop: 20 }}>
+                    <Grid container spacing={3}>
+                    {users.map((user) => (
+                        <Grid item xs={12} sm={6}>
+                            <Card>
+                                <CardHeader
+                                    avatar={
+                                        <Avatar
+                                            alt={user.title}
+                                            src={user.image}
+                                            className={classes.large}
+                                        />
+                                    }
+                                    title={user.title}
+                                    subheader="Вдохновитель"
+                                />
+                            </Card>
+                        </Grid>
+                    ))}
+                    </Grid>
                 </Container>
             </TabPanel>
         </div>

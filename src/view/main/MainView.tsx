@@ -79,15 +79,25 @@ export default function MainView() {
             <TabPanel value={value} index={0}>
                 <Container maxWidth="lg" style={{ paddingTop: 20 }}>
                     <Grid container spacing={2} alignItems="stretch">
-                        {meets.map((meet) =>                     <Grid item xs={3}>
+                        {meets.map((meet) =>                     <Grid item xs={4}>
                             <MeetCard {...meet} /></Grid>)}
                     </Grid>
                 </Container>
             </TabPanel>
             <TabPanel value={value} index={1}>
                 <Container maxWidth="lg" style={{ paddingTop: 20 }}>
+                    <Typography variant="h2">
+                        Мои проекты
+                    </Typography>
                     <Grid container spacing={2} alignItems="stretch">
-                        {projects.map((project) =>                     <Grid item xs={3}>
+                        {projects.filter((project) => project.active).map((project) =>                     <Grid item xs={3}>
+                            <ProjectCard {...project} /></Grid>)}
+                    </Grid>
+                    <Typography variant="h2">
+                        Проекты мест
+                    </Typography>
+                    <Grid container spacing={2} alignItems="stretch">
+                        {projects.filter((project) => !project.active).map((project) =>                     <Grid item xs={3}>
                             <ProjectCard {...project} /></Grid>)}
                     </Grid>
                 </Container>

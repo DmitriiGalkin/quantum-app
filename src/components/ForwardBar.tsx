@@ -22,18 +22,18 @@ const useStyles = makeStyles((theme: Theme) =>
     }),
 );
 
-export default function ForwardBar() {
+export default function ForwardBar({ title }: { title?: string }) {
     const classes = useStyles();
 
     return (
         <div className={classes.root}>
             <AppBar position="static">
                 <Toolbar>
-                    <IconButton edge="start" component={Link} className={classes.menuButton} to="/">
+                    <IconButton edge="start" className={classes.menuButton} color="inherit" onClick={() => window.history.back()}>
                         <ArrowBack />
                     </IconButton>
                     <Typography variant="h6" className={classes.title}>
-                        Quantum
+                        {title || 'Quantum'}
                     </Typography>
                     <Button color="inherit">Login</Button>
                 </Toolbar>

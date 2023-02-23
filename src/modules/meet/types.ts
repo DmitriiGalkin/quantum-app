@@ -3,6 +3,7 @@ import {Project} from "../project/types";
 
 export interface Meet {
     id: number
+    active?: boolean
     datetime: string
     title?: string
     image?: string

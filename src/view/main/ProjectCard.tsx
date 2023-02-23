@@ -7,7 +7,11 @@ import CardActions from '@material-ui/core/CardActions';
 import Typography from '@material-ui/core/Typography';
 import {red} from '@material-ui/core/colors';
 import {Project} from "../../modules/project/types";
-import {Button, CardActionArea} from "@material-ui/core";
+import {Button, CardActionArea, IconButton} from "@material-ui/core";
+import FavoriteIcon from '@material-ui/icons/Favorite';
+import ShareIcon from '@material-ui/icons/Share';
+
+import {Link} from "react-router-dom";
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
@@ -20,11 +24,7 @@ const useStyles = makeStyles((theme: Theme) =>
             paddingTop: '56.25%', // 16:9
         },
         expand: {
-            transform: 'rotate(0deg)',
             marginLeft: 'auto',
-            transition: theme.transitions.create('transform', {
-                duration: theme.transitions.duration.shortest,
-            }),
         },
         expandOpen: {
             transform: 'rotate(180deg)',
@@ -40,7 +40,7 @@ export default function Group(project: Project) {
 
     return (
         <Card className={classes.root}>
-            <CardActionArea onClick={()=>console.log('в проект')}>
+            <CardActionArea component={Link} to={`/project/${project.id}`}>
                 <CardMedia
                     className={classes.media}
                     image={project.image}
@@ -55,11 +55,15 @@ export default function Group(project: Project) {
                     </Typography>
                 </CardContent>
             </CardActionArea>
-            <CardActions>
-                <Button size="small" color="primary">
-                    Подробнее
-                </Button>
-                <Button size="small" color="primary">
+            <CardActions disableSpacing>
+                <IconButton aria-label="add to favorites">
+                    <FavoriteIcon color={project.favorite ? 'primary' : undefined}/>
+                </IconButton>
+                <IconButton aria-label="share">
+                    <ShareIcon />
+                </IconButton>
+                <Button size="small" color="primary"                    className={classes.expand}
+                >
                     Присоединиться
                 </Button>
             </CardActions>
