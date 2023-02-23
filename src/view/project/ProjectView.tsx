@@ -5,16 +5,13 @@ import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
-import {Avatar, Container, Grid} from "@material-ui/core";
+import {Avatar, Card, CardHeader, Container, Grid} from "@material-ui/core";
 import ForwardBar from "../../components/ForwardBar";
 import ProjectTimeline from "./ProjectTimeLine";
 import ProjectInfo from "./ProjectInfo";
 import {useProject} from "../../modules/project/hook";
-import {
-    useParams
-} from "react-router-dom";
+import {useParams} from "react-router-dom";
 import {useProjectUsers} from "../../modules/user/hook";
-import {Card, CardHeader} from "@material-ui/core";
 
 interface TabPanelProps {
     children?: React.ReactNode;
@@ -59,8 +56,6 @@ const useStyles = makeStyles((theme: Theme) => ({
         height: theme.spacing(7),
     },
 }));
-
-const PROJECT_ID = 1
 
 export default function ProjectView() {
     const classes = useStyles();

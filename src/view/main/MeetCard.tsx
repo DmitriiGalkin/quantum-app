@@ -1,17 +1,14 @@
 import React from 'react';
 import {createStyles, makeStyles, Theme} from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
-import CardHeader from '@material-ui/core/CardHeader';
 import CardActions from '@material-ui/core/CardActions';
 import Avatar from '@material-ui/core/Avatar';
 import IconButton from '@material-ui/core/IconButton';
-import {red} from '@material-ui/core/colors';
 import {AvatarGroup} from "@material-ui/lab";
-import PlusOne from '@material-ui/icons/PlusOne';
 import {Meet} from "../../modules/meet/types";
 import {DateTimeFormatter, LocalDateTime} from "@js-joda/core";
 import AddIcon from '@material-ui/icons/Add';
-import {CardContent, CardMedia, Typography} from "@material-ui/core";
+import {CardContent, Typography} from "@material-ui/core";
 import useToggle from "../../tools/useToggle";
 import clsx from 'clsx'
 

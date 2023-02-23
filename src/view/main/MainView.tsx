@@ -7,11 +7,11 @@ import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
 import MeetCard from "./MeetCard";
 import {Container, Grid} from "@material-ui/core";
-import GroupCard from "./GroupCard";
+import PlaceCard from "./PlaceCard";
 import ProjectCard from "./ProjectCard";
 import ButtonAppBar from "../../components/ButtonAppBar";
 import {Outlet} from 'react-router-dom'
-import {useGroups} from "../../modules/group/hook";
+import {useGroups} from "../../modules/place/hook";
 import {useProjects} from "../../modules/project/hook";
 import {useMeets} from "../../modules/meet/hook";
 
@@ -87,14 +87,14 @@ export default function MainView() {
             <TabPanel value={value} index={1}>
                 <Container maxWidth="lg" style={{ paddingTop: 20 }}>
                     <Typography variant="h2">
-                        Мои проекты
+                        Проекты в которых участвую
                     </Typography>
                     <Grid container spacing={2} alignItems="stretch">
                         {projects.filter((project) => project.active).map((project) =>                     <Grid item xs={3}>
                             <ProjectCard {...project} /></Grid>)}
                     </Grid>
                     <Typography variant="h2">
-                        Проекты мест
+                        Проекты в которых не участвую
                     </Typography>
                     <Grid container spacing={2} alignItems="stretch">
                         {projects.filter((project) => !project.active).map((project) =>                     <Grid item xs={3}>
@@ -106,7 +106,7 @@ export default function MainView() {
                 <Container maxWidth="lg" style={{ paddingTop: 20 }}>
                     <Grid container spacing={2}>
                         {groups.map((g) =>                     <Grid item xs={3}>
-                            <GroupCard {...g} /></Grid>)}
+                            <PlaceCard {...g} /></Grid>)}
                     </Grid>
                 </Container>
             </TabPanel>

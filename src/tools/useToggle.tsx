@@ -1,4 +1,4 @@
-import { useReducer } from 'react'
+import {useReducer} from 'react'
 
 type UseToggle = (initial?: boolean) => [open: boolean, toggle: () => void]
 

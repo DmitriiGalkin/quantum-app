@@ -3,11 +3,11 @@ import {createStyles, makeStyles, Theme} from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
 import CardMedia from '@material-ui/core/CardMedia';
 import CardContent from '@material-ui/core/CardContent';
-import CardActions from '@material-ui/core/CardActions';
 import Typography from '@material-ui/core/Typography';
 import {red} from '@material-ui/core/colors';
-import {Group} from "../../modules/group/types";
-import {Button, CardActionArea} from "@material-ui/core";
+import {Place} from "../../modules/place/types";
+import {CardActionArea} from "@material-ui/core";
+import {Link} from "react-router-dom";
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
@@ -34,34 +34,26 @@ const useStyles = makeStyles((theme: Theme) =>
     }),
 );
 
-export default function GroupCard(group: Group) {
+export default function PlaceCard(place: Place) {
     const classes = useStyles();
 
     return (
         <Card className={classes.root}>
-            <CardActionArea>
+            <CardActionArea component={Link} to={`/place/${place.id}`}>
                 <CardMedia
                     className={classes.media}
-                    image={group.image}
-                    title={group.title}
+                    image={place.image}
+                    title={place.title}
                 />
                 <CardContent>
                     <Typography gutterBottom variant="h5" component="h2">
-                        {group.title}
+                        {place.title}
                     </Typography>
                     <Typography variant="body2" color="textSecondary" component="p">
-                        {group.description}
+                        {place.description}
                     </Typography>
                 </CardContent>
             </CardActionArea>
-            <CardActions>
-                <Button size="small" color="primary">
-                    Подробнее
-                </Button>
-                <Button size="small" color="primary">
-                    Присоединиться
-                </Button>
-            </CardActions>
         </Card>
     );
 }

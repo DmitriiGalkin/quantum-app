@@ -1,4 +1,4 @@
-import {Group} from "../group/types";
+import {AgeLimit, Place} from "../place/types";
 
 export interface DefaultProject {
     id: number,
@@ -8,8 +8,9 @@ export interface DefaultProject {
     description: string,
     active?: boolean, // флаг участия пользователя в проекте
     favorite?: boolean, // флаг добавления в избранное
+    ageLimit?: AgeLimit // Возрастное ограничение
 }
 
 export interface Project extends DefaultProject {
-    group: Group
+    group: Place
 }

@@ -1,11 +1,11 @@
 import {DefaultProject, Project} from "./types";
-import {GROUPS} from "../group/data";
-import {Group} from "../group/types";
+import {PLACES} from "../place/data";
+import {Place} from "../place/types";
 import {getProjects, PROJECTS} from "./data";
 
 export const useProject = (id: number): Project => {
     const defaultProject = PROJECTS.find((project) => project.id === id) || {} as DefaultProject
-    return ({ ...defaultProject, group: GROUPS.find((group) => group.id === defaultProject.groupId) || {} as Group })
+    return ({ ...defaultProject, group: PLACES.find((group) => group.id === defaultProject.groupId) || {} as Place })
 }
 
 export const useProjects = (): Project[] => {
