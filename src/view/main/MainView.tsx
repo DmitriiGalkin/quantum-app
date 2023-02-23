@@ -14,6 +14,9 @@ import {Outlet} from 'react-router-dom'
 import {useGroups} from "../../modules/place/hook";
 import {useProjects} from "../../modules/project/hook";
 import {useMeets} from "../../modules/meet/hook";
+import {useQuery, UseQueryResult} from "@tanstack/react-query";
+import axios from "axios";
+import {Meet} from "../../modules/meet/types";
 
 interface TabPanelProps {
     children?: React.ReactNode;
@@ -62,6 +65,23 @@ export default function MainView() {
     const projects = useProjects()
     const meets = useMeets()
 
+    // Queries
+    const {data: meets2 = []} = useQuery<Meet[]>({
+        queryKey: ['meets'],
+        queryFn: () =>
+            axios
+                .get("http://localhost:3000/api/v1/main/meets")
+                .then((res) => res.data),
+    })
+    // Queries
+    const {data: projects2} = useQuery({
+        queryKey: ['projects'],
+        queryFn: () =>
+            axios
+                .get("http://localhost:3000/api/v1/main/meets")
+                .then((res) => res.data),
+    })
+
     const handleChange = (event: React.ChangeEvent<{}>, newValue: number) => {
         setValue(newValue);
     };
@@ -72,14 +92,14 @@ export default function MainView() {
             <AppBar position="static" color="secondary">
                 <Tabs value={value} onChange={handleChange} aria-label="simple tabs example">
                     <Tab label="Встречи" {...a11yProps(0)} />
-                    <Tab label="Проекты" {...a11yProps(0)} />
-                    <Tab label="Места" {...a11yProps(1)} />
+                    <Tab label="Проекты" {...a11yProps(2)} />
+                    <Tab label="Места" {...a11yProps(3)} />
                 </Tabs>
             </AppBar>
             <TabPanel value={value} index={0}>
                 <Container maxWidth="lg" style={{ paddingTop: 20 }}>
                     <Grid container spacing={2} alignItems="stretch">
-                        {meets.map((meet) =>                     <Grid item xs={4}>
+                        {meets2.map((meet) =>                     <Grid item xs={4}>
                             <MeetCard {...meet} /></Grid>)}
                     </Grid>
                 </Container>

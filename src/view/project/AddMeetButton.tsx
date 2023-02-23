@@ -44,7 +44,7 @@ export default function AddMeetButton() {
                 aria-labelledby="alert-dialog-title"
                 aria-describedby="alert-dialog-description"
             >
-                <DialogTitle id="alert-dialog-title">{"Use Google's location service?"}</DialogTitle>
+                <DialogTitle id="alert-dialog-title">Создать встречу</DialogTitle>
                 <DialogContent>
                     <DialogContentText id="alert-dialog-description">
                         <MeetForm />

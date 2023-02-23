@@ -43,9 +43,11 @@ const useStyles = makeStyles((theme: Theme) =>
     }),
 );
 
+const formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
+
 export default function MeetCard(meet: Meet) {
     const classes = useStyles();
-    const localDateTime = LocalDateTime.parse(meet.datetime)
+    const localDateTime = LocalDateTime.parse(meet.datetime, formatter)
     const date = localDateTime.format(DateTimeFormatter.ofPattern('dd.MM'))
     const time = localDateTime.format(DateTimeFormatter.ofPattern('HH:mm'))
     const [active, toggle] = useToggle()
@@ -68,7 +70,7 @@ export default function MeetCard(meet: Meet) {
                         {meet.title}
                     </Typography>
                     <Typography variant="subtitle1">
-                        {meet.project.title}
+                        {meet.project?.title}
                     </Typography>
                 </CardContent>
                 <CardActions>
@@ -76,7 +78,7 @@ export default function MeetCard(meet: Meet) {
                         <AddIcon />
                     </IconButton>
                     <AvatarGroup max={4}>
-                        {meet.users.map((user) => <Avatar alt={user.title} src={user.image} />)}
+                        {meet.users?.map((user) => <Avatar alt={user.title} src={user.image} />)}
                     </AvatarGroup>
                 </CardActions>
             </div>
