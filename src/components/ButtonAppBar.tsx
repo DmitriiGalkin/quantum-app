@@ -29,10 +29,7 @@ const useStyles = makeStyles((theme: Theme) =>
             backgroundColor: '#C22157',
         },
         sectionDesktop: {
-            display: 'none',
-            [theme.breakpoints.up('md')]: {
-                display: 'flex',
-            },
+            display: 'flex',
         },
     }),
 );
