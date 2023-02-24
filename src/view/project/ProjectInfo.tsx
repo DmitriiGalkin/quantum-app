@@ -14,7 +14,7 @@ export default function ProjectInfo(project: Project) {
             <Typography variant="body1">
                 {project.title}
             </Typography>
-<AddMeetButton/>
+            <AddMeetButton/>
         </div>
     );
 }

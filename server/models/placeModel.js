@@ -2,7 +2,7 @@
 var dbConn = require('../db.config');
 
 // Main object create
-var Meet = function(employee){
+var Place = function(employee){
     this.first_name     = employee.first_name;
     this.last_name      = employee.last_name;
     this.email          = employee.email;
@@ -15,8 +15,8 @@ var Meet = function(employee){
     this.updated_at     = new Date();
 };
 
-Meet.findAll = function (result) {
-    dbConn.query("Select * from meets", function (err, res) {
+Place.findAll = function (result) {
+    dbConn.query("Select * from places", function (err, res) {
         if(err) {
             console.log("error: ", err);
             result(null, err);
@@ -28,8 +28,8 @@ Meet.findAll = function (result) {
     });
 };
 
-Meet.findById = function (id, result) {
-    dbConn.query("Select * from meets where  id = ? ", id, function (err, res) {
+Place.findById = function (id, result) {
+    dbConn.query("Select * from places where  id = ? ", id, function (err, res) {
         if(err) {
             console.log("error: ", err);
             result(err, null);
@@ -41,4 +41,4 @@ Meet.findById = function (id, result) {
     });
 };
 
-module.exports = Meet;
+module.exports = Place;

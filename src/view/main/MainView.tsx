@@ -17,6 +17,8 @@ import {useMeets} from "../../modules/meet/hook";
 import {useQuery, UseQueryResult} from "@tanstack/react-query";
 import axios from "axios";
 import {Meet} from "../../modules/meet/types";
+import {Project} from "../../modules/project/types";
+import {Place} from "../../modules/place/types";
 
 interface TabPanelProps {
     children?: React.ReactNode;
@@ -61,24 +63,32 @@ const useStyles = makeStyles((theme: Theme) => ({
 export default function MainView() {
     const classes = useStyles();
     const [value, setValue] = React.useState(0);
-    const groups = useGroups()
-    const projects = useProjects()
-    const meets = useMeets()
+    // const groups = useGroups()
+    // const projects = useProjects()
+    // const meets = useMeets()
 
     // Queries
     const {data: meets2 = []} = useQuery<Meet[]>({
         queryKey: ['meets'],
         queryFn: () =>
             axios
-                .get("http://localhost:3000/api/v1/main/meets")
+                .get("http://localhost:3001/api/v1/meets")
                 .then((res) => res.data),
     })
     // Queries
-    const {data: projects2} = useQuery({
+    const {data: projects2 = []} = useQuery<Project[]>({
         queryKey: ['projects'],
         queryFn: () =>
             axios
-                .get("http://localhost:3000/api/v1/main/meets")
+                .get("http://localhost:3001/api/v1/projects")
+                .then((res) => res.data),
+    })
+    // Queries
+    const {data: places = []} = useQuery<Place[]>({
+        queryKey: ['places'],
+        queryFn: () =>
+            axios
+                .get("http://localhost:3001/api/v1/places")
                 .then((res) => res.data),
     })
 
@@ -110,14 +120,14 @@ export default function MainView() {
                         Проекты в которых участвую
                     </Typography>
                     <Grid container spacing={2} alignItems="stretch">
-                        {projects.filter((project) => project.active).map((project) =>                     <Grid item xs={3}>
+                        {projects2.filter((project) => project.active).map((project) =>                     <Grid item xs={3}>
                             <ProjectCard {...project} /></Grid>)}
                     </Grid>
                     <Typography variant="h2">
                         Проекты в которых не участвую
                     </Typography>
                     <Grid container spacing={2} alignItems="stretch">
-                        {projects.filter((project) => !project.active).map((project) =>                     <Grid item xs={3}>
+                        {projects2.filter((project) => !project.active).map((project) =>                     <Grid item xs={3}>
                             <ProjectCard {...project} /></Grid>)}
                     </Grid>
                 </Container>
@@ -125,7 +135,7 @@ export default function MainView() {
             <TabPanel value={value} index={2}>
                 <Container maxWidth="lg" style={{ paddingTop: 20 }}>
                     <Grid container spacing={2}>
-                        {groups.map((g) =>                     <Grid item xs={3}>
+                        {places.map((g) =>                     <Grid item xs={3}>
                             <PlaceCard {...g} /></Grid>)}
                     </Grid>
                 </Container>

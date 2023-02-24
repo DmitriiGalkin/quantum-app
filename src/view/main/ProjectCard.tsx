@@ -43,7 +43,7 @@ export default function Group(project: Project) {
             <CardActionArea component={Link} to={`/project/${project.id}`}>
                 <CardMedia
                     className={classes.media}
-                    image={project.image}
+                    image={`/${project.image}`}
                     title={project.title}
                 />
                 <CardContent>

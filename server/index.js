@@ -5,7 +5,7 @@ const cors = require('cors')
 // create express app
 const app = express();
 // Setup server port
-const port = process.env.PORT || 3000;
+const port = process.env.PORT || 3001;
 
 app.use(cors({
     origin: '*'
@@ -20,9 +20,14 @@ app.get('/', (req, res) => {
     res.send("Hello World");
 });
 
-
+const meetRoutes = require('./routes/meetRouter') // Require employee routes
+app.use('/api/v1/meets', meetRoutes) // using as middleware
+const projectRoutes = require('./routes/projectRouter') // Require employee routes
+app.use('/api/v1/projects', projectRoutes) // using as middleware
+const placeRouter = require('./routes/placeRouter') // Require employee routes
+app.use('/api/v1/places', placeRouter) // using as middleware
 const employeeRoutes = require('./routes/userRouter') // Require employee routes
-app.use('/api/v1/employees', employeeRoutes) // using as middleware
+app.use('/api/v1/users', employeeRoutes) // using as middleware
 const mainRouter = require('./routes/mainRouter') // Require employee routes
 app.use('/api/v1/main', mainRouter) // using as middleware
 

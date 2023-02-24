@@ -11,6 +11,7 @@ import AddIcon from '@material-ui/icons/Add';
 import {CardContent, Typography} from "@material-ui/core";
 import useToggle from "../../tools/useToggle";
 import clsx from 'clsx'
+import {USERS} from "../../modules/user/data";
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
@@ -78,7 +79,7 @@ export default function MeetCard(meet: Meet) {
                         <AddIcon />
                     </IconButton>
                     <AvatarGroup max={4}>
-                        {meet.users?.map((user) => <Avatar alt={user.title} src={user.image} />)}
+                        {USERS.map((user) => <Avatar alt={user.title} src={user.image} />)}
                     </AvatarGroup>
                 </CardActions>
             </div>

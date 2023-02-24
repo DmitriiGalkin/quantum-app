@@ -15,16 +15,43 @@ var Project = function(employee){
     this.updated_at     = new Date();
 };
 
-Project.getUserProjects = function (result) {
-    dbConn.query("Select * from projects", function (err, res) {
+Project.findAll = function (params, result) {
+    if (params.placeId) {
+        dbConn.query(`Select * from projects WHERE placeId = '${params.placeId}'`, function (err, res) {
+            if(err) {
+                console.log("error: ", err);
+                result(null, err);
+            }
+            else{
+                console.log('employees : ', res);
+                result(null, res);
+            }
+        });
+    } else {
+        dbConn.query(`Select * from projects`, function (err, res) {
+            if(err) {
+                console.log("error: ", err);
+                result(null, err);
+            }
+            else{
+                console.log('employees : ', res);
+                result(null, res);
+            }
+        });
+    }
+};
+
+Project.findById = function (id, result) {
+    dbConn.query("Select * from projects where  id = ? ", id, function (err, res) {
         if(err) {
             console.log("error: ", err);
-            result(null, err);
+            result(err, null);
         }
         else{
-            console.log('employees : ', res);
-            result(null, res);
+            console.log('employees : ', res[0]);
+            result(null, res[0]);
         }
     });
 };
+
 module.exports = Project;

@@ -12,6 +12,9 @@ import ProjectInfo from "./ProjectInfo";
 import {useProject} from "../../modules/project/hook";
 import {useParams} from "react-router-dom";
 import {useProjectUsers} from "../../modules/user/hook";
+import {useQuery} from "@tanstack/react-query";
+import {Project} from "../../modules/project/types";
+import axios from "axios";
 
 interface TabPanelProps {
     children?: React.ReactNode;
@@ -61,7 +64,15 @@ export default function ProjectView() {
     const classes = useStyles();
     const [value, setValue] = React.useState(0);
     const { id } = useParams();
-    const project = useProject(Number(id))
+
+
+    const {data: project = {} as Project } = useQuery<Project>({
+        queryKey: ['projects'],
+        queryFn: () =>
+            axios
+                .get("http://localhost:3001/api/v1/projects/" + Number(id))
+                .then((res) => res.data),
+    })
     const users = useProjectUsers()
 
     const handleChange = (event: React.ChangeEvent<{}>, newValue: number) => {
