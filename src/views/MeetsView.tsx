@@ -14,7 +14,7 @@ import {useQuery} from "@tanstack/react-query";
 import axios from "axios";
 import {Meet} from "../modules/meet/types";
 import {Project} from "../modules/project/types";
-import {Place} from "../modules/place/types";
+import {Place, Task} from "../modules/place/types";
 import {a11yProps, TabPanel} from "../tools/tabs";
 import MapIcon from '@material-ui/icons/Map';
 import BottomNavigation from '@material-ui/core/BottomNavigation';
@@ -30,6 +30,7 @@ import clsx from "clsx";
 import SwipeableViews from 'react-swipeable-views';
 import Zoom from '@material-ui/core/Zoom';
 import Fab from '@material-ui/core/Fab';
+import TaskCard from "./cards/TaskCard";
 
 
 const useStyles = makeStyles((theme: Theme) => ({
@@ -70,6 +71,13 @@ export default function MeetsView() {
         queryFn: () =>
             axios
                 .get("http://localhost:3001/api/v1/projects")
+                .then((res) => res.data),
+    })
+    const {data: tasks = []} = useQuery<Task[]>({
+        queryKey: ['tasks'],
+        queryFn: () =>
+            axios
+                .get("http://localhost:3001/api/v1/tasks")
                 .then((res) => res.data),
     })
 
@@ -127,8 +135,8 @@ export default function MeetsView() {
                             Сегодня
                         </Typography>
                         <Grid container spacing={2} alignItems="stretch">
-                            {meets2.map((meet) =>                     <Grid item lg={4} xs={12}>
-                                <MeetCard {...meet} /></Grid>)}
+                            {meets2.map((meet, index) =>                     <Grid item lg={4} xs={12} key={index}>
+                                <MeetCard {...meet}  key={index}/></Grid>)}
                         </Grid>
                     </Container>
                 </TabPanel>
@@ -141,7 +149,14 @@ export default function MeetsView() {
                     </Container>
                 </TabPanel>
                 <TabPanel value={value} index={2}>
-    34
+                    <Container maxWidth="lg" style={{ paddingTop: 20 }}>
+                        <Grid container spacing={2} alignItems="stretch">
+                            {tasks.map((task) =>
+                                <Grid item lg={4} xs={12}>
+                                    <TaskCard {...task} />
+                                </Grid>)}
+                        </Grid>
+                    </Container>
                 </TabPanel>
             </SwipeableViews>
             {fabs.map((fab, index) => (

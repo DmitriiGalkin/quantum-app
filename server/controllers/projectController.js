@@ -4,10 +4,8 @@ exports.findAll = function(req, res) {
     let placeId = req.query.placeId;
 
     Project.findAll({ placeId }, function(err, employee) {
-        console.log('controller')
         if (err)
             res.send(err);
-        console.log('res', employee);
         res.send(employee);
     });
 };

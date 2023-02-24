@@ -23,7 +23,6 @@ Project.findAll = function (params, result) {
                 result(null, err);
             }
             else{
-                console.log('employees : ', res);
                 result(null, res);
             }
         });
@@ -34,7 +33,6 @@ Project.findAll = function (params, result) {
                 result(null, err);
             }
             else{
-                console.log('employees : ', res);
                 result(null, res);
             }
         });

@@ -22,7 +22,6 @@ Main.getMain = function (result) {
             result(null, err);
         }
         else{
-            console.log('employees : ', res);
             result(null, res);
         }
     });

@@ -11,7 +11,7 @@ import AddIcon from '@material-ui/icons/Add';
 import {CardActionArea, CardContent, Grid, Typography} from "@material-ui/core";
 import useToggle from "../../tools/useToggle";
 import clsx from 'clsx'
-import {useQuery} from "@tanstack/react-query";
+import {useMutation, useQuery} from "@tanstack/react-query";
 import axios from "axios";
 import {User} from "../../modules/user/types";
 import {USER} from "../../modules/user/data";
@@ -37,8 +37,15 @@ const useStyles = makeStyles((theme: Theme) =>
             flex: '1 0 auto',
             padding: 8,
             textAlign: 'center',
-            background: '#EB3F79',
+            background: '#FFCE00',
             color: 'white',
+        },
+        datetimeContentActive: {
+            background: '#FF9503',
+        },
+        datetimeContent2: {
+            flex: '1 0 auto',
+            padding: 8,
         },
         content: {
             flex: '1 0 auto',
@@ -65,7 +72,14 @@ const useStyles = makeStyles((theme: Theme) =>
         },
         body2: {
             color: theme.palette.grey["700"]
-        }
+        },
+        title: {
+            paddingTop: theme.spacing(1),
+        },
+        description: {
+            paddingBottom: theme.spacing(1),
+            color: theme.palette.grey["600"]
+        },
     }),
 );
 
@@ -76,9 +90,8 @@ export default function MeetCard(meet: Meet) {
     const localDateTime = LocalDateTime.parse(meet.datetime, formatter)
     const date = localDateTime.format(DateTimeFormatter.ofPattern('dd.MM'))
     const time = localDateTime.format(DateTimeFormatter.ofPattern('HH:mm'))
-    const [active, toggle] = useToggle()
 
-    const {data: users = [] } = useQuery<User[]>({
+    const {data: users = [], refetch } = useQuery<User[]>({
         queryKey: ['meetUsers', meet.id],
         queryFn: () =>
             axios
@@ -92,17 +105,36 @@ export default function MeetCard(meet: Meet) {
                 .get("http://localhost:3001/api/v1/projects/" + meet.projectId)
                 .then((res) => res.data),
     })
+    const mutation = useMutation(newTodo => {
+        return axios
+            .post("http://localhost:3001/api/v1/user_meet/" + 1 + '/' + meet.id)
+            .then((res) => res.data)
+    })
+    const mutation2 = useMutation(newTodo => {
+        return axios
+            .delete("http://localhost:3001/api/v1/user_meet/" + 1 + '/' + meet.id)
+            .then((res) => res.data)
+    })
+    const active = users.find((user) => user.id === 1)
 
+//     <Typography variant="body2">
+//         {date}
+// </Typography>
     return (
-        <Card className={clsx(classes.root)} onClick={toggle}>
+        <Card className={clsx(classes.root)} onClick={() => {
+            if (active) {
+                mutation2.mutate()
+                refetch()
+            } else {
+                mutation.mutate()
+                refetch()
+            }
+        }}>
             <Grid container spacing={2}>
                 <Grid item xs={3}>
-                    <div className={classes.datetimeContent}>
-                        <Typography component="h6" variant="h6">
+                    <div className={clsx(classes.datetimeContent, active && classes.datetimeContentActive)}>
+                        <Typography component="h5" variant="h5">
                             {time}
-                        </Typography>
-                        <Typography variant="body2">
-                            {date}
                         </Typography>
                     </div>
                     <CardMedia
@@ -112,10 +144,10 @@ export default function MeetCard(meet: Meet) {
                     />
                 </Grid>
                 <Grid item xs={9}>
-                    <Typography variant="h6">
+                    <Typography variant="h6" className={classes.title}>
                         {meet.title}
                     </Typography>
-                    <Typography variant="subtitle1" className={classes.body2}>
+                    <Typography variant="body2" className={classes.description}>
                         {project.title}
                     </Typography>
                     <AvatarGroup max={active ? 5 : 4} className={classes.avatarGroup}>

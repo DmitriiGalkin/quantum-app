@@ -14,6 +14,10 @@ app.get('/', (req, res) => {
     res.send("Hello World");
 }); // define a root route
 
+const taskRouter = require('./routes/taskRouter') // Require employee routes
+app.use('/api/v1/tasks', taskRouter) // using as middleware
+const userMeetRouter = require('./routes/userMeetRouter') // Require employee routes
+app.use('/api/v1/user_meet', userMeetRouter) // using as middleware
 const meetRoutes = require('./routes/meetRouter') // Require employee routes
 app.use('/api/v1/meets', meetRoutes) // using as middleware
 const projectRoutes = require('./routes/projectRouter') // Require employee routes

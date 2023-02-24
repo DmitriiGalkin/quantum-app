@@ -10,7 +10,8 @@ import {
     QueryClientProvider,
 } from '@tanstack/react-query'
 
-const theme = createMuiTheme({
+
+const OPTIONS_OLD = {
     palette: {
         primary: {
             main: '#C22157',
@@ -18,6 +19,23 @@ const theme = createMuiTheme({
         secondary: {
             main: '#EB3F79',
         }
+    }
+}
+// 7E5001
+const theme = createMuiTheme({
+    palette: {
+        primary: {
+            main: '#FF9503',
+            contrastText: '#674100',
+        },
+        secondary: {
+            main: '#FFCE00',
+            contrastText: '#674100',
+        },
+        text: {
+            //primary: '#e65100',
+            secondary: '#FFCE00',
+        },
     }
 });
 // Create a client
