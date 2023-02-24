@@ -12,6 +12,10 @@ import {CardContent, Typography} from "@material-ui/core";
 import useToggle from "../../tools/useToggle";
 import clsx from 'clsx'
 import {USERS} from "../../modules/user/data";
+import {useQuery} from "@tanstack/react-query";
+import {Unique} from "../../modules/unique/types";
+import axios from "axios";
+import {User} from "../../modules/user/types";
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
@@ -53,6 +57,14 @@ export default function MeetCard(meet: Meet) {
     const time = localDateTime.format(DateTimeFormatter.ofPattern('HH:mm'))
     const [active, toggle] = useToggle()
 
+    const {data: users = [] } = useQuery<User[]>({
+        queryKey: ['meetUsers', meet.id],
+        queryFn: () =>
+            axios
+                .get("http://localhost:3001/api/v1/meets/" + meet.id + "/users")
+                .then((res) => res.data),
+    })
+
     return (
         <Card className={clsx(classes.root, active && classes.rootActive)} onClick={toggle}>
             <div className={classes.datetime}>
@@ -79,7 +91,7 @@ export default function MeetCard(meet: Meet) {
                         <AddIcon />
                     </IconButton>
                     <AvatarGroup max={4}>
-                        {USERS.map((user) => <Avatar alt={user.title} src={user.image} />)}
+                        {users.map((user) => <Avatar alt={user.title} src={`/${user.image}`} />)}
                     </AvatarGroup>
                 </CardActions>
             </div>

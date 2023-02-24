@@ -34,7 +34,6 @@ export default function ForwardBar({ title }: { title?: string }) {
                     <Typography variant="h6" className={classes.title}>
                         {title || 'Quantum'}
                     </Typography>
-                    <Button color="inherit">Login</Button>
                 </Toolbar>
             </AppBar>
         </div>

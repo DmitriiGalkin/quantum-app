@@ -5,20 +5,20 @@ import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
-import MeetCard from "./MeetCard";
+import MeetCard from "./cards/MeetCard";
 import {Container, Grid} from "@material-ui/core";
-import PlaceCard from "./PlaceCard";
-import ProjectCard from "./ProjectCard";
-import ButtonAppBar from "../../components/ButtonAppBar";
+import PlaceCard from "./cards/PlaceCard";
+import ProjectCard from "./cards/ProjectCard";
+import ButtonAppBar from "../components/ButtonAppBar";
 import {Outlet} from 'react-router-dom'
-import {useGroups} from "../../modules/place/hook";
-import {useProjects} from "../../modules/project/hook";
-import {useMeets} from "../../modules/meet/hook";
+import {useGroups} from "../modules/place/hook";
+import {useProjects} from "../modules/project/hook";
+import {useMeets} from "../modules/meet/hook";
 import {useQuery, UseQueryResult} from "@tanstack/react-query";
 import axios from "axios";
-import {Meet} from "../../modules/meet/types";
-import {Project} from "../../modules/project/types";
-import {Place} from "../../modules/place/types";
+import {Meet} from "../modules/meet/types";
+import {Project} from "../modules/project/types";
+import {Place} from "../modules/place/types";
 
 interface TabPanelProps {
     children?: React.ReactNode;
@@ -100,7 +100,7 @@ export default function MainView() {
         <div className={classes.root}>
             <ButtonAppBar/>
             <AppBar position="static" color="secondary">
-                <Tabs value={value} onChange={handleChange} aria-label="simple tabs example">
+                <Tabs value={value} onChange={handleChange} aria-label="simple tabs example" variant="fullWidth">
                     <Tab label="Встречи" {...a11yProps(0)} />
                     <Tab label="Проекты" {...a11yProps(2)} />
                     <Tab label="Места" {...a11yProps(3)} />

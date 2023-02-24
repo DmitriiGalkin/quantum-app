@@ -1,8 +1,10 @@
 const express = require('express')
 const router = express.Router()
 const meetController =   require('../controllers/meetController');
-// Retrieve all employees
-router.get('/', meetController.findAll);
-// Retrieve a single employee with id
-router.get('/:id', meetController.findById);
+const userController =   require('../controllers/userController');
+
+router.get('/', meetController.findAll); // Встречи
+router.get('/:id', meetController.findById); // Встреча
+router.get('/:id/users', userController.findByMeetId); // Участники встречи
+
 module.exports = router

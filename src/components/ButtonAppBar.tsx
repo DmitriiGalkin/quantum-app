@@ -6,6 +6,10 @@ import Typography from '@material-ui/core/Typography';
 import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
 import {AccountCircle} from "@material-ui/icons";
+import {Badge} from "@material-ui/core";
+import MailIcon from '@material-ui/icons/Mail';
+import NotificationsIcon from '@material-ui/icons/Notifications';
+import {Link} from "react-router-dom";
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
@@ -20,6 +24,12 @@ const useStyles = makeStyles((theme: Theme) =>
         },
         header: {
             backgroundColor: '#C22157',
+        },
+        sectionDesktop: {
+            display: 'none',
+            [theme.breakpoints.up('md')]: {
+                display: 'flex',
+            },
         },
     }),
 );
@@ -37,15 +47,28 @@ export default function ButtonAppBar() {
                     <Typography variant="h6" className={classes.title}>
                         Quantum
                     </Typography>
-                    <IconButton
-                        aria-label="account of current user"
-                        aria-controls="menu-appbar"
-                        aria-haspopup="true"
-                        onClick={() => console.log('234')}
-                        color="inherit"
-                    >
-                        <AccountCircle />
-                    </IconButton>
+                    <div className={classes.sectionDesktop}>
+                        <IconButton aria-label="show 4 new mails" color="inherit">
+                            <Badge badgeContent={4} color="secondary">
+                                <MailIcon />
+                            </Badge>
+                        </IconButton>
+                        <IconButton aria-label="show 17 new notifications" color="inherit">
+                            <Badge badgeContent={17} color="secondary">
+                                <NotificationsIcon />
+                            </Badge>
+                        </IconButton>
+                        <IconButton
+                            edge="end"
+                            aria-label="account of current user"
+                            aria-controls='primary-search-account-menu'
+                            aria-haspopup="true"
+                            component={Link} to="/user/1"
+                            color="inherit"
+                        >
+                            <AccountCircle />
+                        </IconButton>
+                    </div>
                 </Toolbar>
             </AppBar>
         </div>

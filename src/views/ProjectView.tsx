@@ -6,15 +6,14 @@ import Tab from '@material-ui/core/Tab';
 import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
 import {Avatar, Card, CardHeader, Container, Grid} from "@material-ui/core";
-import ForwardBar from "../../components/ForwardBar";
-import ProjectTimeline from "./ProjectTimeLine";
-import ProjectInfo from "./ProjectInfo";
-import {useProject} from "../../modules/project/hook";
+import ForwardBar from "../components/ForwardBar";
+import ProjectTimeline from "../components/ProjectTimeLine";
 import {useParams} from "react-router-dom";
-import {useProjectUsers} from "../../modules/user/hook";
+import {useProjectUsers} from "../modules/user/hook";
 import {useQuery} from "@tanstack/react-query";
-import {Project} from "../../modules/project/types";
+import {Project} from "../modules/project/types";
 import axios from "axios";
+import AddMeetButton from "./buttons/AddMeetButton";
 
 interface TabPanelProps {
     children?: React.ReactNode;
@@ -83,7 +82,7 @@ export default function ProjectView() {
         <div className={classes.root}>
             <ForwardBar title={project.title}/>
             <AppBar position="static">
-                <Tabs value={value} onChange={handleChange} aria-label="simple tabs example">
+                <Tabs value={value} onChange={handleChange} aria-label="simple tabs example" variant="fullWidth">
                     <Tab label="Общее" {...a11yProps(0)} />
                     <Tab label="Встречи" {...a11yProps(1)} />
                     <Tab label="Участники" {...a11yProps(2)} />
@@ -91,7 +90,15 @@ export default function ProjectView() {
             </AppBar>
             <TabPanel value={value} index={0}>
                 <Container maxWidth="sm" style={{ paddingTop: 20 }}>
-                    <ProjectInfo {...project} />
+                    <div>
+                        <Typography variant="h1">
+                            {project.title}
+                        </Typography>
+                        <Typography variant="body1">
+                            {project.title}
+                        </Typography>
+                        <AddMeetButton/>
+                    </div>
                 </Container>
             </TabPanel>
             <TabPanel value={value} index={1}>

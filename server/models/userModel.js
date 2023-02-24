@@ -1,7 +1,7 @@
 'use strict';
 var dbConn = require('../db.config');
-//Employee object create
-var Employee = function(employee){
+
+var User = function(employee){
     this.first_name     = employee.first_name;
     this.last_name      = employee.last_name;
     this.email          = employee.email;
@@ -13,8 +13,8 @@ var Employee = function(employee){
     this.created_at     = new Date();
     this.updated_at     = new Date();
 };
-Employee.create = function (newEmp, result) {
-    dbConn.query("INSERT INTO employees set ?", newEmp, function (err, res) {
+User.create = function (newEmp, result) {
+    dbConn.query("INSERT INTO users set ?", newEmp, function (err, res) {
         if(err) {
             console.log("error: ", err);
             result(err, null);
@@ -25,8 +25,8 @@ Employee.create = function (newEmp, result) {
         }
     });
 };
-Employee.findById = function (id, result) {
-    dbConn.query("Select * from employees where id = ? ", id, function (err, res) {
+User.findById = function (id, result) {
+    dbConn.query("Select * from users where id = ? ", id, function (err, res) {
         if(err) {
             console.log("error: ", err);
             result(err, null);
@@ -36,8 +36,31 @@ Employee.findById = function (id, result) {
         }
     });
 };
-Employee.findAll = function (result) {
-    dbConn.query("Select * from employees", function (err, res) {
+User.findUniquesById = function (id, result) {
+    dbConn.query("Select * from uniques where userId = ? ", id, function (err, res) {
+        if(err) {
+            console.log("error: ", err);
+            result(err, null);
+        }
+        else{
+            result(null, res);
+        }
+    });
+};
+User.findByMeetId = function (id, result) {
+    dbConn.query("Select * from users LEFT JOIN user_meet ON users.id = user_meet.userId where meetId = ? ", id, function (err, res) {
+        if(err) {
+            console.log("error: ", err);
+            result(err, null);
+        }
+        else{
+            result(null, res);
+        }
+    });
+};
+
+User.findAll = function (result) {
+    dbConn.query("Select * from users", function (err, res) {
         if(err) {
             console.log("error: ", err);
             result(null, err);
@@ -48,8 +71,8 @@ Employee.findAll = function (result) {
         }
     });
 };
-Employee.update = function(id, employee, result){
-    dbConn.query("UPDATE employees SET first_name=?,last_name=?,email=?,phone=?,organization=?,designation=?,salary=? WHERE id = ?", [employee.first_name,employee.last_name,employee.email,employee.phone,employee.organization,employee.designation,employee.salary, id], function (err, res) {
+User.update = function(id, employee, result){
+    dbConn.query("UPDATE users SET first_name=?,last_name=?,email=?,phone=?,organization=?,designation=?,salary=? WHERE id = ?", [employee.first_name,employee.last_name,employee.email,employee.phone,employee.organization,employee.designation,employee.salary, id], function (err, res) {
         if(err) {
             console.log("error: ", err);
             result(null, err);
@@ -58,8 +81,8 @@ Employee.update = function(id, employee, result){
         }
     });
 };
-Employee.delete = function(id, result){
-    dbConn.query("DELETE FROM employees WHERE id = ?", [id], function (err, res) {
+User.delete = function(id, result){
+    dbConn.query("DELETE FROM users WHERE id = ?", [id], function (err, res) {
         if(err) {
             console.log("error: ", err);
             result(null, err);
@@ -69,4 +92,4 @@ Employee.delete = function(id, result){
         }
     });
 };
-module.exports= Employee;
+module.exports = User;
