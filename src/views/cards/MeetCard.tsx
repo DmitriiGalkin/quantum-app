@@ -11,9 +11,7 @@ import AddIcon from '@material-ui/icons/Add';
 import {CardContent, Typography} from "@material-ui/core";
 import useToggle from "../../tools/useToggle";
 import clsx from 'clsx'
-import {USERS} from "../../modules/user/data";
 import {useQuery} from "@tanstack/react-query";
-import {Unique} from "../../modules/unique/types";
 import axios from "axios";
 import {User} from "../../modules/user/types";
 

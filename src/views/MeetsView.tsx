@@ -4,17 +4,13 @@ import AppBar from '@material-ui/core/AppBar';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import Typography from '@material-ui/core/Typography';
-import Box from '@material-ui/core/Box';
 import MeetCard from "./cards/MeetCard";
 import {Container, Grid} from "@material-ui/core";
 import PlaceCard from "./cards/PlaceCard";
 import ProjectCard from "./cards/ProjectCard";
 import ButtonAppBar from "../components/ButtonAppBar";
 import {Outlet} from 'react-router-dom'
-import {useGroups} from "../modules/place/hook";
-import {useProjects} from "../modules/project/hook";
-import {useMeets} from "../modules/meet/hook";
-import {useQuery, UseQueryResult} from "@tanstack/react-query";
+import {useQuery} from "@tanstack/react-query";
 import axios from "axios";
 import {Meet} from "../modules/meet/types";
 import {Project} from "../modules/project/types";

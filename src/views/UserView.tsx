@@ -1,7 +1,7 @@
 import React from 'react';
 import {makeStyles, Theme} from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
-import {Avatar, Card, CardHeader, Container, Grid, LinearProgress} from "@material-ui/core";
+import {Container, Grid} from "@material-ui/core";
 import ForwardBar from "../components/ForwardBar";
 import {useParams} from "react-router-dom";
 import {useQuery} from "@tanstack/react-query";
