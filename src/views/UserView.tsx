@@ -23,7 +23,6 @@ const useStyles = makeStyles((theme: Theme) => ({
 
 export default function UserView() {
     const classes = useStyles();
-    const [value, setValue] = React.useState(0);
     const { id } = useParams();
 
 
@@ -41,7 +40,6 @@ export default function UserView() {
                 .get("http://localhost:3001/api/v1/users/" + Number(id) + "/uniques")
                 .then((res) => res.data),
     })
-    console.log(uniques, 'uniques')
 
     return (
         <div className={classes.root}>
