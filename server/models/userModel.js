@@ -58,6 +58,18 @@ User.findByMeetId = function (id, result) {
         }
     });
 };
+User.findByProjectId = function (id, result) {
+    dbConn.query("Select * from users LEFT JOIN user_project ON users.id = user_project.userId where projectId = ? ", id, function (err, res) {
+        if(err) {
+            console.log("error: ", err);
+            result(err, null);
+        }
+        else{
+            result(null, res);
+        }
+    });
+};
+
 
 User.findAll = function (result) {
     dbConn.query("Select * from users", function (err, res) {

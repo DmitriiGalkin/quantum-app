@@ -6,5 +6,5 @@ export const useMeets = (): Meet[] => {
 }
 
 export const useProjectMeets = ({ projectId }: { projectId: number }): Meet[] => {
-    return getMeets().filter((meet) => meet.project.id === projectId)
+    return getMeets().filter((meet) => meet.projectId === projectId)
 }

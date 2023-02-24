@@ -64,3 +64,10 @@ exports.findByMeetId = function(req, res) {
         res.json(employee);
     });
 };
+exports.findByProjectId = function(req, res) {
+    User.findByProjectId(req.params.id, function(err, employee) {
+        if (err)
+            res.send(err);
+        res.json(employee);
+    });
+};

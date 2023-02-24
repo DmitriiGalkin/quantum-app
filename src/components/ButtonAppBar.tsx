@@ -10,6 +10,9 @@ import {Badge} from "@material-ui/core";
 import MailIcon from '@material-ui/icons/Mail';
 import NotificationsIcon from '@material-ui/icons/Notifications';
 import {Link} from "react-router-dom";
+import MapIcon from "@material-ui/icons/Map";
+import {USER} from "../modules/user/data";
+import Avatar from "@material-ui/core/Avatar";
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
@@ -48,15 +51,8 @@ export default function ButtonAppBar() {
                         Quantum
                     </Typography>
                     <div className={classes.sectionDesktop}>
-                        <IconButton aria-label="show 4 new mails" color="inherit">
-                            <Badge badgeContent={4} color="secondary">
-                                <MailIcon />
-                            </Badge>
-                        </IconButton>
-                        <IconButton aria-label="show 17 new notifications" color="inherit">
-                            <Badge badgeContent={17} color="secondary">
-                                <NotificationsIcon />
-                            </Badge>
+                        <IconButton aria-label="show 17 new notifications" color="inherit" component={Link} to="/place">
+                            <MapIcon />
                         </IconButton>
                         <IconButton
                             edge="end"

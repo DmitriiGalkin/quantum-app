@@ -7,66 +7,83 @@ import CardActions from '@material-ui/core/CardActions';
 import Typography from '@material-ui/core/Typography';
 import {red} from '@material-ui/core/colors';
 import {Project} from "../../modules/project/types";
-import {Button, CardActionArea, IconButton} from "@material-ui/core";
+import {Button, CardActionArea, Grid, IconButton} from "@material-ui/core";
 import FavoriteIcon from '@material-ui/icons/Favorite';
 import ShareIcon from '@material-ui/icons/Share';
+import MapIcon from '@material-ui/icons/Map';
+import ButtonBase from '@material-ui/core/ButtonBase';
 
 import {Link} from "react-router-dom";
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
         root: {
-            // maxWidth: 345,
-            height: '100%',
+            display: 'flex',
         },
-        media: {
+        details: {
+            display: 'flex',
+            flexDirection: 'column',
+        },
+        content: {
+            flex: '1 0 auto',
+        },
+        cover: {
             height: 0,
-            paddingTop: '56.25%', // 16:9
+            paddingTop: '156.25%', // 16:9
         },
-        expand: {
-            marginLeft: 'auto',
+        controls: {
+            display: 'flex',
+            alignItems: 'center',
+            paddingLeft: theme.spacing(1),
+            paddingBottom: theme.spacing(1),
         },
-        expandOpen: {
-            transform: 'rotate(180deg)',
-        },
-        avatar: {
-            backgroundColor: red[500],
+        playIcon: {
+            height: 38,
+            width: 38,
         },
     }),
 );
 
-export default function Group(project: Project) {
+export default function ProjectCard(project: Project) {
     const classes = useStyles();
-
+ //             <CardActionArea component={Link} to={`/project/${project.id}`} className={classes.root2}>
     return (
-        <Card className={classes.root}>
-            <CardActionArea component={Link} to={`/project/${project.id}`}>
+    <Card className={classes.root}>
+        <Grid container spacing={2}>
+            <Grid item xs={3}>
                 <CardMedia
-                    className={classes.media}
+                    className={classes.cover}
                     image={`/${project.image}`}
                     title={project.title}
                 />
-                <CardContent>
-                    <Typography gutterBottom variant="h5" component="h2">
-                        {project.title}
-                    </Typography>
-                    <Typography variant="body2" color="textSecondary" component="p">
-                        {project.description}
-                    </Typography>
-                </CardContent>
-            </CardActionArea>
-            <CardActions disableSpacing>
-                <IconButton aria-label="add to favorites">
-                    <FavoriteIcon color={project.favorite ? 'primary' : undefined}/>
-                </IconButton>
-                <IconButton aria-label="share">
-                    <ShareIcon />
-                </IconButton>
-                <Button size="small" color="primary"                    className={classes.expand}
-                >
-                    Присоединиться
-                </Button>
-            </CardActions>
-        </Card>
+            </Grid>
+            <Grid item xs={9}>
+                <div className={classes.details}>
+                    <CardActionArea component={Link} to={`/project/${project.id}`}>
+                        <CardContent className={classes.content}>
+                            <Typography variant="h6">
+                                {project.title}
+                            </Typography>
+                            <Typography variant="subtitle1" color="textSecondary">
+                                {project.description}
+                            </Typography>
+                        </CardContent>
+                    </CardActionArea>
+                    <div className={classes.controls}>
+                        <IconButton aria-label="previous">
+                            <FavoriteIcon color={project.favorite ? 'primary' : undefined}/>
+                        </IconButton>
+                        <Button size="small" color="primary"
+                        >
+                            Присоединиться
+                        </Button>
+                        <IconButton aria-label="next">
+                            <ShareIcon />
+                        </IconButton>
+                    </div>
+                </div>
+            </Grid>
+        </Grid>
+    </Card>
     );
 }

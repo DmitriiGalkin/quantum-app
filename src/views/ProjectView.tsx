@@ -15,6 +15,7 @@ import {Project} from "../modules/project/types";
 import axios from "axios";
 import AddMeetButton from "./buttons/AddMeetButton";
 import {a11yProps, TabPanel} from "../tools/tabs";
+import {User} from "../modules/user/types";
 
 const useStyles = makeStyles((theme: Theme) => ({
     root: {
@@ -40,7 +41,13 @@ export default function ProjectView() {
                 .get("http://localhost:3001/api/v1/projects/" + Number(id))
                 .then((res) => res.data),
     })
-    const users = useProjectUsers()
+    const {data: users = [] } = useQuery<User[]>({
+        queryKey: ['projectUsers'],
+        queryFn: () =>
+            axios
+                .get("http://localhost:3001/api/v1/projects/" + Number(id) + '/users')
+                .then((res) => res.data),
+    })
 
     const handleChange = (event: React.ChangeEvent<{}>, newValue: number) => {
         setValue(newValue);
@@ -84,7 +91,7 @@ export default function ProjectView() {
                                     avatar={
                                         <Avatar
                                             alt={user.title}
-                                            src={user.image}
+                                            src={`/${user.image}`}
                                             className={classes.large}
                                         />
                                     }

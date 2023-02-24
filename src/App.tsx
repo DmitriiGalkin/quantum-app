@@ -4,6 +4,7 @@ import MeetsView from "./views/MeetsView";
 import ProjectView from "./views/ProjectView";
 import PlaceView from "./views/PlaceView";
 import UserView from "./views/UserView";
+import PlacesView from "./views/PlacesView";
 
 function App() {
   return (
@@ -11,6 +12,7 @@ function App() {
         <Route path="/">
             <Route index element={<MeetsView />} />
             <Route path="project/:id" element={<ProjectView />} />
+            <Route path="place" element={<PlacesView />} />
             <Route path="place/:id" element={<PlaceView />} />
             <Route path="user/:id" element={<UserView />} />
         </Route>

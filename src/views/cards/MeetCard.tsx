@@ -8,17 +8,23 @@ import {AvatarGroup} from "@material-ui/lab";
 import {Meet} from "../../modules/meet/types";
 import {DateTimeFormatter, LocalDateTime} from "@js-joda/core";
 import AddIcon from '@material-ui/icons/Add';
-import {CardContent, Typography} from "@material-ui/core";
+import {CardActionArea, CardContent, Grid, Typography} from "@material-ui/core";
 import useToggle from "../../tools/useToggle";
 import clsx from 'clsx'
 import {useQuery} from "@tanstack/react-query";
 import axios from "axios";
 import {User} from "../../modules/user/types";
+import {USER} from "../../modules/user/data";
+import CardMedia from "@material-ui/core/CardMedia";
+import {Project} from "../../modules/project/types";
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
         root: {
             display: 'flex',
+            '&:hover': {
+                cursor: 'pointer',
+            }
         },
         rootActive: {
             background: 'red',
@@ -27,9 +33,15 @@ const useStyles = makeStyles((theme: Theme) =>
             display: 'flex',
             flexDirection: 'column',
         },
-        content: {
+        datetimeContent: {
             flex: '1 0 auto',
             padding: 8,
+            textAlign: 'center',
+            background: '#EB3F79',
+            color: 'white',
+        },
+        content: {
+            flex: '1 0 auto',
         },
         cover: {
             width: 51,
@@ -40,9 +52,20 @@ const useStyles = makeStyles((theme: Theme) =>
             paddingLeft: theme.spacing(1),
             paddingBottom: theme.spacing(1),
         },
-        datetime: {
-            background: '#EB3F79',
+        small: {
+            width: theme.spacing(3),
+            height: theme.spacing(3),
         },
+        avatarGroup: {
+            '& .MuiAvatar-root': { width: theme.spacing(3), height: theme.spacing(3), fontSize: 15 },
+        },
+        media: {
+            height: 0,
+            paddingTop: '56.25%', // 16:9
+        },
+        body2: {
+            color: theme.palette.grey["700"]
+        }
     }),
 );
 
@@ -62,37 +85,45 @@ export default function MeetCard(meet: Meet) {
                 .get("http://localhost:3001/api/v1/meets/" + meet.id + "/users")
                 .then((res) => res.data),
     })
+    const {data: project = {} as Project } = useQuery<Project>({
+        queryKey: ['project', meet.projectId],
+        queryFn: () =>
+            axios
+                .get("http://localhost:3001/api/v1/projects/" + meet.projectId)
+                .then((res) => res.data),
+    })
 
     return (
-        <Card className={clsx(classes.root, active && classes.rootActive)} onClick={toggle}>
-            <div className={classes.datetime}>
-                <div className={classes.content}>
-                    <Typography component="h5" variant="h5">
-                        {time}
-                    </Typography>
-                    <Typography component="h6" variant="h6">
-                        {date}
-                    </Typography>
-                </div>
-            </div>
-            <div className={classes.details}>
-                <CardContent className={classes.content}>
+        <Card className={clsx(classes.root)} onClick={toggle}>
+            <Grid container spacing={2}>
+                <Grid item xs={3}>
+                    <div className={classes.datetimeContent}>
+                        <Typography component="h6" variant="h6">
+                            {time}
+                        </Typography>
+                        <Typography variant="body2">
+                            {date}
+                        </Typography>
+                    </div>
+                    <CardMedia
+                        className={classes.media}
+                        image={project.image}
+                        title={project.title}
+                    />
+                </Grid>
+                <Grid item xs={9}>
                     <Typography variant="h6">
                         {meet.title}
                     </Typography>
-                    <Typography variant="subtitle1">
-                        {meet.project?.title}
+                    <Typography variant="subtitle1" className={classes.body2}>
+                        {project.title}
                     </Typography>
-                </CardContent>
-                <CardActions>
-                    <IconButton aria-label="add to favorites">
-                        <AddIcon />
-                    </IconButton>
-                    <AvatarGroup max={4}>
-                        {users.map((user) => <Avatar alt={user.title} src={`/${user.image}`} />)}
+                    <AvatarGroup max={active ? 5 : 4} className={classes.avatarGroup}>
+                        {active && <Avatar alt={USER.title} src={`${USER.image}`} className={classes.small}/>}
+                        {users.map((user) => <Avatar alt={user.title} src={`/${user.image}`} className={classes.small}/>)}
                     </AvatarGroup>
-                </CardActions>
-            </div>
+                </Grid>
+            </Grid>
         </Card>
     );
 }

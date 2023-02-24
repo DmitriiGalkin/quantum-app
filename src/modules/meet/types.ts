@@ -8,6 +8,6 @@ export interface Meet {
     datetime: string
     active?: boolean
     image?: string
-    project: Project
+    projectId: number
     users: User[]
 }
