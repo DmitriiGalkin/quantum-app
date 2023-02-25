@@ -13,6 +13,8 @@ import {User} from "../../modules/user/types";
 import {USER} from "../../modules/user/data";
 import CardMedia from "@material-ui/core/CardMedia";
 import {Project} from "../../modules/project/types";
+import {useAddMeetUser, useDeleteMeetUser, useMeets, useMeetUsers} from "../../modules/meet/hook";
+import {useProject} from "../../modules/project/hook";
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
@@ -86,43 +88,21 @@ export default function MeetCard(meet: Meet) {
     const localDateTime = LocalDateTime.parse(meet.datetime, formatter)
     const date = localDateTime.format(DateTimeFormatter.ofPattern('dd.MM'))
     const time = localDateTime.format(DateTimeFormatter.ofPattern('HH:mm'))
+    const { data: users = [] } = useMeetUsers(meet.id)
+    const { data: project = {} as Project, refetch } = useProject(meet.projectId)
+    const mutation = useAddMeetUser()
+    const mutation2 = useDeleteMeetUser()
 
-    const {data: users = [], refetch } = useQuery<User[]>({
-        queryKey: ['meetUsers', meet.id],
-        queryFn: () =>
-            axios
-                .get("http://localhost:3001/api/v1/meets/" + meet.id + "/users")
-                .then((res) => res.data),
-    })
-    const {data: project = {} as Project } = useQuery<Project>({
-        queryKey: ['project', meet.projectId],
-        queryFn: () =>
-            axios
-                .get("http://localhost:3001/api/v1/projects/" + meet.projectId)
-                .then((res) => res.data),
-    })
-    const mutation = useMutation(newTodo => {
-        return axios
-            .post("http://localhost:3001/api/v1/user_meet/" + 1 + '/' + meet.id)
-            .then((res) => res.data)
-    })
-    const mutation2 = useMutation(newTodo => {
-        return axios
-            .delete("http://localhost:3001/api/v1/user_meet/" + 1 + '/' + meet.id)
-            .then((res) => res.data)
-    })
+
     const active = users.find((user) => user.id === 1)
 
-//     <Typography variant="body2">
-//         {date}
-// </Typography>
     return (
         <Card className={clsx(classes.root)} onClick={() => {
             if (active) {
-                mutation2.mutate()
+                mutation2.mutate({ meetId: meet.id })
                 refetch()
             } else {
-                mutation.mutate()
+                mutation.mutate({ meetId: meet.id })
                 refetch()
             }
         }}>

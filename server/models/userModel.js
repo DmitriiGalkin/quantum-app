@@ -15,25 +15,14 @@ var User = function(employee){
 };
 User.create = function (newEmp, result) {
     dbConn.query("INSERT INTO users set ?", newEmp, function (err, res) {
-        if(err) {
-            console.log("error: ", err);
-            result(err, null);
-        }
-        else{
-            console.log(res.insertId);
-            result(null, res.insertId);
-        }
+        if (err) result(err, null);
+        result(null, res.insertId);
     });
 };
 User.findById = function (id, result) {
     dbConn.query("Select * from users where id = ? ", id, function (err, res) {
-        if(err) {
-            console.log("error: ", err);
-            result(err, null);
-        }
-        else{
-            result(null, res);
-        }
+        if(err) result(err, null);
+        result(null, res);
     });
 };
 User.findUniquesById = function (id, result) {
@@ -48,7 +37,7 @@ User.findUniquesById = function (id, result) {
     });
 };
 User.findByMeetId = function (id, result) {
-    dbConn.query("Select * from users LEFT JOIN user_meet ON users.id = user_meet.userId where meetId = ? ", id, function (err, res) {
+    dbConn.query("Select * from users LEFT JOIN meet_user ON users.id = meet_user.userId where meetId = ? ", id, function (err, res) {
         if(err) {
             console.log("error: ", err);
             result(err, null);

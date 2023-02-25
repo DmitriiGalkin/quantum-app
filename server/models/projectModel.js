@@ -16,27 +16,15 @@ var Project = function(employee){
 };
 
 Project.findAll = function (params, result) {
-    if (params.placeId) {
-        dbConn.query(`Select * from projects WHERE placeId = '${params.placeId}'`, function (err, res) {
-            if(err) {
-                console.log("error: ", err);
-                result(null, err);
-            }
-            else{
-                result(null, res);
-            }
-        });
-    } else {
-        dbConn.query(`Select * from projects`, function (err, res) {
-            if(err) {
-                console.log("error: ", err);
-                result(null, err);
-            }
-            else{
-                result(null, res);
-            }
-        });
-    }
+    dbConn.query(`Select * from projects`, function (err, res) {
+        if(err) {
+            console.log("error: ", err);
+            result(null, err);
+        }
+        else{
+            result(null, res);
+        }
+    });
 };
 
 Project.findById = function (id, result) {
@@ -51,5 +39,17 @@ Project.findById = function (id, result) {
         }
     });
 };
+Project.findByPlaceId = function (id, result) {
+    dbConn.query('Select * from projects WHERE placeId = ?', id, function (err, res) {
+        if(err) {
+            console.log("error: ", err);
+            result(null, err);
+        }
+        else{
+            result(null, res);
+        }
+    });
+};
+
 
 module.exports = Project;

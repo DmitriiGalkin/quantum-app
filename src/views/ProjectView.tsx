@@ -1,107 +1,121 @@
 import React from 'react';
 import {makeStyles, Theme} from '@material-ui/core/styles';
-import AppBar from '@material-ui/core/AppBar';
-import Tabs from '@material-ui/core/Tabs';
-import Tab from '@material-ui/core/Tab';
 import Typography from '@material-ui/core/Typography';
-import {Avatar, Card, CardHeader, Container, Grid} from "@material-ui/core";
-import ForwardBar from "../components/ForwardBar";
-import ProjectTimeline from "../components/ProjectTimeLine";
+import SaveIcon from '@material-ui/icons/Save';
+import {Avatar, Card, CardHeader, Container, Grid, Box, CardContent, Button} from "@material-ui/core";
+import ForwardAppBar from "./components/ForwardAppBar";
 import {useParams} from "react-router-dom";
-import {useQuery} from "@tanstack/react-query";
 import {Project} from "../modules/project/types";
-import axios from "axios";
-import AddMeetButton from "./buttons/AddMeetButton";
-import {a11yProps, TabPanel} from "../tools/tabs";
-import {User} from "../modules/user/types";
+import {useProject, useProjectUsers, useProjectMeets} from "../modules/project/hook";
+import MeetCard from "./cards/MeetCard";
 
 const useStyles = makeStyles((theme: Theme) => ({
     root: {
         flexGrow: 1,
         backgroundColor: theme.palette.background.paper,
     },
-    large: {
-        width: theme.spacing(7),
-        height: theme.spacing(7),
+    imageW: {
+        position: 'relative',
     },
+    image: {
+        position: 'absolute',
+        top: 0,
+        left: 0,
+        width: '100%',
+        height: '100%',
+        objectFit: 'cover',
+    },
+    large: {
+        width: theme.spacing(5),
+        height: theme.spacing(5),
+    },
+    imageContainer: {
+        width: '100%',
+        paddingTop: '100%',
+    }
 }));
 
 export default function ProjectView() {
     const classes = useStyles();
-    const [value, setValue] = React.useState(0);
     const { id } = useParams();
-
-
-    const {data: project = {} as Project } = useQuery<Project>({
-        queryKey: ['projects'],
-        queryFn: () =>
-            axios
-                .get("http://localhost:3001/api/v1/projects/" + Number(id))
-                .then((res) => res.data),
-    })
-    const {data: users = [] } = useQuery<User[]>({
-        queryKey: ['projectUsers'],
-        queryFn: () =>
-            axios
-                .get("http://localhost:3001/api/v1/projects/" + Number(id) + '/users')
-                .then((res) => res.data),
-    })
-
-    const handleChange = (event: React.ChangeEvent<{}>, newValue: number) => {
-        setValue(newValue);
-    };
+    const { data: project = {} as Project } = useProject(Number(id))
+    const { data: meets = [] } = useProjectMeets(Number(id))
+    const { data: users = [] } = useProjectUsers(Number(id))
 
     return (
         <div className={classes.root}>
-            <ForwardBar title={project.title}/>
-            <AppBar position="static">
-                <Tabs value={value} onChange={handleChange} aria-label="simple tabs example" variant="fullWidth">
-                    <Tab label="Общее" {...a11yProps(0)} />
-                    <Tab label="Встречи" {...a11yProps(1)} />
-                    <Tab label="Участники" {...a11yProps(2)} />
-                </Tabs>
-            </AppBar>
-            <TabPanel value={value} index={0}>
-                <Container maxWidth="sm" style={{ paddingTop: 20 }}>
-                    <div>
-                        <Typography variant="h1">
-                            {project.title}
-                        </Typography>
+            <ForwardAppBar title={project.title}/>
+            <Container style={{ paddingTop: 20 }}>
+                <Box className={classes.imageW}>
+                    <Box className={classes.imageContainer}>
+                        <img alt="The house from the offer." src={`/${project.image}`}  className={classes.image}/>
+                    </Box>
+                </Box>
+                <Typography variant="h5">
+                    {project.title}
+                </Typography>
+                <Card>
+                    <CardContent>
                         <Typography variant="body1">
                             {project.title}
                         </Typography>
-                        <AddMeetButton/>
-                    </div>
-                </Container>
-            </TabPanel>
-            <TabPanel value={value} index={1}>
-                <Container maxWidth="sm" style={{ paddingTop: 20 }}>
-                    <ProjectTimeline/>
-                </Container>
-            </TabPanel>
-            <TabPanel value={value} index={2}>
-                <Container maxWidth="sm" style={{ paddingTop: 20 }}>
-                    <Grid container spacing={3}>
-                    {users.map((user) => (
-                        <Grid item xs={12} sm={6}>
-                            <Card>
-                                <CardHeader
-                                    avatar={
-                                        <Avatar
-                                            alt={user.title}
-                                            src={`/${user.image}`}
-                                            className={classes.large}
-                                        />
-                                    }
-                                    title={user.title}
-                                    subheader="Вдохновитель"
-                                />
-                            </Card>
+                        <Button
+                            variant="contained"
+                            color="primary"
+                            size="large"
+                            startIcon={<SaveIcon />}
+                        >
+                            Участвовать в проекте
+                        </Button>
+                    </CardContent>
+                </Card>
+                <Card>
+                    <CardHeader
+                        title="Встречи"
+                        subheader="3 встречи"
+                    />
+                    <CardContent>
+                        <Grid container spacing={2} alignItems="stretch">
+                            {meets.map((meet, index) =>
+                                <Grid item lg={4} xs={12} key={index}>
+                                    <MeetCard {...meet}  key={index}/>
+                                </Grid>
+                            )}
                         </Grid>
-                    ))}
-                    </Grid>
-                </Container>
-            </TabPanel>
+                    </CardContent>
+                </Card>
+                <Card>
+                    <CardHeader
+                        title="Участники"
+                        subheader="2 участника"
+                    />
+                    <CardContent>
+                        <Grid container spacing={2}>
+                            {users.map((user) => (
+                                <Grid item xs={12} sm={6} md={4} lg={3}>
+                                    <Grid container spacing={2} alignItems="stretch">
+                                        <Grid item xs={3}>
+                                            <Avatar
+                                                alt={user.title}
+                                                src={`/${user.image}`}
+                                                className={classes.large}
+                                            />
+                                        </Grid>
+                                        <Grid item xs={9}>
+                                            <Typography variant="body1" component="p">
+                                                {user.title}
+                                            </Typography>
+                                            <Typography variant="subtitle2" component="p">
+                                                Вдохновитель
+                                            </Typography>
+                                        </Grid>
+                                    </Grid>
+                                </Grid>
+                            ))}
+                        </Grid>
+                    </CardContent>
+                </Card>
+            </Container>
         </div>
     );
 }

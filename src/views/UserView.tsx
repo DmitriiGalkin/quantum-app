@@ -1,14 +1,14 @@
 import React from 'react';
 import {makeStyles, Theme} from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
-import {Container, Grid} from "@material-ui/core";
-import ForwardBar from "../components/ForwardBar";
+import {Box, Card, CardContent, CardHeader, Container, Grid} from "@material-ui/core";
+import ForwardAppBar from "./components/ForwardAppBar";
+import Image from "./components/Image";
 import {useParams} from "react-router-dom";
-import {useQuery} from "@tanstack/react-query";
-import {Project} from "../modules/project/types";
-import axios from "axios";
 import {User} from "../modules/user/types";
-import {Unique} from "../modules/unique/types";
+import {useUser, useUserUniques} from "../modules/user/hook";
+import MeetCard from "./cards/MeetCard";
+import {useProjectUsers} from "../modules/project/hook";
 
 const useStyles = makeStyles((theme: Theme) => ({
     root: {
@@ -24,39 +24,35 @@ const useStyles = makeStyles((theme: Theme) => ({
 export default function UserView() {
     const classes = useStyles();
     const { id } = useParams();
-
-
-    const {data: user = {} as Project } = useQuery<User>({
-        queryKey: ['user'],
-        queryFn: () =>
-            axios
-                .get("http://localhost:3001/api/v1/users/" + Number(id))
-                .then((res) => res.data),
-    })
-    const {data: uniques = [] } = useQuery<Unique[]>({
-        queryKey: ['userUniques'],
-        queryFn: () =>
-            axios
-                .get("http://localhost:3001/api/v1/users/" + Number(id) + "/uniques")
-                .then((res) => res.data),
-    })
+    const { data: user = {} as User } = useUser(Number(id))
+    const { data: uniques = [] } = useUserUniques(Number(id))
+    const { data: projects = [] } = useUserProjects(Number(id))
 
     return (
         <div className={classes.root}>
-            <ForwardBar title={user.title}/>
-            <Container maxWidth="sm" style={{ paddingTop: 20 }}>
-                <Typography variant="h1">
+            <ForwardAppBar title={user.title}/>
+            <Container style={{ paddingTop: 20 }}>
+                <Image alt={user.title} src={`/${user.image}`}/>
+                <Typography variant="h5">
                     {user.title}
                 </Typography>
-                <Grid container spacing={3}>
-                    {uniques.map((unique) => (
-                        <Grid item xs={12}>
-                            <Typography variant="body1">
-                                {unique.title}
-                            </Typography>
+                <Card>
+                    <CardHeader
+                        title="Уникальные ценности"
+                        subheader="Вдохновитель нового"
+                    />
+                    <CardContent>
+                        <Grid container spacing={2} alignItems="stretch">
+                            {uniques.map((unique) => (
+                                <Grid item xs={12}>
+                                    <Typography variant="body1">
+                                        {unique.title}
+                                    </Typography>
+                                </Grid>
+                            ))}
                         </Grid>
-                    ))}
-                </Grid>
+                    </CardContent>
+                </Card>
             </Container>
         </div>
     );

@@ -37,6 +37,9 @@ const useStyles = makeStyles((theme: Theme) =>
             height: 38,
             width: 38,
         },
+        title: {
+            paddingTop: theme.spacing(1),
+        },
     }),
 );
 
@@ -56,14 +59,12 @@ export default function ProjectCard(project: Project) {
             <Grid item xs={9}>
                 <div className={classes.details}>
                     <CardActionArea component={Link} to={`/project/${project.id}`}>
-                        <CardContent className={classes.content}>
-                            <Typography variant="h6">
-                                {project.title}
-                            </Typography>
-                            <Typography variant="subtitle1" color="textSecondary">
-                                {project.description}
-                            </Typography>
-                        </CardContent>
+                        <Typography variant="h6" className={classes.title}>
+                            {project.title}
+                        </Typography>
+                        <Typography variant="subtitle1" color="textSecondary">
+                            {project.description}
+                        </Typography>
                     </CardActionArea>
                     <div className={classes.controls}>
                         <IconButton aria-label="previous">

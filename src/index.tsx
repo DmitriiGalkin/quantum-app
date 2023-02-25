@@ -31,7 +31,7 @@ const theme = createMuiTheme({
         },
         text: {
             //primary: '#e65100',
-            secondary: '#FFCE00',
+            // secondary: '#FFCE00',
         },
     }
 });

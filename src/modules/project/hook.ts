@@ -2,16 +2,21 @@ import {DefaultProject, Project} from "./types";
 import {PLACES} from "../place/data";
 import {Place} from "../place/types";
 import {getProjects, PROJECTS} from "./data";
+import {useQuery, UseQueryResult} from "@tanstack/react-query";
+import {User} from "../user/types";
+import service from "../../tools/service";
+import {Unique} from "../unique/types";
+import {Meet} from "../meet/types";
 
-export const useProject = (id: number): Project => {
-    const defaultProject = PROJECTS.find((project) => project.id === id) || {} as DefaultProject
-    return ({ ...defaultProject, group: PLACES.find((group) => group.id === defaultProject.groupId) || {} as Place })
+export const useProjects = (): UseQueryResult<Project[]> => {
+    return useQuery(['projects'], () => service.get(`/projects`),)
 }
-
-export const useProjects = (): Project[] => {
-    return getProjects()
+export const useProject = (id: number): UseQueryResult<Project> => {
+    return useQuery(['project', id], () => service.get(`/projects/${id}`),)
 }
-
-export const useGroupProjects = ({ groupId }: { groupId: number }): Project[] => {
-    return getProjects().filter((p) => p.group.id === groupId)
+export const useProjectMeets = (id: number): UseQueryResult<Meet[]> => {
+    return useQuery(['projectMeets', id], () => service.get(`/projects/${id}/meets`),)
+}
+export const useProjectUsers = (id: number): UseQueryResult<User[]> => {
+    return useQuery(['projectUsers', id], () => service.get(`/projects/${id}/users`),)
 }

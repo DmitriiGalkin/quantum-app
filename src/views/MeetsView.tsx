@@ -5,24 +5,27 @@ import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import Typography from '@material-ui/core/Typography';
 import MeetCard from "./cards/MeetCard";
-import {Container, Grid, useTheme} from "@material-ui/core";
+import {Box, Container, Grid, useTheme} from "@material-ui/core";
 import ProjectCard from "./cards/ProjectCard";
-import ButtonAppBar from "../components/ButtonAppBar";
-import {useQuery} from "@tanstack/react-query";
-import axios from "axios";
-import {Meet} from "../modules/meet/types";
-import {Project} from "../modules/project/types";
-import {Task} from "../modules/place/types";
-import {a11yProps, TabPanel} from "../tools/tabs";
+import {TabPanel} from "../tools/tabs";
 import {green} from '@material-ui/core/colors';
 import AddIcon from "@material-ui/icons/Add";
 import EditIcon from '@material-ui/icons/Edit';
-import UpIcon from '@material-ui/icons/KeyboardArrowUp';
-import clsx from "clsx";
 import SwipeableViews from 'react-swipeable-views';
 import Zoom from '@material-ui/core/Zoom';
-import Fab from '@material-ui/core/Fab';
 import TaskCard from "./cards/TaskCard";
+import AddMeetButton from "./buttons/AddMeetButton";
+import AddProjectButton from "./buttons/AddProjectButton";
+import Toolbar from "@material-ui/core/Toolbar";
+import IconButton from "@material-ui/core/IconButton";
+import MenuIcon from "@material-ui/icons/Menu";
+import {Link} from "react-router-dom";
+import MapIcon from "@material-ui/icons/Map";
+import {AccountCircle} from "@material-ui/icons";
+import {usePlaces} from "../modules/place/hook";
+import {useMeets} from "../modules/meet/hook";
+import {useProjects} from "../modules/project/hook";
+import {useTasks} from "../modules/task/hook";
 
 
 const useStyles = makeStyles((theme: Theme) => ({
@@ -32,7 +35,19 @@ const useStyles = makeStyles((theme: Theme) => ({
         position: 'relative',
         minHeight: 200,
     },
-    fab: {
+    menuButton: {
+        marginRight: theme.spacing(2),
+    },
+    title: {
+        flexGrow: 1,
+    },
+    header: {
+        backgroundColor: '#C22157',
+    },
+    sectionDesktop: {
+        display: 'flex',
+    },
+    fabContainer: {
         position: 'fixed',
         bottom: theme.spacing(2),
         right: theme.spacing(2),
@@ -51,27 +66,9 @@ export default function MeetsView() {
     const [value, setValue] = React.useState(0);
     const theme = useTheme();
 
-    const {data: meets2 = []} = useQuery<Meet[]>({
-        queryKey: ['meets'],
-        queryFn: () =>
-            axios
-                .get("http://localhost:3001/api/v1/meets")
-                .then((res) => res.data),
-    })
-    const {data: projects2 = []} = useQuery<Project[]>({
-        queryKey: ['projects'],
-        queryFn: () =>
-            axios
-                .get("http://localhost:3001/api/v1/projects")
-                .then((res) => res.data),
-    })
-    const {data: tasks = []} = useQuery<Task[]>({
-        queryKey: ['tasks'],
-        queryFn: () =>
-            axios
-                .get("http://localhost:3001/api/v1/tasks")
-                .then((res) => res.data),
-    })
+    const { data: meets2 = [] } = useMeets()
+    const { data: projects2 = [] } = useProjects()
+    const { data: tasks = [] } = useTasks()
 
     const handleChange = (event: React.ChangeEvent<{}>, newValue: number) => {
         setValue(newValue);
@@ -83,23 +80,13 @@ export default function MeetsView() {
 
     const fabs = [
         {
-            color: 'primary' as 'primary',
-            className: classes.fab,
+            component: <AddMeetButton/>,
             icon: <AddIcon />,
-            label: 'Add',
         },
         {
-            color: 'secondary' as 'secondary',
-            className: classes.fab,
+            component: <AddProjectButton/>,
             icon: <EditIcon />,
-            label: 'Edit',
-        },
-        {
-            color: 'inherit' as 'inherit',
-            className: clsx(classes.fab, classes.fabGreen),
-            icon: <UpIcon />,
-            label: 'Expand',
-        },
+        }
     ];
 
     const handleChangeIndex = (index: number) => {
@@ -108,12 +95,36 @@ export default function MeetsView() {
 
     return (
         <div className={classes.root}>
-            <ButtonAppBar/>
+            <AppBar position="static">
+                <Toolbar>
+                    <IconButton edge="start" className={classes.menuButton} color="inherit" aria-label="menu">
+                        <MenuIcon />
+                    </IconButton>
+                    <Typography variant="h6" className={classes.title}>
+                        Quantum
+                    </Typography>
+                    <div className={classes.sectionDesktop}>
+                        <IconButton aria-label="show 17 new notifications" color="inherit" component={Link} to="/place">
+                            <MapIcon />
+                        </IconButton>
+                        <IconButton
+                            edge="end"
+                            aria-label="account of current user"
+                            aria-controls='primary-search-account-menu'
+                            aria-haspopup="true"
+                            component={Link} to="/user/1"
+                            color="inherit"
+                        >
+                            <AccountCircle />
+                        </IconButton>
+                    </div>
+                </Toolbar>
+            </AppBar>
             <AppBar position="static" color="secondary">
-                <Tabs value={value} onChange={handleChange} aria-label="simple tabs example" variant="fullWidth">
-                    <Tab label="Встречи" {...a11yProps(0)} />
-                    <Tab label="Проекты" {...a11yProps(1)} />
-                    <Tab label="Задания" {...a11yProps(2)} />
+                <Tabs value={value} onChange={handleChange} variant="fullWidth">
+                    <Tab label="Встречи" />
+                    <Tab label="Проекты" />
+                    <Tab label="Задания" />
                 </Tabs>
             </AppBar>
             <SwipeableViews
@@ -123,7 +134,7 @@ export default function MeetsView() {
             >
                 <TabPanel value={value} index={0}>
                     <Container maxWidth="lg" style={{ paddingTop: 20 }}>
-                        <Typography component="h6" variant="h6">
+                        <Typography variant="overline" component="p">
                             Сегодня
                         </Typography>
                         <Grid container spacing={2} alignItems="stretch">
@@ -153,17 +164,15 @@ export default function MeetsView() {
             </SwipeableViews>
             {fabs.map((fab, index) => (
                 <Zoom
-                    key={fab.color}
+                    key={index}
                     in={value === index}
                     timeout={transitionDuration}
-                    style={{
-                        transitionDelay: `${value === index ? transitionDuration.exit : 0}ms`,
-                    }}
+                    style={{ transitionDelay: `${value === index ? transitionDuration.exit : 0}ms` }}
                     unmountOnExit
                 >
-                    <Fab aria-label={fab.label} className={fab.className} color={fab.color}>
-                        {fab.icon}
-                    </Fab>
+                    <Box className={classes.fabContainer}>
+                        {fab.component}
+                    </Box>
                 </Zoom>
             ))}
         </div>

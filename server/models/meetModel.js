@@ -40,4 +40,14 @@ Meet.findById = function (id, result) {
     });
 };
 
+Meet.findByProjectId = function (id, result) {
+    dbConn.query("Select * from meets where projectId = ? ", id, function (err, res) {
+        if(err) {
+            console.log("error: ", err);
+            result(err, null);
+        }
+        else { result(null, res); }
+    });
+};
+
 module.exports = Meet;
