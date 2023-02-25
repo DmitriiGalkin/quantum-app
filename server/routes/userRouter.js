@@ -1,6 +1,8 @@
 const express = require('express')
 const router = express.Router()
 const userController =   require('../controllers/userController');
+const projectController =   require('../controllers/projectController');
+
 // Retrieve all employees
 router.get('/', userController.findAll);
 // Create a new employee
@@ -13,5 +15,6 @@ router.put('/:id', userController.update);
 router.delete('/:id', userController.delete);
 
 router.get('/:id/uniques', userController.findUniquesById);
+router.get('/:id/projects', projectController.findByUserId);
 
 module.exports = router

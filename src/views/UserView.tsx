@@ -6,9 +6,10 @@ import ForwardAppBar from "./components/ForwardAppBar";
 import Image from "./components/Image";
 import {useParams} from "react-router-dom";
 import {User} from "../modules/user/types";
-import {useUser, useUserUniques} from "../modules/user/hook";
+import {useUser, useUserProjects, useUserUniques} from "../modules/user/hook";
 import MeetCard from "./cards/MeetCard";
 import {useProjectUsers} from "../modules/project/hook";
+import ProjectCard from "./cards/ProjectCard";
 
 const useStyles = makeStyles((theme: Theme) => ({
     root: {
@@ -36,23 +37,44 @@ export default function UserView() {
                 <Typography variant="h5">
                     {user.title}
                 </Typography>
-                <Card>
-                    <CardHeader
-                        title="Уникальные ценности"
-                        subheader="Вдохновитель нового"
-                    />
-                    <CardContent>
-                        <Grid container spacing={2} alignItems="stretch">
-                            {uniques.map((unique) => (
-                                <Grid item xs={12}>
-                                    <Typography variant="body1">
-                                        {unique.title}
-                                    </Typography>
+                <Grid container spacing={5} justify="center">
+                    <Grid item>
+                        <Card>
+                            <CardHeader
+                                title="Уникальные ценности"
+                                subheader="Вдохновитель нового"
+                            />
+                            <CardContent>
+                                <Grid container spacing={2} alignItems="stretch">
+                                    {uniques.map((unique) => (
+                                        <Grid item xs={12}>
+                                            <Typography variant="body1">
+                                                {unique.title}
+                                            </Typography>
+                                        </Grid>
+                                    ))}
                                 </Grid>
-                            ))}
-                        </Grid>
-                    </CardContent>
-                </Card>
+                            </CardContent>
+                        </Card>
+                    </Grid>
+                    <Grid item>
+                        <Card>
+                            <CardHeader
+                                title="Участие в проектах"
+                                subheader="3 проекта"
+                            />
+                            <CardContent>
+                                <Grid container spacing={2} alignItems="stretch">
+                                    {projects.map((project) =>
+                                        <Grid item lg={4} xs={12} key={project.id}>
+                                            <ProjectCard {...project}  key={project.id}/>
+                                        </Grid>
+                                    )}
+                                </Grid>
+                            </CardContent>
+                        </Card>
+                    </Grid>
+                </Grid>
             </Container>
         </div>
     );

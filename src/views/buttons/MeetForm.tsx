@@ -59,9 +59,6 @@ export default function WithMaterialUI () {
                     error={formik.touched.password && Boolean(formik.errors.password)}
                     helperText={formik.touched.password && formik.errors.password}
                 />
-                <Button color="primary" variant="contained" fullWidth type="submit">
-                    Submit
-                </Button>
             </form>
         </div>
     );

@@ -50,6 +50,16 @@ Project.findByPlaceId = function (id, result) {
         }
     });
 };
-
+Project.findByUserId = function (id, result) {
+    dbConn.query('Select * from projects LEFT JOIN project_user ON projects.id = project_user.projectId WHERE project_user.userId = ?', id, function (err, res) {
+        if(err) {
+            console.log("error: ", err);
+            result(null, err);
+        }
+        else{
+            result(null, res);
+        }
+    });
+};
 
 module.exports = Project;

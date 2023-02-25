@@ -9,6 +9,7 @@ import {createStyles, Fab} from "@material-ui/core";
 import AddIcon from "@material-ui/icons/Add";
 import {makeStyles, Theme} from "@material-ui/core/styles";
 import MeetForm from './MeetForm'
+import Hod from './Hod'
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
@@ -46,18 +47,8 @@ export default function AddMeetButton() {
             >
                 <DialogTitle id="alert-dialog-title">Создать встречу</DialogTitle>
                 <DialogContent>
-                    <DialogContentText id="alert-dialog-description">
-                        <MeetForm />
-                    </DialogContentText>
+                    <Hod/>
                 </DialogContent>
-                <DialogActions>
-                    <Button onClick={handleClose} color="primary">
-                        Disagree
-                    </Button>
-                    <Button onClick={handleClose} color="primary" autoFocus>
-                        Agree
-                    </Button>
-                </DialogActions>
             </Dialog>
         </div>
     );

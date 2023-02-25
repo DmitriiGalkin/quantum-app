@@ -88,11 +88,10 @@ export default function MeetCard(meet: Meet) {
     const localDateTime = LocalDateTime.parse(meet.datetime, formatter)
     const date = localDateTime.format(DateTimeFormatter.ofPattern('dd.MM'))
     const time = localDateTime.format(DateTimeFormatter.ofPattern('HH:mm'))
-    const { data: users = [] } = useMeetUsers(meet.id)
-    const { data: project = {} as Project, refetch } = useProject(meet.projectId)
+    const { data: users = [], refetch } = useMeetUsers(meet.id)
+    const { data: project = {} as Project } = useProject(meet.projectId)
     const mutation = useAddMeetUser()
     const mutation2 = useDeleteMeetUser()
-
 
     const active = users.find((user) => user.id === 1)
 
@@ -127,7 +126,6 @@ export default function MeetCard(meet: Meet) {
                         {project.title}
                     </Typography>
                     <AvatarGroup max={active ? 5 : 4} className={classes.avatarGroup}>
-                        {active && <Avatar alt={USER.title} src={`${USER.image}`} className={classes.small}/>}
                         {users.map((user) => <Avatar alt={user.title} src={`/${user.image}`} className={classes.small}/>)}
                     </AvatarGroup>
                 </Grid>

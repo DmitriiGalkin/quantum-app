@@ -24,4 +24,10 @@ exports.findByPlaceId = function(req, res) {
         res.json(employee);
     });
 };
-
+exports.findByUserId = function(req, res) {
+    Project.findByUserId(req.params.id, function(err, employee) {
+        if (err)
+            res.send(err);
+        res.json(employee);
+    });
+};
