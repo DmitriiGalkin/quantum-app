@@ -6,13 +6,8 @@ import Typography from '@material-ui/core/Typography';
 import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
 import {AccountCircle} from "@material-ui/icons";
-import {Badge} from "@material-ui/core";
-import MailIcon from '@material-ui/icons/Mail';
-import NotificationsIcon from '@material-ui/icons/Notifications';
 import {Link} from "react-router-dom";
 import MapIcon from "@material-ui/icons/Map";
-import {USER} from "../modules/user/data";
-import Avatar from "@material-ui/core/Avatar";
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({

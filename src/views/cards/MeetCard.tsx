@@ -1,15 +1,11 @@
 import React from 'react';
 import {createStyles, makeStyles, Theme} from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
-import CardActions from '@material-ui/core/CardActions';
 import Avatar from '@material-ui/core/Avatar';
-import IconButton from '@material-ui/core/IconButton';
 import {AvatarGroup} from "@material-ui/lab";
 import {Meet} from "../../modules/meet/types";
 import {DateTimeFormatter, LocalDateTime} from "@js-joda/core";
-import AddIcon from '@material-ui/icons/Add';
-import {CardActionArea, CardContent, Grid, Typography} from "@material-ui/core";
-import useToggle from "../../tools/useToggle";
+import {Grid, Typography} from "@material-ui/core";
 import clsx from 'clsx'
 import {useMutation, useQuery} from "@tanstack/react-query";
 import axios from "axios";

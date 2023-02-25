@@ -5,10 +5,7 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import {BrowserRouter} from "react-router-dom";
 import {createMuiTheme, MuiThemeProvider} from '@material-ui/core/styles';
-import {
-    QueryClient,
-    QueryClientProvider,
-} from '@tanstack/react-query'
+import {QueryClient, QueryClientProvider,} from '@tanstack/react-query'
 
 
 const OPTIONS_OLD = {
