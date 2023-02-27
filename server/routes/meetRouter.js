@@ -7,6 +7,8 @@ router.get('/', meetController.findAll); // Встречи
 router.get('/:id', meetController.findById); // Встреча
 router.get('/:id/users', userController.findByMeetId); // Участники встречи
 
+router.post('/', meetController.create); // Создание встречи
+
 router.post('/:meetId/user/:userId', meetController.createMeetUser ); // Добавление участника
 router.delete('/:meetId/user/:userId', meetController.deleteMeetUser ); // Удаление участника
 

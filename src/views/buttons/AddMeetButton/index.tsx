@@ -1,15 +1,8 @@
 import React from 'react';
-import Button from '@material-ui/core/Button';
-import Dialog from '@material-ui/core/Dialog';
-import DialogActions from '@material-ui/core/DialogActions';
-import DialogContent from '@material-ui/core/DialogContent';
-import DialogContentText from '@material-ui/core/DialogContentText';
-import DialogTitle from '@material-ui/core/DialogTitle';
 import {createStyles, Fab} from "@material-ui/core";
 import AddIcon from "@material-ui/icons/Add";
 import {makeStyles, Theme} from "@material-ui/core/styles";
-import MeetForm from './MeetForm'
-import Hod from './Hod'
+import MeetStepperDialog from './MeetStepperDialog'
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
@@ -21,7 +14,7 @@ const useStyles = makeStyles((theme: Theme) =>
         },
     }),
 );
-export default function AddMeetButton() {
+export default function Index() {
     const [open, setOpen] = React.useState(false);
     const classes = useStyles();
 
@@ -39,17 +32,7 @@ export default function AddMeetButton() {
                 <AddIcon className={classes.extendedIcon} />
                 Создать встречу
             </Fab>
-            <Dialog
-                open={open}
-                onClose={handleClose}
-                aria-labelledby="alert-dialog-title"
-                aria-describedby="alert-dialog-description"
-            >
-                <DialogTitle id="alert-dialog-title">Создать встречу</DialogTitle>
-                <DialogContent>
-                    <Hod/>
-                </DialogContent>
-            </Dialog>
+            <MeetStepperDialog open={open} handleClose={handleClose} />
         </div>
     );
 }

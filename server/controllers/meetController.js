@@ -27,6 +27,19 @@ exports.findByProjectId = function(req, res) {
     });
 };
 
+exports.create = function(req, res) {
+    const meet = new Meet(req.body);
+    if(req.body.constructor === Object && Object.keys(req.body).length === 0){
+        res.status(400).send({ error:true, message: 'Please provide all required field' });
+    }else{
+        Meet.create(meet, function(err, data) {
+            if (err)
+                res.send(err);
+            res.json({ error: false, message: "meet added successfully!", data });
+        });
+    }
+};
+
 exports.createMeetUser = function(req, res) {
     const new_employee = new UserMeet(req.params);
     console.log(req.params, 'req.params')

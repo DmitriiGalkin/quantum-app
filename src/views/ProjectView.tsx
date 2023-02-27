@@ -2,11 +2,11 @@ import React from 'react';
 import {makeStyles, Theme} from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
 import SaveIcon from '@material-ui/icons/Save';
-import {Avatar, Card, CardHeader, Container, Grid, Box, CardContent, Button} from "@material-ui/core";
+import {Avatar, Box, Button, Card, CardContent, CardHeader, Container, Grid} from "@material-ui/core";
 import ForwardAppBar from "./components/ForwardAppBar";
 import {useParams} from "react-router-dom";
 import {Project} from "../modules/project/types";
-import {useProject, useProjectUsers, useProjectMeets} from "../modules/project/hook";
+import {useProject, useProjectMeets, useProjectUsers} from "../modules/project/hook";
 import MeetCard from "./cards/MeetCard";
 
 const useStyles = makeStyles((theme: Theme) => ({

@@ -1,5 +1,5 @@
 import React from 'react';
-import { makeStyles } from '@material-ui/core/styles';
+import {makeStyles} from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
 import Slider from '@material-ui/core/Slider';
 import Button from "@material-ui/core/Button";
@@ -23,7 +23,7 @@ function toHoursAndMinutes(totalMinutes: number) {
     return { hours, minutes };
 }
 
-export default function SelectDatetime({ handleBack, handleNext }: {handleBack: () => void, handleNext: () => void }) {
+export default function ProjectsForm({ handleBack, handleNext }: {handleBack: () => void, handleNext: () => void }) {
     const classes = useStyles();
     const [value, setValue] = React.useState<number[]>([20, 37]);
 

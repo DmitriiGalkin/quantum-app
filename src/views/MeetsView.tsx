@@ -22,7 +22,6 @@ import MenuIcon from "@material-ui/icons/Menu";
 import {Link} from "react-router-dom";
 import MapIcon from "@material-ui/icons/Map";
 import {AccountCircle} from "@material-ui/icons";
-import {usePlaces} from "../modules/place/hook";
 import {useMeets} from "../modules/meet/hook";
 import {useProjects} from "../modules/project/hook";
 import {useTasks} from "../modules/task/hook";

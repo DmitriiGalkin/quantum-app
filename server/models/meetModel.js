@@ -1,18 +1,13 @@
 'use strict';
 var dbConn = require('../db.config');
 
-// Main object create
-var Meet = function(employee){
-    this.first_name     = employee.first_name;
-    this.last_name      = employee.last_name;
-    this.email          = employee.email;
-    this.phone          = employee.phone;
-    this.organization   = employee.organization;
-    this.designation    = employee.designation;
-    this.salary         = employee.salary;
-    this.status         = employee.status ? employee.status : 1;
-    this.created_at     = new Date();
-    this.updated_at     = new Date();
+var Meet = function(data){
+    this.title = data.title;
+    this.description = data.description;
+    this.projectId = data.projectId;
+    this.datetime = data.datetime;
+    this.created_at = new Date();
+    this.updated_at = new Date();
 };
 
 Meet.findAll = function (result) {
@@ -47,6 +42,13 @@ Meet.findByProjectId = function (id, result) {
             result(err, null);
         }
         else { result(null, res); }
+    });
+};
+
+Meet.create = function (data, result) {
+    dbConn.query("INSERT INTO meets set ?", data, function (err, res) {
+        if (err) result(err, null);
+        result(null, res.insertId);
     });
 };
 

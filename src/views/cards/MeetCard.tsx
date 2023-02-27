@@ -4,16 +4,12 @@ import Card from '@material-ui/core/Card';
 import Avatar from '@material-ui/core/Avatar';
 import {AvatarGroup} from "@material-ui/lab";
 import {Meet} from "../../modules/meet/types";
-import {DateTimeFormatter, LocalDateTime} from "@js-joda/core";
+import {DateTimeFormatter, LocalDateTime, nativeJs} from "@js-joda/core";
 import {Grid, Typography} from "@material-ui/core";
 import clsx from 'clsx'
-import {useMutation, useQuery} from "@tanstack/react-query";
-import axios from "axios";
-import {User} from "../../modules/user/types";
-import {USER} from "../../modules/user/data";
 import CardMedia from "@material-ui/core/CardMedia";
 import {Project} from "../../modules/project/types";
-import {useAddMeetUser, useDeleteMeetUser, useMeets, useMeetUsers} from "../../modules/meet/hook";
+import {useAddMeetUser, useDeleteMeetUser, useMeetUsers} from "../../modules/meet/hook";
 import {useProject} from "../../modules/project/hook";
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -81,7 +77,7 @@ const useStyles = makeStyles((theme: Theme) =>
     }),
 );
 
-const formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
+export const formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
 
 export default function MeetCard(meet: Meet) {
     const classes = useStyles();
@@ -94,17 +90,18 @@ export default function MeetCard(meet: Meet) {
     const mutation2 = useDeleteMeetUser()
 
     const active = users.find((user) => user.id === 1)
+    const onClick = () => {
+        if (active) {
+            mutation2.mutate({ meetId: meet.id })
+            refetch()
+        } else {
+            mutation.mutate({ meetId: meet.id })
+            refetch()
+        }
+    }
 
     return (
-        <Card className={clsx(classes.root)} onClick={() => {
-            if (active) {
-                mutation2.mutate({ meetId: meet.id })
-                refetch()
-            } else {
-                mutation.mutate({ meetId: meet.id })
-                refetch()
-            }
-        }}>
+        <Card className={clsx(classes.root)} onClick={onClick}>
             <Grid container spacing={2}>
                 <Grid item xs={3}>
                     <div className={clsx(classes.datetimeContent, active && classes.datetimeContentActive)}>

@@ -1,14 +1,12 @@
 import React from 'react';
 import {makeStyles, Theme} from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
-import {Box, Card, CardContent, CardHeader, Container, Grid} from "@material-ui/core";
+import {Card, CardContent, CardHeader, Container, Grid} from "@material-ui/core";
 import ForwardAppBar from "./components/ForwardAppBar";
 import Image from "./components/Image";
 import {useParams} from "react-router-dom";
 import {User} from "../modules/user/types";
 import {useUser, useUserProjects, useUserUniques} from "../modules/user/hook";
-import MeetCard from "./cards/MeetCard";
-import {useProjectUsers} from "../modules/project/hook";
 import ProjectCard from "./cards/ProjectCard";
 
 const useStyles = makeStyles((theme: Theme) => ({

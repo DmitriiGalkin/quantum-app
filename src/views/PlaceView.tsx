@@ -5,16 +5,11 @@ import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import {Chip, Container, Grid} from "@material-ui/core";
 import ForwardAppBar from "./components/ForwardAppBar";
-import {a11yProps, TabPanel} from "../tools/tabs";
+import {TabPanel} from "../tools/tabs";
 import FaceIcon from "@material-ui/icons/Face";
-import {Project} from "../modules/project/types";
-import {useQuery} from "@tanstack/react-query";
-import axios from "axios";
 import {useParams} from "react-router-dom";
 import {Place} from "../modules/place/types";
 import ProjectCard from "./cards/ProjectCard";
-import {User} from "../modules/user/types";
-import {useUser, useUserUniques} from "../modules/user/hook";
 import {usePlace, usePlaceProjects} from "../modules/place/hook";
 
 

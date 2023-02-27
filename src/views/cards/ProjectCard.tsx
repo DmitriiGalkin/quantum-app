@@ -2,7 +2,6 @@ import React from 'react';
 import {createStyles, makeStyles, Theme} from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
 import CardMedia from '@material-ui/core/CardMedia';
-import CardContent from '@material-ui/core/CardContent';
 import Typography from '@material-ui/core/Typography';
 import {Project} from "../../modules/project/types";
 import {Button, CardActionArea, Grid, IconButton} from "@material-ui/core";
@@ -10,6 +9,8 @@ import FavoriteIcon from '@material-ui/icons/Favorite';
 import ShareIcon from '@material-ui/icons/Share';
 
 import {Link} from "react-router-dom";
+import {useAddProjectUser, useDeleteProjectUser, useProjectUsers} from "../../modules/project/hook";
+import {useMeetUsers} from "../../modules/meet/hook";
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
@@ -45,7 +46,21 @@ const useStyles = makeStyles((theme: Theme) =>
 
 export default function ProjectCard(project: Project) {
     const classes = useStyles();
- //             <CardActionArea component={Link} to={`/project/${project.id}`} className={classes.root2}>
+    const { data: users = [], refetch } = useProjectUsers(project.id)
+    const mutation = useAddProjectUser()
+    const mutation2 = useDeleteProjectUser()
+    const active = users.map((user) => user.id).includes(1)
+
+    const onClick = () => {
+        if (active) {
+            mutation2.mutate({ projectId: project.id })
+            refetch()
+        } else {
+            mutation.mutate({ projectId: project.id })
+            refetch()
+        }
+    }
+
     return (
     <Card className={classes.root}>
         <Grid container spacing={2}>
@@ -70,9 +85,8 @@ export default function ProjectCard(project: Project) {
                         <IconButton aria-label="previous">
                             <FavoriteIcon color={project.favorite ? 'primary' : undefined}/>
                         </IconButton>
-                        <Button size="small" color="primary"
-                        >
-                            Присоединиться
+                        <Button size="small" color="primary" onClick={onClick}>
+                            {active ? 'Выйти' : 'Присоединиться'}
                         </Button>
                         <IconButton aria-label="next">
                             <ShareIcon />

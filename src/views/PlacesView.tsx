@@ -2,12 +2,7 @@ import React from 'react';
 import {makeStyles, Theme} from '@material-ui/core/styles';
 import {Container, Grid} from "@material-ui/core";
 import ForwardAppBar from "./components/ForwardAppBar";
-import {useQuery} from "@tanstack/react-query";
-import axios from "axios";
-import {Place} from "../modules/place/types";
 import PlaceCard from "./cards/PlaceCard";
-import {User} from "../modules/user/types";
-import {useUser} from "../modules/user/hook";
 import {usePlaces} from "../modules/place/hook";
 
 

@@ -1,8 +1,7 @@
 import React from 'react';
-import { makeStyles } from '@material-ui/core/styles';
-import Typography from '@material-ui/core/Typography';
-import Slider from '@material-ui/core/Slider';
+import {makeStyles} from '@material-ui/core/styles';
 import Button from "@material-ui/core/Button";
+import {Project} from "../../../../modules/project/types";
 
 const useStyles = makeStyles({
     root: {
@@ -10,9 +9,7 @@ const useStyles = makeStyles({
     },
 });
 
-
-
-export default function Finish({ handleBack, handleNext }: {handleBack: () => void, handleNext: () => void }) {
+export default function ProjectConfirmation({project, handleBack, handleNext }: {project: Project, handleBack: () => void, handleNext: () => void }) {
     const classes = useStyles();
     const [value, setValue] = React.useState<number[]>([20, 37]);
 
@@ -23,6 +20,8 @@ export default function Finish({ handleBack, handleNext }: {handleBack: () => vo
     return (
         <div className={classes.root}>
             Проверили все ли верно?
+            {project.title}
+            {project.description}
             <Button onClick={handleBack}>
                 Back
             </Button>

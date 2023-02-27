@@ -1,11 +1,7 @@
-import {DefaultProject, Project} from "./types";
-import {PLACES} from "../place/data";
-import {Place} from "../place/types";
-import {getProjects, PROJECTS} from "./data";
-import {useQuery, UseQueryResult} from "@tanstack/react-query";
+import {Project} from "./types";
+import {useMutation, useQuery, UseQueryResult} from "@tanstack/react-query";
 import {User} from "../user/types";
-import service from "../../tools/service";
-import {Unique} from "../unique/types";
+import service, {UseMutate} from "../../tools/service";
 import {Meet} from "../meet/types";
 
 export const useProjects = (): UseQueryResult<Project[]> => {
@@ -20,3 +16,13 @@ export const useProjectMeets = (id: number): UseQueryResult<Meet[]> => {
 export const useProjectUsers = (id: number): UseQueryResult<User[]> => {
     return useQuery(['projectUsers', id], () => service.get(`/projects/${id}/users`),)
 }
+
+export const useAddProject = (): UseMutate<Project> => useMutation((project) => service.post("/projects", project))
+
+interface ProjectUser {
+    projectId: number
+    userId?: number
+}
+export const useAddProjectUser = (): UseMutate<ProjectUser> => useMutation(({ userId = 1, projectId }) => service.post("/projects/" + projectId + '/user/' + userId))
+export const useDeleteProjectUser = (): UseMutate<ProjectUser> => useMutation(({ userId = 1, projectId }) => service.delete("/projects/" + projectId + '/user/' + userId))
+

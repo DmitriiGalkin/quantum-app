@@ -1,22 +1,27 @@
-import React from 'react';
-import { makeStyles, Theme, createStyles, withStyles } from '@material-ui/core/styles';
+import React, {useState} from 'react';
+import {createStyles, makeStyles, Theme, withStyles} from '@material-ui/core/styles';
 import clsx from 'clsx';
 import Stepper from '@material-ui/core/Stepper';
 import Step from '@material-ui/core/Step';
 import StepLabel from '@material-ui/core/StepLabel';
-import Check from '@material-ui/icons/Check';
 import SettingsIcon from '@material-ui/icons/Settings';
 import GroupAddIcon from '@material-ui/icons/GroupAdd';
 import VideoLabelIcon from '@material-ui/icons/VideoLabel';
 import StepConnector from '@material-ui/core/StepConnector';
-import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
-import { StepIconProps } from '@material-ui/core/StepIcon';
+import {StepIconProps} from '@material-ui/core/StepIcon';
 
-import SelectProject from './SelectProject'
-import MeetForm from './MeetForm'
-import SelectDatetime from "./SelectDatetime";
-import Finish from "./Finish";
+import SelectProjectStep from './steps/SelectProjectStep'
+import MeetStep from "./steps/MeetStep";
+import ConfirmationStep from "./steps/ConfirmationStep";
+import DialogTitle from "@material-ui/core/DialogTitle";
+import DialogContent from "@material-ui/core/DialogContent";
+import Dialog from "@material-ui/core/Dialog";
+import {NewMeet} from "../../../modules/meet/types";
+import {useAddMeet} from "../../../modules/meet/hook";
+import {MeetStepProps} from "./steps/types";
+import {DateTimeFormatter, nativeJs} from "@js-joda/core";
+import {dateTimeFormatter} from "../../../tools/date";
 
 
 const ColorlibConnector = withStyles({
@@ -103,62 +108,101 @@ const useStyles = makeStyles((theme: Theme) =>
     }),
 );
 
-function getSteps() {
-    return ['Где', 'Когда', 'Проверяем'];
+function getMeetSteps() {
+    return [
+        {
+            id: 0,
+            label: 'Проект',
+            component: SelectProjectStep
+        },
+        {
+            id: 1,
+            label: 'Встреча',
+            component: MeetStep
+        },
+        {
+            id: 2,
+            label: 'Проверяем',
+            component: ConfirmationStep
+        },
+    ];
 }
 
-function getStepContent(step: number, handleBack: () => void, handleNext: () => void) {
+function getStepContent({ step, ...stepProps }: MeetStepProps) {
     switch (step) {
         case 0:
-            return <SelectProject handleNext={handleNext}/>;
+            return ;
         case 1:
-            return <SelectDatetime handleBack={handleBack} handleNext={handleNext}/>;
+            return <MeetStep {...stepProps} />;
         case 2:
-            return <Finish handleBack={handleBack} handleNext={handleNext}/>;
+            return <ConfirmationStep {...stepProps} />;
         default:
             return 'Unknown step';
     }
 }
 
-export default function CustomizedSteppers() {
-    const classes = useStyles();
-    const [activeStep, setActiveStep] = React.useState(1);
-    const steps = getSteps();
+const DEFAULT_MEET: NewMeet = {
+    title: 'новая встреча',
+    description: 'описание встречи',
+    image: null,
+    datetime: nativeJs(new Date()).format(dateTimeFormatter),
+    projectId: null,
+}
 
+export default function CustomizedSteppers({open, handleClose}: {open: boolean, handleClose: ()=>void}) {
+    const classes = useStyles();
+    const [activeStep, setActiveStep] = React.useState(0);
+    const [meet, setMeet] = useState(DEFAULT_MEET)
+    const addMeet = useAddMeet()
     const handleNext = () => {
         setActiveStep((prevActiveStep) => prevActiveStep + 1);
+        if (activeStep === 2) {
+            addMeet.mutate(meet)
+        }
     };
-
     const handleBack = () => {
         setActiveStep((prevActiveStep) => prevActiveStep - 1);
     };
+    const steps = getMeetSteps();
+    const ActiveStep = steps.find((s) => s.id === activeStep)?.component || (() => null)
 
     const handleStep = (step: number) => () => {
         setActiveStep(step);
     };
 
+    const props = {
+        meet,
+        setMeet,
+        step: activeStep,
+        handleBack,
+        handleNext,
+    }
+
     return (
-        <div className={classes.root}>
-            <Stepper alternativeLabel activeStep={activeStep} connector={<ColorlibConnector />}>
-                {steps.map((label, index) => (
-                    <Step key={label} onClick={handleStep(index)}>
-                        <StepLabel StepIconComponent={ColorlibStepIcon}>{label}</StepLabel>
-                    </Step>
-                ))}
-            </Stepper>
-            <div>
-                {activeStep === steps.length ? (
-                    <div>
+        <Dialog
+            open={open}
+            onClose={handleClose}
+            aria-labelledby="alert-dialog-title"
+            aria-describedby="alert-dialog-description"
+        >
+            <DialogTitle id="alert-dialog-title">Создать встречу
+                <Stepper alternativeLabel activeStep={activeStep} connector={<ColorlibConnector />}>
+                    {steps.map(({ label }, index) => (
+                        <Step key={label} onClick={handleStep(index)}>
+                            <StepLabel StepIconComponent={ColorlibStepIcon}>{label}</StepLabel>
+                        </Step>
+                    ))}
+                </Stepper>
+            </DialogTitle>
+            <DialogContent>
+                <div className={classes.root}>
+                    {activeStep === steps.length ? (
                         <Typography className={classes.instructions}>
                             Встреча создана!
                         </Typography>
-                    </div>
-                ) : (
-                    <div>
-                        {getStepContent(activeStep, handleBack, handleNext)}
-                    </div>
-                )}
-            </div>
-        </div>
+                    ) : <ActiveStep {...props}/> }
+                </div>
+            </DialogContent>
+        </Dialog>
     );
 }

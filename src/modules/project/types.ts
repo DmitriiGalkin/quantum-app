@@ -1,16 +1,12 @@
-import {AgeLimit, Place} from "../place/types";
+import {AgeLimit} from "../place/types";
 
-export interface DefaultProject {
+export interface Project {
     id: number,
-    groupId: number,
+    placeId: number | null,
     title: string,
-    image: string,
+    image?: string,
     description: string,
-    active?: boolean, // флаг участия пользователя в проекте
-    favorite?: boolean, // флаг добавления в избранное
+    active?: boolean, // пользователь является участником проекта
+    favorite?: boolean, // пользователь добавил проект в избранное
     ageLimit?: AgeLimit // Возрастное ограничение
-}
-
-export interface Project extends DefaultProject {
-    group: Place
 }

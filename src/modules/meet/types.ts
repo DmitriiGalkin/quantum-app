@@ -8,5 +8,12 @@ export interface Meet {
     active?: boolean
     image?: string
     projectId: number
-    users: User[]
+}
+
+export interface NewMeet {
+    title?: string
+    description?: string
+    datetime: string
+    image: string | null
+    projectId: number | null
 }
