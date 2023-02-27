@@ -10,7 +10,6 @@ import ShareIcon from '@material-ui/icons/Share';
 
 import {Link} from "react-router-dom";
 import {useAddProjectUser, useDeleteProjectUser, useProjectUsers} from "../../modules/project/hook";
-import {useMeetUsers} from "../../modules/meet/hook";
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({

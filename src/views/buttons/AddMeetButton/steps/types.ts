@@ -1,5 +1,4 @@
-import {Project} from "../../../../modules/project/types";
-import {Meet, NewMeet} from "../../../../modules/meet/types";
+import {NewMeet} from "../../../../modules/meet/types";
 
 export interface MeetStepProps {
     meet: NewMeet

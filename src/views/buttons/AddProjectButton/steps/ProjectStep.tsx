@@ -2,9 +2,7 @@ import React from 'react';
 import {useFormik} from 'formik';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
-import {Project} from "../../../../modules/project/types";
 import * as yup from 'yup';
-import StepPlace from "./SelectPlace";
 import {ProjectStepProps} from "./types";
 
 const validationSchema= yup.object().shape({

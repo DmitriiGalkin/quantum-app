@@ -1,8 +1,6 @@
 import {makeStyles, Theme} from "@material-ui/core/styles";
 import {Card, CardActionArea, CardContent, Grid} from "@material-ui/core";
-import ProjectCard from "../../../cards/ProjectCard";
 import React from "react";
-import {useProjects} from "../../../../modules/project/hook";
 import {MeetStepProps} from "./types";
 import {useUserProjects} from "../../../../modules/user/hook";
 import CardMedia from "@material-ui/core/CardMedia";

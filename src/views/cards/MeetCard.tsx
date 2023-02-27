@@ -4,7 +4,7 @@ import Card from '@material-ui/core/Card';
 import Avatar from '@material-ui/core/Avatar';
 import {AvatarGroup} from "@material-ui/lab";
 import {Meet} from "../../modules/meet/types";
-import {DateTimeFormatter, LocalDateTime, nativeJs} from "@js-joda/core";
+import {DateTimeFormatter, LocalDateTime} from "@js-joda/core";
 import {Grid, Typography} from "@material-ui/core";
 import clsx from 'clsx'
 import CardMedia from "@material-ui/core/CardMedia";

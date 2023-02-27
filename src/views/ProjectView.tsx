@@ -2,12 +2,15 @@ import React from 'react';
 import {makeStyles, Theme} from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
 import SaveIcon from '@material-ui/icons/Save';
-import {Avatar, Box, Button, Card, CardContent, CardHeader, Container, Grid} from "@material-ui/core";
+import {Avatar, Box, Button, Card, CardContent, CardHeader, Container, Grid, IconButton} from "@material-ui/core";
 import ForwardAppBar from "./components/ForwardAppBar";
-import {useParams} from "react-router-dom";
+import {Link, useParams} from "react-router-dom";
 import {Project} from "../modules/project/types";
 import {useProject, useProjectMeets, useProjectUsers} from "../modules/project/hook";
-import MeetCard from "./cards/MeetCard";
+import MeetCard, {formatter} from "./cards/MeetCard";
+import FavoriteIcon from "@material-ui/icons/Favorite";
+import ShareIcon from "@material-ui/icons/Share";
+import {DateTimeFormatter, LocalDateTime} from "@js-joda/core";
 
 const useStyles = makeStyles((theme: Theme) => ({
     root: {
@@ -32,6 +35,17 @@ const useStyles = makeStyles((theme: Theme) => ({
     imageContainer: {
         width: '100%',
         paddingTop: '100%',
+    },
+    controls: {
+        display: 'flex',
+        alignItems: 'center',
+        paddingLeft: theme.spacing(1),
+        paddingBottom: theme.spacing(1),
+    },
+    container: {
+        '& > * + *': {
+            marginTop: theme.spacing(2),
+        }
     }
 }));
 
@@ -45,7 +59,7 @@ export default function ProjectView() {
     return (
         <div className={classes.root}>
             <ForwardAppBar title={project.title}/>
-            <Container style={{ paddingTop: 20 }}>
+            <Container style={{ paddingTop: 20 }} className={classes.container}>
                 <Box className={classes.imageW}>
                     <Box className={classes.imageContainer}>
                         <img alt="The house from the offer." src={`/${project.image}`}  className={classes.image}/>
@@ -68,6 +82,14 @@ export default function ProjectView() {
                             Участвовать в проекте
                         </Button>
                     </CardContent>
+                    <div className={classes.controls}>
+                        <IconButton aria-label="previous">
+                            <FavoriteIcon color={project.favorite ? 'primary' : undefined}/>
+                        </IconButton>
+                        <IconButton aria-label="next">
+                            <ShareIcon />
+                        </IconButton>
+                    </div>
                 </Card>
                 <Card>
                     <CardHeader
@@ -76,11 +98,23 @@ export default function ProjectView() {
                     />
                     <CardContent>
                         <Grid container spacing={2} alignItems="stretch">
-                            {meets.map((meet, index) =>
-                                <Grid item lg={4} xs={12} key={index}>
-                                    <MeetCard {...meet}  key={index}/>
-                                </Grid>
-                            )}
+                            {meets.map((meet, index) => {
+                                const localDateTime = LocalDateTime.parse(meet.datetime, formatter)
+                                const date = localDateTime.format(DateTimeFormatter.ofPattern('dd.MM'))
+                                const time = localDateTime.format(DateTimeFormatter.ofPattern('HH:mm'))
+
+                                return ( <Grid item lg={4} xs={12} key={index}>
+                                    <Typography variant="body1">
+                                        {date}
+                                    </Typography>
+                                    <Typography variant="body2">
+                                        {time}
+                                    </Typography>
+                                    <Typography variant="h6">
+                                        {meet.title}
+                                    </Typography>
+                                </Grid>)
+                            })}
                         </Grid>
                     </CardContent>
                 </Card>
@@ -92,7 +126,7 @@ export default function ProjectView() {
                     <CardContent>
                         <Grid container spacing={2}>
                             {users.map((user) => (
-                                <Grid item xs={12} sm={6} md={4} lg={3}>
+                                <Grid item xs={12} sm={6} md={4} lg={3} component={Link} to={`/user/${user.id}`}>
                                     <Grid container spacing={2} alignItems="stretch">
                                         <Grid item xs={3}>
                                             <Avatar

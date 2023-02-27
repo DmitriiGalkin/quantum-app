@@ -19,8 +19,7 @@ import DialogContent from "@material-ui/core/DialogContent";
 import Dialog from "@material-ui/core/Dialog";
 import {NewMeet} from "../../../modules/meet/types";
 import {useAddMeet} from "../../../modules/meet/hook";
-import {MeetStepProps} from "./steps/types";
-import {DateTimeFormatter, nativeJs} from "@js-joda/core";
+import {nativeJs} from "@js-joda/core";
 import {dateTimeFormatter} from "../../../tools/date";
 
 
@@ -126,19 +125,6 @@ function getMeetSteps() {
             component: ConfirmationStep
         },
     ];
-}
-
-function getStepContent({ step, ...stepProps }: MeetStepProps) {
-    switch (step) {
-        case 0:
-            return ;
-        case 1:
-            return <MeetStep {...stepProps} />;
-        case 2:
-            return <ConfirmationStep {...stepProps} />;
-        default:
-            return 'Unknown step';
-    }
 }
 
 const DEFAULT_MEET: NewMeet = {
