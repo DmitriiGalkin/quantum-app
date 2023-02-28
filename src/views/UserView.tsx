@@ -12,7 +12,6 @@ import CardMedia from "@material-ui/core/CardMedia";
 const useStyles = makeStyles((theme: Theme) => ({
     root: {
         flexGrow: 1,
-        backgroundColor: theme.palette.background.paper,
     },
     large: {
         width: theme.spacing(7),

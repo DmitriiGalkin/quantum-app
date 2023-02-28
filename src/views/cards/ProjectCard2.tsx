@@ -14,7 +14,9 @@ import {useAddProjectUser, useDeleteProjectUser, useProjectUsers} from "../../mo
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
         root: {
-            display: 'flex',
+            border: '1px solid #E1E3E8',
+            borderRadius: 24,
+            padding: 16,
         },
         details: {
             display: 'flex',
@@ -24,8 +26,8 @@ const useStyles = makeStyles((theme: Theme) =>
             flex: '1 0 auto',
         },
         cover: {
-            height: 0,
-            paddingTop: '156.25%', // 16:9
+            height: 75,
+            borderRadius: 24,
         },
         controls: {
             display: 'flex',
@@ -47,28 +49,24 @@ export default function ProjectCard(project: Project) {
     const classes = useStyles();
 
     return (
-    <Card className={classes.root}>
-        <Grid container spacing={2}>
-            <Grid item xs={3}>
-                <CardMedia
+    <div className={classes.root}>
+        <Typography variant="h6" className={classes.title}>
+            {project.title}
+        </Typography>
+        <div style={{ display: 'flex' }}>
+            <div>
+                <img
                     className={classes.cover}
-                    image={`/${project.image}`}
+                    src={`/${project.image}`}
                     title={project.title}
                 />
-            </Grid>
-            <Grid item xs={9}>
-                <div className={classes.details}>
-                    <CardActionArea component={Link} to={`/project/${project.id}`}>
-                        <Typography variant="h6" className={classes.title}>
-                            {project.title}
-                        </Typography>
-                        <Typography variant="subtitle1" color="textSecondary">
-                            {project.description}
-                        </Typography>
-                    </CardActionArea>
-                </div>
-            </Grid>
-        </Grid>
-    </Card>
+            </div>
+            <div style={{ paddingLeft: 24 }}>
+                <Typography color="textSecondary" component={Link} to={`/project/${project.id}`}>
+                    {project.description}
+                </Typography>
+            </div>
+        </div>
+    </div>
     );
 }

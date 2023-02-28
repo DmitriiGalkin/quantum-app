@@ -6,7 +6,13 @@ import {Avatar, Box, Button, Card, CardContent, CardHeader, Container, Grid, Ico
 import ForwardAppBar from "./components/ForwardAppBar";
 import {Link, useParams} from "react-router-dom";
 import {Project} from "../modules/project/types";
-import {useProject, useProjectMeets, useProjectUsers} from "../modules/project/hook";
+import {
+    useAddProjectUser,
+    useDeleteProjectUser,
+    useProject,
+    useProjectMeets,
+    useProjectUsers
+} from "../modules/project/hook";
 import MeetCard, {formatter} from "./cards/MeetCard";
 import FavoriteIcon from "@material-ui/icons/Favorite";
 import ShareIcon from "@material-ui/icons/Share";
@@ -16,7 +22,6 @@ import Image from "./components/Image";
 const useStyles = makeStyles((theme: Theme) => ({
     root: {
         flexGrow: 1,
-        backgroundColor: theme.palette.background.paper,
     },
     imageW: {
         position: 'relative',
@@ -55,7 +60,20 @@ export default function ProjectView() {
     const { id } = useParams();
     const { data: project = {} as Project } = useProject(Number(id))
     const { data: meets = [] } = useProjectMeets(Number(id))
-    const { data: users = [] } = useProjectUsers(Number(id))
+    const { data: users = [], refetch } = useProjectUsers(Number(id))
+    const mutation = useAddProjectUser()
+    const mutation2 = useDeleteProjectUser()
+    const active = users.map((user) => user.id).includes(1)
+
+    const onClick = () => {
+        if (active) {
+            mutation2.mutate({ projectId: project.id })
+            refetch()
+        } else {
+            mutation.mutate({ projectId: project.id })
+            refetch()
+        }
+    }
 
     return (
         <div className={classes.root}>
@@ -75,8 +93,9 @@ export default function ProjectView() {
                             color="primary"
                             size="large"
                             startIcon={<SaveIcon />}
+                            onClick={onClick}
                         >
-                            Участвовать в проекте
+                            {active ? 'Покинуть проект' : 'Участвовать в проекте'}
                         </Button>
                     </CardContent>
                     <div className={classes.controls}>

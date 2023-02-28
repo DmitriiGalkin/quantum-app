@@ -5,12 +5,13 @@ import Avatar from '@material-ui/core/Avatar';
 import {AvatarGroup} from "@material-ui/lab";
 import {Meet} from "../../modules/meet/types";
 import {DateTimeFormatter, LocalDateTime} from "@js-joda/core";
-import {Grid, Typography} from "@material-ui/core";
+import {Box, Grid, Typography} from "@material-ui/core";
 import clsx from 'clsx'
 import CardMedia from "@material-ui/core/CardMedia";
 import {Project} from "../../modules/project/types";
 import {useAddMeetUser, useDeleteMeetUser, useMeetUsers} from "../../modules/meet/hook";
 import {useProject} from "../../modules/project/hook";
+import AccessTimeIcon from '@material-ui/icons/AccessTime'
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
@@ -74,6 +75,19 @@ const useStyles = makeStyles((theme: Theme) =>
             paddingBottom: theme.spacing(1),
             color: theme.palette.grey["600"]
         },
+        n2: {
+            display: 'flex',
+            alignItems: 'center',
+            '& > * + *': {
+                marginLeft: theme.spacing(2),
+            }
+        },
+        meet: {
+            padding: '8px 16px',
+            '& > * + *': {
+                marginLeft: theme.spacing(2),
+            }
+        },
     }),
 );
 
@@ -101,32 +115,22 @@ export default function MeetCard(meet: Meet) {
     }
 
     return (
-        <Card className={clsx(classes.root)} onClick={onClick}>
-            <Grid container spacing={2}>
-                <Grid item xs={3}>
-                    <div className={clsx(classes.datetimeContent, active && classes.datetimeContentActive)}>
-                        <Typography component="h5" variant="h5">
-                            {time}
+        <div className={classes.meet} onClick={onClick}>
+            <div className={classes.n2}>
+                <div style={{ flexGrow: 1 }}>
+                    <Box alignItems="space-between" flexDirection="column">
+                        <Typography>
+                            {project.title}
                         </Typography>
-                    </div>
-                    <CardMedia
-                        className={classes.media}
-                        image={project.image}
-                        title={project.title}
-                    />
-                </Grid>
-                <Grid item xs={9}>
-                    <Typography variant="h6" className={classes.title}>
-                        {meet.title}
-                    </Typography>
-                    <Typography variant="subtitle2" className={classes.description}>
-                        {project.title}
-                    </Typography>
-                    <AvatarGroup max={active ? 5 : 4} className={classes.avatarGroup}>
-                        {users.map((user) => <Avatar alt={user.title} src={`/${user.image}`} className={classes.small}/>)}
-                    </AvatarGroup>
-                </Grid>
-            </Grid>
-        </Card>
+                        <AvatarGroup max={active ? 5 : 4} className={classes.avatarGroup}>
+                            {users.map((user) => <Avatar alt={user.title} src={`/${user.image}`} className={classes.small}/>)}
+                        </AvatarGroup>
+                    </Box>
+                </div>
+                <Typography component="span">
+                    {time}
+                </Typography>
+            </div>
+        </div>
     );
 }
