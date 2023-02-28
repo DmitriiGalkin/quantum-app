@@ -11,6 +11,7 @@ import MeetCard, {formatter} from "./cards/MeetCard";
 import FavoriteIcon from "@material-ui/icons/Favorite";
 import ShareIcon from "@material-ui/icons/Share";
 import {DateTimeFormatter, LocalDateTime} from "@js-joda/core";
+import Image from "./components/Image";
 
 const useStyles = makeStyles((theme: Theme) => ({
     root: {
@@ -60,11 +61,7 @@ export default function ProjectView() {
         <div className={classes.root}>
             <ForwardAppBar title={project.title}/>
             <Container style={{ paddingTop: 20 }} className={classes.container}>
-                <Box className={classes.imageW}>
-                    <Box className={classes.imageContainer}>
-                        <img alt="The house from the offer." src={`/${project.image}`}  className={classes.image}/>
-                    </Box>
-                </Box>
+                <Image alt={project.title} src={`/${project.image}`}/>
                 <Typography variant="h5">
                     {project.title}
                 </Typography>

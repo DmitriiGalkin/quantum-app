@@ -28,23 +28,8 @@ import {useTasks} from "../modules/task/hook";
 
 
 const useStyles = makeStyles((theme: Theme) => ({
-    root: {
-        backgroundColor: theme.palette.background.paper,
-        width: '100%',
-        position: 'relative',
-        minHeight: 200,
-    },
-    menuButton: {
-        marginRight: theme.spacing(2),
-    },
     title: {
         flexGrow: 1,
-    },
-    header: {
-        backgroundColor: '#C22157',
-    },
-    sectionDesktop: {
-        display: 'flex',
     },
     fabContainer: {
         position: 'fixed',
@@ -93,27 +78,17 @@ export default function MeetsView() {
     };
 
     return (
-        <div className={classes.root}>
+        <>
             <AppBar position="static">
                 <Toolbar>
-                    <IconButton edge="start" className={classes.menuButton} color="inherit" aria-label="menu">
-                        <MenuIcon />
-                    </IconButton>
-                    <Typography variant="h6" className={classes.title}>
+                    <Typography className={classes.title}>
                         Quantum
                     </Typography>
-                    <div className={classes.sectionDesktop}>
-                        <IconButton aria-label="show 17 new notifications" color="inherit" component={Link} to="/place">
+                    <div>
+                        <IconButton component={Link} to="/place">
                             <MapIcon />
                         </IconButton>
-                        <IconButton
-                            edge="end"
-                            aria-label="account of current user"
-                            aria-controls='primary-search-account-menu'
-                            aria-haspopup="true"
-                            component={Link} to="/user/1"
-                            color="inherit"
-                        >
+                        <IconButton component={Link} to="/user/1">
                             <AccountCircle />
                         </IconButton>
                     </div>
@@ -127,7 +102,6 @@ export default function MeetsView() {
                 </Tabs>
             </AppBar>
             <SwipeableViews
-                axis={theme.direction === 'rtl' ? 'x-reverse' : 'x'}
                 index={value}
                 onChangeIndex={handleChangeIndex}
             >
@@ -174,6 +148,6 @@ export default function MeetsView() {
                     </Box>
                 </Zoom>
             ))}
-        </div>
+        </>
     );
 }

@@ -1,26 +1,17 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import {BrowserRouter} from "react-router-dom";
 import {createMuiTheme, MuiThemeProvider} from '@material-ui/core/styles';
 import {QueryClient, QueryClientProvider,} from '@tanstack/react-query'
+import {CssBaseline} from "@material-ui/core";
 
-
-const OPTIONS_OLD = {
-    palette: {
-        primary: {
-            main: '#C22157',
-        },
-        secondary: {
-            main: '#EB3F79',
-        }
-    }
-}
-// 7E5001
 const theme = createMuiTheme({
     palette: {
+        background: {
+            default: "#FFCC00",
+        },
         primary: {
             main: '#FF9503',
             contrastText: '#674100',
@@ -35,7 +26,9 @@ const theme = createMuiTheme({
         },
     }
 });
-// Create a client
+
+//
+
 const queryClient = new QueryClient()
 
 const root = ReactDOM.createRoot(
@@ -46,6 +39,7 @@ root.render(
       <BrowserRouter>
           <MuiThemeProvider theme={theme}>
               <QueryClientProvider client={queryClient}>
+                  <CssBaseline />
                 <App />
               </QueryClientProvider>
           </MuiThemeProvider>
