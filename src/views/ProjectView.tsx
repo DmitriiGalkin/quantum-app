@@ -13,11 +13,12 @@ import {
     useProjectMeets,
     useProjectUsers
 } from "../modules/project/hook";
-import MeetCard, {formatter} from "./cards/MeetCard";
+import MeetCard from "./cards/MeetCard";
 import FavoriteIcon from "@material-ui/icons/Favorite";
 import ShareIcon from "@material-ui/icons/Share";
 import {DateTimeFormatter, LocalDateTime} from "@js-joda/core";
 import Image from "./components/Image";
+import {formatter} from "../tools/date";
 
 const useStyles = makeStyles((theme: Theme) => ({
     root: {

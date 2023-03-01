@@ -4,7 +4,7 @@ import AppBar from '@material-ui/core/AppBar';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import Typography from '@material-ui/core/Typography';
-import MeetCard2, {formatter} from "./cards/MeetCard2";
+import MeetCard from "./cards/MeetCard";
 import {Box, Container, Grid, Paper, useTheme} from "@material-ui/core";
 import ProjectCard2 from "./cards/ProjectCard2";
 import {TabPanel} from "../tools/tabs";
@@ -16,21 +16,18 @@ import Zoom from '@material-ui/core/Zoom';
 import TaskCard from "./cards/TaskCard";
 import AddMeetButton from "./buttons/AddMeetButton";
 import AddProjectButton from "./buttons/AddProjectButton";
-import Toolbar from "@material-ui/core/Toolbar";
-import IconButton from "@material-ui/core/IconButton";
-import MenuIcon from "@material-ui/icons/Menu";
-import {Link} from "react-router-dom";
-import MapIcon from "@material-ui/icons/Map";
-import {AccountCircle} from "@material-ui/icons";
 import {useMeets} from "../modules/meet/hook";
 import {useProjects} from "../modules/project/hook";
 import {useTasks} from "../modules/task/hook";
 import BottomNavigation from '@material-ui/core/BottomNavigation';
 import BottomNavigationAction from '@material-ui/core/BottomNavigationAction';
-import RestoreIcon from '@material-ui/icons/Restore';
 import RocketIcon from '@mui/icons-material/Rocket';
+import GroupsIcon from '@mui/icons-material/Groups';
+import AutoAwesomeIcon from '@mui/icons-material/AutoAwesome';
 import LocationOnIcon from '@material-ui/icons/LocationOn';
 import {DateTimeFormatter, LocalDate, LocalDateTime} from "@js-joda/core";
+import {formatter} from "../tools/date";
+import {useUserUniques} from "../modules/user/hook";
 
 
 const useStyles = makeStyles((theme: Theme) => ({
@@ -108,6 +105,7 @@ export default function MeetsView() {
     const { data: meets = [] } = useMeets()
     const { data: projects = [] } = useProjects()
     const { data: tasks = [] } = useTasks()
+    const { data: uniques = [] } = useUserUniques(1)
 
     const meetsGroup = [...Array.from(groupBy(meets, (meet) => {
         const localDateTime = LocalDateTime.parse(meet.datetime, formatter)
@@ -164,7 +162,7 @@ export default function MeetsView() {
                                         <Grid container spacing={1} key={date} className={classes.meets}>
                                             {meets.map((meet) =>
                                                 <Grid item lg={4} xs={12} key={meet.id} className={classes.meet}>
-                                                    <MeetCard2 {...meet} />
+                                                    <MeetCard {...meet} />
                                                 </Grid>
                                             )}
                                         </Grid>
@@ -191,6 +189,17 @@ export default function MeetsView() {
                             )}
                         </Grid>
                     </TabPanel>
+                    <TabPanel value={value} index={3}>
+                        <Grid container spacing={2}>
+                            {uniques.map((unique) => (
+                                <Grid item xs={12}>
+                                    <Typography variant="body1">
+                                        {unique.title}
+                                    </Typography>
+                                </Grid>
+                            ))}
+                        </Grid>
+                    </TabPanel>
                 </SwipeableViews>
                 <img src="/img_1.png" alt="мальчик" style={{ width: '100%', display: 'block' }}/>
                 <div style={{ height: 56 }}/>
@@ -203,10 +212,10 @@ export default function MeetsView() {
                     }}
                     showLabels
                 >
-                    <BottomNavigationAction label="Встречи" icon={<RestoreIcon />} />
+                    <BottomNavigationAction label="Встречи" icon={<GroupsIcon />} />
                     <BottomNavigationAction label="Проекты" icon={<RocketIcon />} />
                     <BottomNavigationAction label="Задания" icon={<LocationOnIcon />} />
-                    <BottomNavigationAction label="Профиль" icon={<AccountCircle />} />
+                    <BottomNavigationAction label="Ценности" icon={<AutoAwesomeIcon />} />
                 </BottomNavigation>
             </Paper>
             {fabs.map((fab, index) => (
