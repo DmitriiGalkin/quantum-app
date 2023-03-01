@@ -7,26 +7,10 @@ const Project = require('../models/projectModel');
 const UserMeet = require('../models/userMeetModel');
 
 
-// asynchronous function that returns the file size in bytes
-function getFileSizeInBytes(file, callback) {
-    fs.stat(file, function(err, stat) {
-        if (err) {
-            return callback(err);
-        }
-        callback(null, stat.size);
-    });
-}
-
 exports.findAll = function(req, res) {
     Meet.findAll(function(err, meets) {
         if (err)
             res.send(err);
-
-        const f = function(err, meetsWithUsers) {
-            if (err) console.log(err);
-            res.send(meetsWithUsers);
-        }
-
         async.map(meets, User.findByMeet, function(err, meetsWithUsers) {
             if (err) console.log(err);
             async.map(meetsWithUsers, Project.findByMeet, function(err, meetsWithProject) {

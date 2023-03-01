@@ -36,6 +36,18 @@ User.findUniquesById = function (id, result) {
         }
     });
 };
+
+User.findByProjectMeet = function (project, result) {
+    dbConn.query("Select * from users LEFT JOIN meet_user ON users.id = meet_user.userId where meetId = ? ", meet.id, function (err, res) {
+        if(err) {
+            console.log("error: ", err);
+            result(err, null);
+        }
+        else{
+            result(null, { ...meet, users: res});
+        }
+    });
+};
 User.findByMeet = function (meet, result) {
     dbConn.query("Select * from users LEFT JOIN meet_user ON users.id = meet_user.userId where meetId = ? ", meet.id, function (err, res) {
         if(err) {

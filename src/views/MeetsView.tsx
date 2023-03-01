@@ -6,7 +6,7 @@ import Tab from '@material-ui/core/Tab';
 import Typography from '@material-ui/core/Typography';
 import MeetCard from "./cards/MeetCard";
 import {Box, Container, Grid, Paper, useTheme} from "@material-ui/core";
-import ProjectCard2 from "./cards/ProjectCard2";
+import ProjectCard from "./cards/ProjectCard";
 import {TabPanel} from "../tools/tabs";
 import {green} from '@material-ui/core/colors';
 import AddIcon from "@material-ui/icons/Add";
@@ -28,6 +28,7 @@ import LocationOnIcon from '@material-ui/icons/LocationOn';
 import {DateTimeFormatter, LocalDate, LocalDateTime} from "@js-joda/core";
 import {formatter} from "../tools/date";
 import {useUserUniques} from "../modules/user/hook";
+import {Divider} from "@mui/material";
 
 
 const useStyles = makeStyles((theme: Theme) => ({
@@ -36,12 +37,12 @@ const useStyles = makeStyles((theme: Theme) => ({
     },
     content: {
         backgroundColor: theme.palette.background.paper,
-        borderRadius: 32,
+        borderRadius: `${theme.spacing(4)}px ${theme.spacing(4)}px 0 0`,
     },
     fabContainer: {
-        position: 'fixed',
-        top: theme.spacing(2),
-        right: theme.spacing(2),
+        position: 'absolute',
+        top: 100,
+        left: theme.spacing(2),
     },
     fabGreen: {
         color: theme.palette.common.white,
@@ -64,14 +65,25 @@ const useStyles = makeStyles((theme: Theme) => ({
         }
     },
     meets: {
-        '& > * + *': {
-            borderTop: '1px solid #DBDBDB',
-        }
+        // '& > * + *': {
+        //     borderTop: '1px solid #DBDBDB',
+        // }
     },
     meet: {
         padding: `${theme.spacing(2)}px ${theme.spacing(3)}px`,
     },
-}));
+    date: {
+        position: 'sticky',
+        top: 0,
+        padding: '12px 0',
+        textAlign: 'center',
+    },
+    container: {
+        // '& > div + div ': {
+        //     borderTop: '1px solid #DBDBDB',
+        // }
+    },
+}));//
 
 export const formatter2 = DateTimeFormatter.ofPattern('yyyy-MM-dd');
 
@@ -102,7 +114,7 @@ export default function MeetsView() {
     const [value, setValue] = React.useState(0);
     const theme = useTheme();
 
-    const { data: meets = [] } = useMeets()
+    const { data: meets = [], refetch } = useMeets()
     const { data: projects = [] } = useProjects()
     const { data: tasks = [] } = useTasks()
     const { data: uniques = [] } = useUserUniques(1)
@@ -113,7 +125,6 @@ export default function MeetsView() {
         return date
     }))];
 
-    console.log(meetsGroup, 'meetsGroup')
     const handleChange = (event: React.ChangeEvent<{}>, newValue: number) => {
         setValue(newValue);
     };
@@ -141,46 +152,57 @@ export default function MeetsView() {
         <>
             <img src="/img.png" alt="мальчик" style={{ width: '90%' }}/>
             <div className={classes.content}>
-                <SwipeableViews
-                    index={value}
-                    onChangeIndex={handleChangeIndex}
-                >
                     <TabPanel value={value} index={0}>
-                        {meetsGroup.map(([date, meets]) => {
+                        <Container maxWidth="lg" style={{ padding: '24px 16px 24px 32px' }} className={classes.container}>
+                        {meetsGroup.map(([date, meets], index) => {
                             const localDate = LocalDate.parse(date)
                             return (
-                                <div className={classes.meetsGroup} key={date}>
-                                    <div>
-                                        <Typography style={{ fontSize: 28 }} component="span">
-                                            {localDate.dayOfMonth()}
-                                        </Typography>
-                                        <Typography>
-                                            {getMonth(localDate.monthValue())}
-                                        </Typography>
+                                <>
+                                    {Boolean(index) && <Divider light />}
+                                    <div className={classes.meetsGroup} key={date}>
+                                        <div>
+                                            <div className={classes.date}>
+                                                <Typography style={{ fontFamily: 'Bebas Neue, cursive', fontSize: 26, lineHeight: '28px' }} component="span">
+                                                    {localDate.dayOfMonth()}
+                                                </Typography>
+                                                <Typography style={{ fontSize: 13, lineHeight: '19px', fontFamily: 'Source Sans Pro', fontWeight: 700 }}>
+                                                    {getMonth(localDate.monthValue())}
+                                                </Typography>
+                                            </div>
+                                        </div>
+                                        <div style={{ flexGrow: 1 }}>
+                                            <div>
+                                                {meets.map((meet, index) =>
+                                                    <>
+                                                        {Boolean(index) && <Divider light variant="middle" />}
+                                                        <div key={meet.id}>
+                                                            <MeetCard {...meet} refetch={refetch} />
+                                                        </div>
+                                                    </>
+                                                )}
+                                            </div>
+                                        </div>
                                     </div>
-                                    <div style={{ flexGrow: 1, borderTop: '1px solid #DBDBDB' }}>
-                                        <Grid container spacing={1} key={date} className={classes.meets}>
-                                            {meets.map((meet) =>
-                                                <Grid item lg={4} xs={12} key={meet.id} className={classes.meet}>
-                                                    <MeetCard {...meet} />
-                                                </Grid>
-                                            )}
-                                        </Grid>
-                                    </div>
-                                </div>
+                                </>
+
                             )
                         })}
+                        </Container>
                     </TabPanel>
                     <TabPanel value={value} index={1}>
+                        <Container maxWidth="lg" style={{ padding: 16 }}>
+
                         <Grid container spacing={2}>
                             {projects.map((project) =>
                                 <Grid item lg={4} xs={12} key={project.id}>
-                                    <ProjectCard2 {...project} />
+                                    <ProjectCard {...project} />
                                 </Grid>
                             )}
                         </Grid>
+                        </Container>
                     </TabPanel>
                     <TabPanel value={value} index={2}>
+                        <Container maxWidth="lg" style={{ padding: 16 }}>
                         <Grid container spacing={2}>
                             {tasks.map((task) =>
                                 <Grid item lg={4} xs={12} key={task.id}>
@@ -188,8 +210,10 @@ export default function MeetsView() {
                                 </Grid>
                             )}
                         </Grid>
+                        </Container>
                     </TabPanel>
                     <TabPanel value={value} index={3}>
+                        <Container maxWidth="lg" style={{ padding: '24px 32px' }}>
                         <Grid container spacing={2}>
                             {uniques.map((unique) => (
                                 <Grid item xs={12}>
@@ -199,12 +223,12 @@ export default function MeetsView() {
                                 </Grid>
                             ))}
                         </Grid>
+                        </Container>
                     </TabPanel>
-                </SwipeableViews>
                 <img src="/img_1.png" alt="мальчик" style={{ width: '100%', display: 'block' }}/>
                 <div style={{ height: 56 }}/>
             </div>
-            <Paper className={classes.bottomNavigation} elevation={3}>
+            <Paper className={classes.bottomNavigation} elevation={3} style={{zIndex: 1 }}>
                 <BottomNavigation
                     value={value}
                     onChange={(event, newValue) => {

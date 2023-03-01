@@ -1,4 +1,5 @@
 import {AgeLimit} from "../place/types";
+import {Meet} from "../meet/types";
 
 export interface Project {
     id: number,
@@ -9,4 +10,5 @@ export interface Project {
     active?: boolean, // пользователь является участником проекта
     favorite?: boolean, // пользователь добавил проект в избранное
     ageLimit?: AgeLimit // Возрастное ограничение
+    meet?: Meet
 }

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {makeStyles} from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
 import Slider from '@material-ui/core/Slider';
@@ -9,6 +9,17 @@ const useStyles = makeStyles({
     root: {
         width: 300,
     },
+    content: {
+        boxShadow: 'none',
+        '& .Calendar__header': {
+            paddingLeft: 0,
+            paddingRight: 0,
+        },
+        '& .Calendar__section': {
+            paddingLeft: 0,
+            paddingRight: 0,
+        }
+    }
 });
 
 function valuetext(value: number) {
@@ -27,6 +38,7 @@ function toHoursAndMinutes(totalMinutes: number) {
 export default function MeetStep({ handleBack, handleNext }: MeetStepProps) {
     const classes = useStyles();
     const [value, setValue] = React.useState<number[]>([20, 37]);
+    const [startDate, setStartDate] = useState(new Date());
 
     const handleChange = (event: any, newValue: number | number[]) => {
         setValue(newValue as number[]);
@@ -34,17 +46,6 @@ export default function MeetStep({ handleBack, handleNext }: MeetStepProps) {
 
     return (
         <div className={classes.root}>
-            <div>
-                <Typography component="span">
-                    Сегодня
-                </Typography>
-                <Typography component="span">
-                    Завтра
-                </Typography>
-                <Typography component="span">
-                    Указать дату
-                </Typography>
-            </div>
             <Typography id="range-slider" gutterBottom>
                 Выберите время встречи
             </Typography>

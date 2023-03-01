@@ -13,7 +13,7 @@ const useStyles = makeStyles((theme) => ({
         width: '100%',
         height: '100%',
         objectFit: 'cover',
-        borderRadius: 24,
+        borderRadius: 12,
     },
     imageContainer: {
         width: '100%',

@@ -27,6 +27,13 @@ Place.findAll = function (result) {
     });
 };
 
+Place.findByProject = function (project, result) {
+    dbConn.query("Select * from places where  id = ? ", project.placeId, function (err, res) {
+        if(err) result(err, null);
+        result(null, {...project, place: res[0] });
+    });
+};
+
 Place.findById = function (id, result) {
     dbConn.query("Select * from places where  id = ? ", id, function (err, res) {
         if(err) {

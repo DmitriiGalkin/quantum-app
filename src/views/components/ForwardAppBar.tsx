@@ -5,6 +5,8 @@ import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import IconButton from '@material-ui/core/IconButton';
 import ArrowBackIos from '@material-ui/icons/ArrowBackIos';
+import {Container} from "@material-ui/core";
+import {Skeleton} from "@mui/material";
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
@@ -14,6 +16,7 @@ const useStyles = makeStyles((theme: Theme) =>
             padding: '8px 16px',
         },
         menuButton: {
+            padding: 0,
             marginRight: theme.spacing(2),
         },
         title: {
@@ -27,16 +30,19 @@ export default function ForwardAppBar({ title }: { title?: string }) {
     const classes = useStyles();
 
     return (
-        <div className={classes.root}>
-            <div style={{ display: 'flex' }}>
-                <IconButton edge="start" className={classes.menuButton} color="inherit" onClick={() => window.history.back()}>
-                    <ArrowBackIos />
-                </IconButton>
-                <Typography className={classes.title}>
-                    {title || 'Quantum'}
-                </Typography>
+        <Container maxWidth="sm">
+            <div className={classes.root}>
+                <div style={{ display: 'flex' }}>
+                    <IconButton edge="start" className={classes.menuButton} onClick={() => window.history.back()}>
+                        <ArrowBackIos color="primary"/>
+                    </IconButton>
+                    <Typography className={classes.title} style={{ fontSize: 18, lineHeight: '23px' }}>
+                        {title || <Skeleton variant="text" sx={{ fontSize: '1rem' }} />}
+                    </Typography>
+                </div>
+                <div>34</div>
             </div>
-            <div>34</div>
-        </div>
+        </Container>
+
     );
 }

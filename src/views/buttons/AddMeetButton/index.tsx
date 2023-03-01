@@ -2,7 +2,6 @@ import React from 'react';
 import {createStyles, Fab} from "@material-ui/core";
 import AddIcon from "@material-ui/icons/Add";
 import {makeStyles, Theme} from "@material-ui/core/styles";
-import MeetStepperDialog from './MeetStepperDialog'
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
@@ -30,9 +29,7 @@ export default function Index() {
         <div>
             <Fab variant="extended" color="primary" aria-label="add" className={classes.margin} onClick={handleClickOpen}>
                 <AddIcon className={classes.extendedIcon} />
-                Создать встречу
             </Fab>
-            <MeetStepperDialog open={open} handleClose={handleClose} />
         </div>
     );
 }

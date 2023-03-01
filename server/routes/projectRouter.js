@@ -4,7 +4,6 @@ const projectController =   require('../controllers/projectController');
 const userController =   require('../controllers/userController');
 const meetController =   require('../controllers/meetController');
 
-// Retrieve all employees
 router.get('/', projectController.findAll);
 router.get('/:id', projectController.findById); // Retrieve a single employee with id
 router.post('/', projectController.create); // Create a new employee

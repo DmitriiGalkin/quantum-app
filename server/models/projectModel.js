@@ -9,11 +9,10 @@ var Project = function(project){
     this.updated_at = new Date();
 };
 
-Project.findAll = function (params, result) {
+Project.findAll = function (result) {
     dbConn.query(`Select * from projects`, function (err, res) {
         if(err) {
-            console.log("error: ", err);
-            result(null, err);
+            result(err, null);
         }
         else{
             result(null, res);
@@ -22,7 +21,7 @@ Project.findAll = function (params, result) {
 };
 
 Project.findByMeet = function (meet, result) {
-    dbConn.query("Select * from projects where  id = ? ", meet.id, function (err, res) {
+    dbConn.query("Select * from projects where  id = ? ", meet.projectId, function (err, res) {
         if(err) {
             result(err, null);
         }

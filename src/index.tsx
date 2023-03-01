@@ -3,11 +3,11 @@ import ReactDOM from 'react-dom/client';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import {BrowserRouter} from "react-router-dom";
-import {createMuiTheme, MuiThemeProvider} from '@material-ui/core/styles';
 import {QueryClient, QueryClientProvider,} from '@tanstack/react-query'
-import {CssBaseline} from "@material-ui/core";
+import {createMuiTheme, ThemeProvider, CssBaseline} from "@mui/material";
 
 const theme = createMuiTheme({
+    spacing: 6,
     palette: {
         background: {
             default: "#FFCC00",
@@ -21,8 +21,10 @@ const theme = createMuiTheme({
             contrastText: '#674100',
         },
         text: {
-            //primary: '#e65100',
-            // secondary: '#FFCE00',
+            primary: '#777777',
+            // hint: '#FF9503',
+            secondary: '#A5A5A5',
+            disabled: '#C1C1C1',
         },
     }
 });
@@ -37,12 +39,12 @@ const root = ReactDOM.createRoot(
 root.render(
   <React.StrictMode>
       <BrowserRouter>
-          <MuiThemeProvider theme={theme}>
+          <ThemeProvider theme={theme}>
               <QueryClientProvider client={queryClient}>
                   <CssBaseline />
-                <App />
+                  <App />
               </QueryClientProvider>
-          </MuiThemeProvider>
+          </ThemeProvider>
       </BrowserRouter>
   </React.StrictMode>
 );

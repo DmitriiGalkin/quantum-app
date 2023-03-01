@@ -7,14 +7,20 @@ import {Project} from "../../modules/project/types";
 import {Button, CardActionArea, Grid, IconButton} from "@material-ui/core";
 import FavoriteIcon from '@material-ui/icons/Favorite';
 import ShareIcon from '@material-ui/icons/Share';
+import Image from "../components/Image";
 
 import {Link} from "react-router-dom";
 import {useAddProjectUser, useDeleteProjectUser, useProjectUsers} from "../../modules/project/hook";
+import {Box} from "@mui/material";
+import {useNavigate} from 'react-router-dom';
+import {convertToMeetDatetime} from "../../tools/date";
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
         root: {
-            display: 'flex',
+            border: '1px solid #E1E3E8',
+            borderRadius: 12,
+            padding: 12,
         },
         details: {
             display: 'flex',
@@ -23,9 +29,9 @@ const useStyles = makeStyles((theme: Theme) =>
         content: {
             flex: '1 0 auto',
         },
-        cover: {
-            height: 0,
-            paddingTop: '156.25%', // 16:9
+        image: {
+            display: 'block',
+            minWidth: 75,
         },
         controls: {
             display: 'flex',
@@ -38,37 +44,42 @@ const useStyles = makeStyles((theme: Theme) =>
             width: 38,
         },
         title: {
-            paddingTop: theme.spacing(1),
+            paddingBottom: theme.spacing(2),
+        },
+        description: {
+            paddingLeft: theme.spacing(2),
         },
     }),
 );
 
+
+
 export default function ProjectCard(project: Project) {
     const classes = useStyles();
-
+    const navigate = useNavigate();
+    const handleOnClick = () => navigate(`/project/${project.id}`);
+    const firstMeetDateTitle = convertToMeetDatetime(project.meet?.datetime)
     return (
-    <Card className={classes.root}>
-        <Grid container spacing={2}>
-            <Grid item xs={3}>
-                <CardMedia
-                    className={classes.cover}
-                    image={`/${project.image}`}
-                    title={project.title}
+    <Box className={classes.root} sx={{ flexDirection: 'column' }} onClick={handleOnClick}>
+        <Typography className={classes.title} style={{ fontSize: 14, lineHeight: '20px', fontFamily: 'Source Sans Pro', fontWeight: 700 }}>
+            {project.title}
+        </Typography>
+        <div style={{ display: 'flex' }}>
+            <div className={classes.image}>
+                <Image
+                    src={`/${project.image}`}
+                    alt={project.title}
                 />
-            </Grid>
-            <Grid item xs={9}>
-                <div className={classes.details}>
-                    <CardActionArea component={Link} to={`/project/${project.id}`}>
-                        <Typography variant="h6" className={classes.title}>
-                            {project.title}
-                        </Typography>
-                        <Typography variant="subtitle1" color="textSecondary">
-                            {project.description}
-                        </Typography>
-                    </CardActionArea>
-                </div>
-            </Grid>
-        </Grid>
-    </Card>
+            </div>
+            <div className={classes.description}>
+                <Typography color="primary" style={{ fontSize: 13, lineHeight: '19px', fontFamily: 'Source Sans Pro', fontWeight: 700 }}>
+                    {firstMeetDateTitle}
+                </Typography>
+                <Typography style={{ fontSize: 13, lineHeight: '16px', fontFamily: 'Source Sans Pro', fontWeight: 300 }}>
+                    {project.description}
+                </Typography>
+            </div>
+        </div>
+    </Box>
     );
 }

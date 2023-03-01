@@ -1,15 +1,22 @@
 'use strict';
+var async = require("async");
+
 const Project = require('../models/projectModel');
 const ProjectUser = require('../models/projectUserModel');
-
+const Meet = require('../models/meetModel');
+const Place = require('../models/placeModel');
 
 exports.findAll = function(req, res) {
-    let placeId = req.query.placeId;
-
-    Project.findAll({ placeId }, function(err, employee) {
+    Project.findAll(function(err, projects) {
         if (err)
             res.send(err);
-        res.send(employee);
+        async.map(projects, Meet.findFirstByProject, function(err, projectsWithMeet) {
+            if (err) console.log(err);
+            async.map(projectsWithMeet, Place.findByProject, function(err, projectsWithMeetWithPlace) {
+                if (err) console.log(err);
+                res.send(projectsWithMeetWithPlace);
+            });
+        });
     });
 };
 exports.findById = function(req, res) {

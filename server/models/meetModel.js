@@ -21,6 +21,12 @@ Meet.findAll = function (result) {
     });
 };
 
+Meet.findFirstByProject = function (project, result) {
+    dbConn.query("Select * from meets where  projectId = ? LIMIT 1", project.id, function (err, res) {
+        if(err) result(err, null);
+        result(null, {...project, meet: res[0]});
+    });
+};
 Meet.findById = function (id, result) {
     dbConn.query("Select * from meets where  id = ? ", id, function (err, res) {
         if(err) {

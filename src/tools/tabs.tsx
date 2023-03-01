@@ -21,8 +21,8 @@ export function TabPanel(props: TabPanelProps) {
 >
     {value === index && children && (
         <Box p={3}>
-            <Container maxWidth="lg" style={{ padding: '24px 32px' }}>{children}
-            </Container>
+            {children}
+
         </Box>
     )}
     </div>

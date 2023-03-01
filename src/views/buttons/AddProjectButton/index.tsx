@@ -30,7 +30,6 @@ export default function Index() {
         <div>
             <Fab variant="extended" color="primary" aria-label="add" className={classes.margin} onClick={handleClickOpen}>
                 <AddIcon className={classes.extendedIcon} />
-                Создать проект
             </Fab>
             <CreateProjectStepperDialog open={open} handleClose={handleClose}/>
         </div>

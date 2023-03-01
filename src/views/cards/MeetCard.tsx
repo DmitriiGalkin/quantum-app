@@ -60,7 +60,12 @@ const useStyles = makeStyles((theme: Theme) =>
             height: theme.spacing(3),
         },
         avatarGroup: {
-            '& .MuiAvatar-root': { width: theme.spacing(3), height: theme.spacing(3), fontSize: 15 },
+            paddingTop: 4,
+            '& .MuiAvatar-root': {
+                width: theme.spacing(3),
+                height: theme.spacing(3),
+                fontSize: 15
+            },
         },
         media: {
             height: 0,
@@ -85,15 +90,17 @@ const useStyles = makeStyles((theme: Theme) =>
         },
         meet: {
             padding: '8px 16px',
-            '& > * + *': {
-                marginLeft: theme.spacing(2),
-            }
+            // '& > * + *': {
+            //     marginLeft: theme.spacing(2),
+            // }
         },
     }),
 );
 
-
-export default function MeetCard(meet: Meet) {
+interface MeetCardProps extends Meet {
+    refetch: () => void
+}
+export default function MeetCard({ refetch, ...meet }: MeetCardProps) {
     const classes = useStyles();
     const localDateTime = LocalDateTime.parse(meet.datetime, formatter)
     const date = localDateTime.format(DateTimeFormatter.ofPattern('dd.MM'))
@@ -105,8 +112,10 @@ export default function MeetCard(meet: Meet) {
     const onClick = () => {
         if (active) {
             mutation2.mutate({ meetId: meet.id })
+            refetch()
         } else {
             mutation.mutate({ meetId: meet.id })
+            refetch()
         }
     }
 
@@ -115,7 +124,7 @@ export default function MeetCard(meet: Meet) {
             <div className={classes.n2}>
                 <div style={{ flexGrow: 1 }}>
                     <Box alignItems="space-between" flexDirection="column">
-                        <Typography>
+                        <Typography style={{ fontSize: 14, lineHeight: '18px', fontFamily: 'Source Sans Pro', fontWeight: 400 }}>
                             {meet.project?.title}
                         </Typography>
                         <AvatarGroup max={active ? 5 : 4} className={classes.avatarGroup}>
@@ -123,7 +132,7 @@ export default function MeetCard(meet: Meet) {
                         </AvatarGroup>
                     </Box>
                 </div>
-                <Typography component="span">
+                <Typography color="textSecondary" component="span" style={{ fontSize: 13, lineHeight: '19px', fontFamily: 'Source Sans Pro', fontWeight: 700 }}>
                     {time}
                 </Typography>
             </div>
