@@ -218,7 +218,6 @@ export default function MeetsView() {
                     <TabPanel value={value} index={3}>
                         <Container maxWidth="lg" style={{ padding: 0 }}>
                             <div style={{ padding: 24 }}>
-
                                 <Typography component="div" style={{ fontFamily: 'Bebas Neue, cursive', fontSize: 30, lineHeight: '32px', textTransform: 'uppercase', textAlign: 'center', color: '#313131' }}>
                                     Дима Галкин,
                                 </Typography>
@@ -244,7 +243,7 @@ export default function MeetsView() {
                 <img src="/img_1.png" alt="мальчик" style={{ width: '100%', display: 'block' }}/>
                 <div style={{ height: 56 }}/>
             </div>
-            <Paper className={classes.bottomNavigation} elevation={3} style={{zIndex: 1 }}>
+            <Paper className={classes.bottomNavigation} elevation={3} style={{zIndex: 10 }}>
                 <BottomNavigation
                     value={value}
                     onChange={(event, newValue) => {
