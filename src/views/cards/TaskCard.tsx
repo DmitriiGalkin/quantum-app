@@ -1,7 +1,7 @@
 import React from 'react';
-import {createStyles, makeStyles, Theme} from '@material-ui/core/styles';
+import {makeStyles, createStyles} from '@material-ui/core/styles';
 import {Task} from "../../modules/task/types";
-import {Box, Chip, Button, Typography} from "@mui/material";
+import {Box, Button, Chip, Typography, Theme} from "@mui/material";
 
 import EmojiEventsIcon from "@material-ui/icons/EmojiEvents";
 
@@ -26,32 +26,38 @@ export default function TaskCard(task: Task) {
 
     return (
         <Box className={classes.root} sx={{ display: 'flex', flexDirection: 'column' }}>
-            <div><Chip label="Рисование" color="primary" size="small" variant="outlined" />
-                </div>
-            <Typography component="div" style={{ fontSize: 14, lineHeight: '20px', fontFamily: 'Source Sans Pro', fontWeight: 700 }}>
-                {task.title}
-            </Typography>
+            <div>
+                <Chip label="Рисование" color="primary" size="small" variant="outlined"                 sx={{
+                    borderRadius: 2
+                }}/>
+            </div>
+            <div>
+                <Typography component="div" style={{ fontSize: 14, lineHeight: '20px', fontFamily: 'Source Sans Pro', fontWeight: 700 }}>
+                    {task.title}
+                </Typography>
+            </div>
             <Box sx={{ width: '100%', maxWidth: 360, bgcolor: 'background.paper' }}>
                 <Box style={{ display: 'flex' }}>
                     <Typography component="div" style={{ flexGrow: 1, fontSize: 14, lineHeight: '18px', fontFamily: 'Source Sans Pro', fontWeight: 400 }}>
-                        {task.points}
+                        Количество баллов
                     </Typography>
-                    <Typography component="div" style={{ fontSize: 14, lineHeight: '20px', fontFamily: 'Source Sans Pro', fontWeight: 700 }}>
-                        {task.points}
+                    <EmojiEventsIcon style={{ width: 20, height: 20 }}/>
+                    <Typography component="div" style={{ fontSize: 14, lineHeight: '20px', fontFamily: 'Source Sans Pro', fontWeight: 700, paddingLeft: 6 }}>
+                         {task.points}
                     </Typography>
                 </Box>
             </Box>
             <div><Button
                 variant="contained"
                 color="secondary"
-                startIcon={<EmojiEventsIcon />}
+                // startIcon={<EmojiEventsIcon />}
                 className={classes.button}
                 fullWidth
                 sx={{
                     borderRadius: 2
                 }}
             >
-                {task.points}
+                Начать
             </Button></div>
 
 

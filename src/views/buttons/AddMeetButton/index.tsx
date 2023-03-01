@@ -1,7 +1,8 @@
 import React from 'react';
-import {createStyles, Fab} from "@material-ui/core";
+import {createStyles} from "@material-ui/core";
 import AddIcon from "@material-ui/icons/Add";
 import {makeStyles, Theme} from "@material-ui/core/styles";
+import {Fab} from "@mui/material";
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({

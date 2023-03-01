@@ -8,10 +8,6 @@ import PlacesView from "./views/PlacesView";
 import MeetCreateView from "./views/MeetCreateView";
 import './App.css'
 
-import {makeStyles, Theme} from "@material-ui/core/styles";
-import {green} from "@material-ui/core/colors";
-import Typography from '@material-ui/core/Typography';
-
 
 function App() {
     return (

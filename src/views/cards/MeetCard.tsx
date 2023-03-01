@@ -1,17 +1,11 @@
 import React from 'react';
 import {createStyles, makeStyles, Theme} from '@material-ui/core/styles';
-import Card from '@material-ui/core/Card';
 import Avatar from '@material-ui/core/Avatar';
 import {AvatarGroup} from "@material-ui/lab";
 import {Meet} from "../../modules/meet/types";
 import {DateTimeFormatter, LocalDateTime} from "@js-joda/core";
-import {Box, Grid, Typography} from "@material-ui/core";
-import clsx from 'clsx'
-import CardMedia from "@material-ui/core/CardMedia";
-import {Project} from "../../modules/project/types";
-import {useAddMeetUser, useDeleteMeetUser, useMeetUsers} from "../../modules/meet/hook";
-import {useProject} from "../../modules/project/hook";
-import AccessTimeIcon from '@material-ui/icons/AccessTime'
+import {Box, Typography} from "@material-ui/core";
+import {useAddMeetUser, useDeleteMeetUser} from "../../modules/meet/hook";
 import {formatter} from "../../tools/date";
 
 const useStyles = makeStyles((theme: Theme) =>

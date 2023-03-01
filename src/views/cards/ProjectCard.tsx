@@ -1,18 +1,10 @@
 import React from 'react';
 import {createStyles, makeStyles, Theme} from '@material-ui/core/styles';
-import Card from '@material-ui/core/Card';
-import CardMedia from '@material-ui/core/CardMedia';
-import Typography from '@material-ui/core/Typography';
 import {Project} from "../../modules/project/types";
-import {Button, CardActionArea, Grid, IconButton} from "@material-ui/core";
-import FavoriteIcon from '@material-ui/icons/Favorite';
-import ShareIcon from '@material-ui/icons/Share';
 import Image from "../components/Image";
 
-import {Link} from "react-router-dom";
-import {useAddProjectUser, useDeleteProjectUser, useProjectUsers} from "../../modules/project/hook";
-import {Box} from "@mui/material";
-import {useNavigate} from 'react-router-dom';
+import {useNavigate} from "react-router-dom";
+import {Box, Typography} from "@mui/material";
 import {convertToMeetDatetime} from "../../tools/date";
 
 const useStyles = makeStyles((theme: Theme) =>

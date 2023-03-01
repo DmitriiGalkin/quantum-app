@@ -2,7 +2,7 @@ import React from 'react';
 import {makeStyles, Theme} from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
 import SaveIcon from '@material-ui/icons/Save';
-import {Avatar, Box, Button, Card, CardContent, CardHeader, Container, Grid, IconButton} from "@material-ui/core";
+import {Avatar, Button, Card, CardContent, CardHeader, Container, Grid, IconButton} from "@material-ui/core";
 import ForwardAppBar from "./components/ForwardAppBar";
 import {Link, useParams} from "react-router-dom";
 import {Project} from "../modules/project/types";
@@ -13,7 +13,6 @@ import {
     useProjectMeets,
     useProjectUsers
 } from "../modules/project/hook";
-import MeetCard from "./cards/MeetCard";
 import FavoriteIcon from "@material-ui/icons/Favorite";
 import ShareIcon from "@material-ui/icons/Share";
 import {DateTimeFormatter, LocalDateTime} from "@js-joda/core";

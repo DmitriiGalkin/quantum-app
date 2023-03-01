@@ -1,8 +1,5 @@
 import React from 'react';
 import {makeStyles, Theme} from '@material-ui/core/styles';
-import AppBar from '@material-ui/core/AppBar';
-import Tabs from '@material-ui/core/Tabs';
-import Tab from '@material-ui/core/Tab';
 import Typography from '@material-ui/core/Typography';
 import MeetCard from "./cards/MeetCard";
 import {Box, Container, Grid, Paper, useTheme} from "@material-ui/core";
@@ -11,7 +8,6 @@ import {TabPanel} from "../tools/tabs";
 import {green} from '@material-ui/core/colors';
 import AddIcon from "@material-ui/icons/Add";
 import EditIcon from '@material-ui/icons/Edit';
-import SwipeableViews from 'react-swipeable-views';
 import Zoom from '@material-ui/core/Zoom';
 import TaskCard from "./cards/TaskCard";
 import AddMeetButton from "./buttons/AddMeetButton";
@@ -19,8 +15,6 @@ import AddProjectButton from "./buttons/AddProjectButton";
 import {useMeets} from "../modules/meet/hook";
 import {useProjects} from "../modules/project/hook";
 import {useTasks} from "../modules/task/hook";
-import BottomNavigation from '@material-ui/core/BottomNavigation';
-import BottomNavigationAction from '@material-ui/core/BottomNavigationAction';
 import RocketIcon from '@mui/icons-material/Rocket';
 import GroupsIcon from '@mui/icons-material/Groups';
 import AutoAwesomeIcon from '@mui/icons-material/AutoAwesome';
@@ -28,7 +22,8 @@ import LocationOnIcon from '@material-ui/icons/LocationOn';
 import {DateTimeFormatter, LocalDate, LocalDateTime} from "@js-joda/core";
 import {formatter} from "../tools/date";
 import {useUserUniques} from "../modules/user/hook";
-import {Divider} from "@mui/material";
+import {Divider, BottomNavigation, BottomNavigationAction, Chip} from "@mui/material";
+import WhatshotIcon from "@material-ui/icons/Whatshot";
 
 
 const useStyles = makeStyles((theme: Theme) => ({
@@ -82,6 +77,14 @@ const useStyles = makeStyles((theme: Theme) => ({
         // '& > div + div ': {
         //     borderTop: '1px solid #DBDBDB',
         // }
+    },
+    root22: {
+        border: '1px solid #E1E3E8',
+        borderRadius: 12,
+        padding: 12,
+        '& > * + *': {
+            marginTop: 8,
+        }
     },
 }));//
 
@@ -153,7 +156,7 @@ export default function MeetsView() {
             <img src="/img.png" alt="мальчик" style={{ width: '90%' }}/>
             <div className={classes.content}>
                     <TabPanel value={value} index={0}>
-                        <Container maxWidth="lg" style={{ padding: '24px 16px 24px 32px' }} className={classes.container}>
+                        <Container maxWidth="lg" style={{ padding: '0 0 0 8px' }} className={classes.container}>
                         {meetsGroup.map(([date, meets], index) => {
                             const localDate = LocalDate.parse(date)
                             return (
@@ -190,7 +193,7 @@ export default function MeetsView() {
                         </Container>
                     </TabPanel>
                     <TabPanel value={value} index={1}>
-                        <Container maxWidth="lg" style={{ padding: 16 }}>
+                        <Container maxWidth="lg" style={{ padding: 0 }}>
 
                         <Grid container spacing={2}>
                             {projects.map((project) =>
@@ -202,7 +205,7 @@ export default function MeetsView() {
                         </Container>
                     </TabPanel>
                     <TabPanel value={value} index={2}>
-                        <Container maxWidth="lg" style={{ padding: 16 }}>
+                        <Container maxWidth="lg" style={{ padding: 0 }}>
                         <Grid container spacing={2}>
                             {tasks.map((task) =>
                                 <Grid item lg={4} xs={12} key={task.id}>
@@ -213,16 +216,29 @@ export default function MeetsView() {
                         </Container>
                     </TabPanel>
                     <TabPanel value={value} index={3}>
-                        <Container maxWidth="lg" style={{ padding: '24px 32px' }}>
-                        <Grid container spacing={2}>
+                        <Container maxWidth="lg" style={{ padding: 0 }}>
+                            <div style={{ padding: 24 }}>
+
+                                <Typography component="div" style={{ fontFamily: 'Bebas Neue, cursive', fontSize: 30, lineHeight: '32px', textTransform: 'uppercase', textAlign: 'center', color: '#313131' }}>
+                                    Дима Галкин,
+                                </Typography>
+                                <Typography component="div" style={{ fontSize: 15, lineHeight: '21px', fontFamily: 'Source Sans Pro', fontWeight: 700, textAlign: 'center', color: '#313131' }}>
+                                    у тебя Уникальные Ценности!
+                                </Typography>
+                            </div>
+                        <Box className={classes.root22} sx={{ display: 'flex', flexDirection: 'column' }}>
                             {uniques.map((unique) => (
-                                <Grid item xs={12}>
-                                    <Typography variant="body1">
+                                <Box style={{ display: 'flex' }}>
+                                    <Typography component="div" style={{ flexGrow: 1, fontSize: 14, lineHeight: '18px', fontFamily: 'Source Sans Pro', fontWeight: 400 }}>
                                         {unique.title}
                                     </Typography>
-                                </Grid>
+                                    <WhatshotIcon style={{ width: 20, height: 20 }}/>
+                                    <Typography component="div" style={{ fontSize: 14, lineHeight: '20px', fontFamily: 'Source Sans Pro', fontWeight: 700, paddingLeft: 6 }}>
+                                        15
+                                    </Typography>
+                                </Box>
                             ))}
-                        </Grid>
+                        </Box>
                         </Container>
                     </TabPanel>
                 <img src="/img_1.png" alt="мальчик" style={{ width: '100%', display: 'block' }}/>

@@ -1,13 +1,9 @@
 import React, {useState} from 'react';
-import {makeStyles, Theme, withStyles} from '@material-ui/core/styles';
+import {makeStyles, createStyles, withStyles} from '@material-ui/core/styles';
+
 import Typography from '@material-ui/core/Typography';
-import {Card, CardActionArea, CardContent, CardHeader, Container, Grid} from "@material-ui/core";
+import {Container} from "@material-ui/core";
 import ForwardAppBar from "./components/ForwardAppBar";
-import Image from "./components/Image";
-import {Link, useParams} from "react-router-dom";
-import {User} from "../modules/user/types";
-import {useUser, useUserProjects, useUserUniques} from "../modules/user/hook";
-import CardMedia from "@material-ui/core/CardMedia";
 import Stepper from "@material-ui/core/Stepper";
 import Step from "@material-ui/core/Step";
 import StepLabel from "@material-ui/core/StepLabel";
@@ -24,6 +20,7 @@ import SettingsIcon from "@material-ui/icons/Settings";
 import GroupAddIcon from "@material-ui/icons/GroupAdd";
 import VideoLabelIcon from "@material-ui/icons/VideoLabel";
 import clsx from "clsx";
+import {Theme} from "@mui/material";
 
 const ColorlibConnector = withStyles({
     alternativeLabel: {
