@@ -61,6 +61,7 @@ export default function ProjectCard(project: Project) {
                 <Image
                     src={`/${project.image}`}
                     alt={project.title}
+                    borderRadius={'12'}
                 />
             </div>
             <div className={classes.description}>

@@ -24,6 +24,7 @@ import {formatter} from "../tools/date";
 import {useUserUniques} from "../modules/user/hook";
 import {Divider, BottomNavigation, BottomNavigationAction, Chip} from "@mui/material";
 import WhatshotIcon from "@material-ui/icons/Whatshot";
+import EmojiEventsIcon from "@material-ui/icons/EmojiEvents";
 
 
 const useStyles = makeStyles((theme: Theme) => ({
@@ -231,7 +232,7 @@ export default function MeetsView() {
                                     <Typography component="div" style={{ flexGrow: 1, fontSize: 14, lineHeight: '18px', fontFamily: 'Source Sans Pro', fontWeight: 400 }}>
                                         {unique.title}
                                     </Typography>
-                                    <WhatshotIcon style={{ width: 20, height: 20 }}/>
+                                    <AutoAwesomeIcon style={{ width: 20, height: 20 }}/>
                                     <Typography component="div" style={{ fontSize: 14, lineHeight: '20px', fontFamily: 'Source Sans Pro', fontWeight: 700, paddingLeft: 6 }}>
                                         15
                                     </Typography>
@@ -253,7 +254,7 @@ export default function MeetsView() {
                 >
                     <BottomNavigationAction label="Встречи" icon={<GroupsIcon />} />
                     <BottomNavigationAction label="Проекты" icon={<RocketIcon />} />
-                    <BottomNavigationAction label="Задания" icon={<LocationOnIcon />} />
+                    <BottomNavigationAction label="Задания" icon={<EmojiEventsIcon />} />
                     <BottomNavigationAction label="Ценности" icon={<AutoAwesomeIcon />} />
                 </BottomNavigation>
             </Paper>

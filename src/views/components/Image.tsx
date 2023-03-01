@@ -21,13 +21,13 @@ const useStyles = makeStyles((theme) => ({
     }
 }));
 
-export default function Image({ src, alt }: { src: string, alt: string }) {
+export default function Image({ src, alt, borderRadius }: { src: string, alt: string, borderRadius?: string }) {
     const classes = useStyles();
 
     return (
         <Box className={classes.imageW}>
             <Box className={classes.imageContainer}>
-                <img alt={alt} src={src}  className={classes.image}/>
+                <img alt={alt} src={src}  className={classes.image} style={{ borderRadius }}/>
             </Box>
         </Box>
     );
