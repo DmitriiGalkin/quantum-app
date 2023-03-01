@@ -1,14 +1,39 @@
 'use strict';
+var async = require("async");
+
 const Meet = require('../models/meetModel');
+const User = require('../models/userModel');
+const Project = require('../models/projectModel');
 const UserMeet = require('../models/userMeetModel');
 
+
+// asynchronous function that returns the file size in bytes
+function getFileSizeInBytes(file, callback) {
+    fs.stat(file, function(err, stat) {
+        if (err) {
+            return callback(err);
+        }
+        callback(null, stat.size);
+    });
+}
+
 exports.findAll = function(req, res) {
-    Meet.findAll(function(err, employee) {
-        console.log('controller')
+    Meet.findAll(function(err, meets) {
         if (err)
             res.send(err);
-        console.log('res', employee);
-        res.send(employee);
+
+        const f = function(err, meetsWithUsers) {
+            if (err) console.log(err);
+            res.send(meetsWithUsers);
+        }
+
+        async.map(meets, User.findByMeet, function(err, meetsWithUsers) {
+            if (err) console.log(err);
+            async.map(meetsWithUsers, Project.findByMeet, function(err, meetsWithProject) {
+                if (err) console.log(err);
+                res.send(meetsWithProject);
+            });
+        });
     });
 };
 

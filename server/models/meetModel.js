@@ -13,7 +13,6 @@ var Meet = function(data){
 Meet.findAll = function (result) {
     dbConn.query("Select * from meets", function (err, res) {
         if(err) {
-            console.log("error: ", err);
             result(null, err);
         }
         else{
@@ -29,7 +28,7 @@ Meet.findById = function (id, result) {
             result(err, null);
         }
         else{
-            console.log('employees : ', res[0]);
+            // console.log('employees : ', res[0]);
             result(null, res[0]);
         }
     });

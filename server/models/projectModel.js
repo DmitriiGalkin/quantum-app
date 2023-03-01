@@ -21,6 +21,16 @@ Project.findAll = function (params, result) {
     });
 };
 
+Project.findByMeet = function (meet, result) {
+    dbConn.query("Select * from projects where  id = ? ", meet.id, function (err, res) {
+        if(err) {
+            result(err, null);
+        }
+        else{
+            result(null, { ...meet, project: res[0] });
+        }
+    });
+};
 Project.findById = function (id, result) {
     dbConn.query("Select * from projects where  id = ? ", id, function (err, res) {
         if(err) {
@@ -28,7 +38,7 @@ Project.findById = function (id, result) {
             result(err, null);
         }
         else{
-            console.log('employees : ', res[0]);
+            // console.log('employees : ', res[0]);
             result(null, res[0]);
         }
     });
