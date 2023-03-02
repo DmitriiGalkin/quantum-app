@@ -28,6 +28,7 @@ import {
 
 import DateMeets from "./cards/DateMeets";
 import {getMeetsGroup} from "./helper";
+import {useNavigate} from "react-router-dom";
 
 const useStyles = makeStyles((theme: Theme) => ({
     content: {
@@ -70,6 +71,7 @@ export default function MainView() {
     const { data: tasks = [] } = useTasks()
     const { data: uniques = [] } = useUserUniques(1)
     const meetsGroup = getMeetsGroup(meets)
+    const navigate = useNavigate();
 
     return (
         <div>
@@ -84,7 +86,7 @@ export default function MainView() {
                 </TabPanel>
                 <TabPanel value={value} index={1}>
                     <Container disableGutters>
-                        {projects.map((project) => <ProjectCard {...project} />)}
+                        {projects.map((project) => <ProjectCard {...project} onClick={() => navigate(`/project/${project.id}`)}/>)}
                     </Container>
                 </TabPanel>
                 <TabPanel value={value} index={2}>

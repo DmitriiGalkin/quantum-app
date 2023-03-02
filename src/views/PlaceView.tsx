@@ -7,7 +7,7 @@ import {Chip, Container, Grid} from "@material-ui/core";
 import ForwardAppBar from "./components/ForwardAppBar";
 import {TabPanel} from "../tools/tabs";
 import FaceIcon from "@material-ui/icons/Face";
-import {useParams} from "react-router-dom";
+import {useNavigate, useParams} from "react-router-dom";
 import {Place} from "../modules/place/types";
 import ProjectCard from "./cards/ProjectCard";
 import {usePlace, usePlaceProjects} from "../modules/place/hook";
@@ -33,6 +33,7 @@ export default function PlaceView() {
     const { id } = useParams();
     const { data: place = {} as Place } = usePlace(Number(id))
     const { data: projects = [] } = usePlaceProjects(Number(id))
+    const navigate = useNavigate();
 
     const handleChange = (event: React.ChangeEvent<{}>, newValue: number) => {
         setValue(newValue);
@@ -59,7 +60,7 @@ export default function PlaceView() {
                 <Container maxWidth="lg" style={{ paddingTop: 20 }}>
                     <Grid container spacing={2} alignItems="stretch">
                         {projects.map((project) =>                     <Grid item xs={3}>
-                            <ProjectCard {...project} /></Grid>)}
+                            <ProjectCard {...project} onClick={() => navigate(`/project/${project.id}`)} /></Grid>)}
                     </Grid>
                 </Container>
             </TabPanel>

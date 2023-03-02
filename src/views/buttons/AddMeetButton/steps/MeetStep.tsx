@@ -1,42 +1,11 @@
 import React, {useState} from 'react';
-import {makeStyles} from '@material-ui/core/styles';
-import Typography from '@material-ui/core/Typography';
-import Slider from '@material-ui/core/Slider';
-import Button from "@material-ui/core/Button";
+import {Typography, Slider, Button} from "@mui/material";
 import {MeetStepProps} from "./types";
+import {valuetext, valuetext2} from "./helper";
 
-const useStyles = makeStyles({
-    root: {
-        width: 300,
-    },
-    content: {
-        boxShadow: 'none',
-        '& .Calendar__header': {
-            paddingLeft: 0,
-            paddingRight: 0,
-        },
-        '& .Calendar__section': {
-            paddingLeft: 0,
-            paddingRight: 0,
-        }
-    }
-});
 
-function valuetext(value: number) {
-    return `${value}°C2222`;
-}
-function valuetext2(value: number) {
-    const {hours, minutes} = toHoursAndMinutes(value)
-    return `${hours}:${minutes}`;
-}
-function toHoursAndMinutes(totalMinutes: number) {
-    const hours = Math.floor(totalMinutes / 60);
-    const minutes = totalMinutes % 60;
-    return { hours, minutes };
-}
 
 export default function MeetStep({ handleBack, handleNext }: MeetStepProps) {
-    const classes = useStyles();
     const [value, setValue] = React.useState<number[]>([20, 37]);
     const [startDate, setStartDate] = useState(new Date());
 
@@ -45,8 +14,8 @@ export default function MeetStep({ handleBack, handleNext }: MeetStepProps) {
     };
 
     return (
-        <div className={classes.root}>
-            <Typography id="range-slider" gutterBottom>
+        <div>
+            <Typography>
                 Выберите время встречи
             </Typography>
             <Slider
@@ -60,15 +29,19 @@ export default function MeetStep({ handleBack, handleNext }: MeetStepProps) {
                 max={1080} // Когда заканчивает работать место, в котором проводится проект
                 step={15} // Каждые 15 минут
             />
-            <Button onClick={handleBack}>
-                Back
-            </Button>
             <Button
                 variant="contained"
-                color="primary"
+                color="secondary"
+                fullWidth
+                size="large"
                 onClick={handleNext}
+                sx={{
+                    borderRadius: 2,
+                    marginRight: 2,
+                    marginTop: 1,
+                }}
             >
-                Next
+                Далее
             </Button>
         </div>
     );

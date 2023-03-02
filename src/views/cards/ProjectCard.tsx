@@ -6,13 +6,13 @@ import {Box, Typography} from "@mui/material";
 import {convertToMeetDatetime} from "../../tools/date";
 import {Project, useProjectUsers} from "../../modules/project";
 
-export default function ProjectCard(project: Project) {
+interface ProjectCardProps extends Project {
+    onClick: () => void
+}
+export default function ProjectCard(project: ProjectCardProps) {
     const { data: users = [] } = useProjectUsers(project.id)
     const active = users.find((user) => user.id === 1) // TODO: убрать в бек
 
-    const navigate = useNavigate();
-
-    const handleOnClick = () => navigate(`/project/${project.id}`);
     const firstMeetDateTitle = convertToMeetDatetime(project.meet?.datetime)
     return (
     <Box sx={{ flexDirection: 'column', border: '1px solid #E1E3E8',
@@ -24,7 +24,7 @@ export default function ProjectCard(project: Project) {
             marginBottom: 2,
             backgroundColor: active ? 'rgba(255,204,0,0.1)' : undefined
         }}
-         onClick={handleOnClick}
+         onClick={project.onClick}
     >
         <Typography variant="h5">
             {project.title}
