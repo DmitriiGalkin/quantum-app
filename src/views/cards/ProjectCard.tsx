@@ -1,81 +1,51 @@
 import React from 'react';
-import {createStyles, makeStyles, Theme} from '@material-ui/core/styles';
-import {Project} from "../../modules/project/types";
 import Image from "../components/Image";
 
 import {useNavigate} from "react-router-dom";
 import {Box, Typography} from "@mui/material";
 import {convertToMeetDatetime} from "../../tools/date";
-
-const useStyles = makeStyles((theme: Theme) =>
-    createStyles({
-        root: {
-            border: '1px solid #E1E3E8',
-            borderRadius: 12,
-            padding: 12,
-            '& > * + *': {
-                paddingTop: 10,
-            },
-            marginBottom: 12
-        },
-        details: {
-            display: 'flex',
-            flexDirection: 'column',
-        },
-        content: {
-            flex: '1 0 auto',
-        },
-        image: {
-            display: 'block',
-            minWidth: 75,
-        },
-        controls: {
-            display: 'flex',
-            alignItems: 'center',
-            paddingLeft: theme.spacing(1),
-            paddingBottom: theme.spacing(1),
-        },
-        playIcon: {
-            height: 38,
-            width: 38,
-        },
-        title: {
-            paddingBottom: theme.spacing(2),
-        },
-        description: {
-            paddingLeft: theme.spacing(2),
-        },
-    }),
-);
-
-
+import {Project, useProjectUsers} from "../../modules/project";
 
 export default function ProjectCard(project: Project) {
-    const classes = useStyles();
+    const { data: users = [] } = useProjectUsers(project.id)
+    const active = users.find((user) => user.id === 1) // TODO: убрать в бек
+
     const navigate = useNavigate();
+
     const handleOnClick = () => navigate(`/project/${project.id}`);
     const firstMeetDateTitle = convertToMeetDatetime(project.meet?.datetime)
     return (
-    <Box className={classes.root} sx={{ flexDirection: 'column' }} onClick={handleOnClick}>
+    <Box sx={{ flexDirection: 'column', border: '1px solid #E1E3E8',
+            borderRadius: 2,
+            padding: 2,
+            '& > * + *': {
+                paddingTop: 2,
+            },
+            marginBottom: 2,
+            backgroundColor: active ? 'rgba(255,204,0,0.1)' : undefined
+        }}
+         onClick={handleOnClick}
+    >
         <Typography variant="h5">
             {project.title}
         </Typography>
         <div style={{ display: 'flex' }}>
-            <div className={classes.image}>
+            <Box sx={{display: 'block',
+                minWidth: '75px'}}>
                 <Image
                     src={`/${project.image}`}
                     alt={project.title}
                     borderRadius={'12'}
                 />
-            </div>
-            <div className={classes.description}>
+            </Box>
+            <Box sx={{ paddingLeft: 2 }}>
                 <Typography variant="subtitle1" color="primary">
                     {firstMeetDateTitle}
                 </Typography>
                 <Typography>
                     {project.description}
                 </Typography>
-            </div>
+            </Box>
         </div>
     </Box>
     );
