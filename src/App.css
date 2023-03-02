@@ -22,3 +22,7 @@
     font-weight: 400;
     src: local('Source Sans Pro Italic'), local('SourceSansPro-It'), url(http://themes.googleusercontent.com/static/fonts/sourcesanspro/v7/M2Jd71oPJhLKp0zdtTvoMzNrcjQuD0pTu1za2FULaMs.woff) format('woff');
 }
+
+body {
+    font-size: 14px;
+}

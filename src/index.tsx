@@ -7,6 +7,25 @@ import {QueryClient, QueryClientProvider,} from '@tanstack/react-query'
 import {createMuiTheme, CssBaseline, ThemeProvider} from "@mui/material";
 
 const theme = createMuiTheme({
+    typography: {
+        fontFamily: 'Manrope, Arial',
+        h5: {
+            fontSize: 16,
+            fontWeight: 700,
+        },
+        h6: {
+            fontSize: 15,
+            fontWeight: 500,
+        },
+        body1: {
+            fontSize: 14,
+            fontWeight: 400,
+        },
+        subtitle1: {
+            fontSize: 14,
+            fontWeight: 700,
+        }
+    },
     spacing: 6,
     palette: {
         background: {

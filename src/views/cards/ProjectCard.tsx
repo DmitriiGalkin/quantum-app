@@ -13,6 +13,9 @@ const useStyles = makeStyles((theme: Theme) =>
             border: '1px solid #E1E3E8',
             borderRadius: 12,
             padding: 12,
+            '& > * + *': {
+                paddingTop: 10,
+            }
         },
         details: {
             display: 'flex',
@@ -53,7 +56,7 @@ export default function ProjectCard(project: Project) {
     const firstMeetDateTitle = convertToMeetDatetime(project.meet?.datetime)
     return (
     <Box className={classes.root} sx={{ flexDirection: 'column' }} onClick={handleOnClick}>
-        <Typography className={classes.title} style={{ fontSize: 14, lineHeight: '20px', fontFamily: 'Source Sans Pro', fontWeight: 700 }}>
+        <Typography variant="h5">
             {project.title}
         </Typography>
         <div style={{ display: 'flex' }}>
@@ -65,10 +68,10 @@ export default function ProjectCard(project: Project) {
                 />
             </div>
             <div className={classes.description}>
-                <Typography color="primary" style={{ fontSize: 13, lineHeight: '19px', fontFamily: 'Source Sans Pro', fontWeight: 700 }}>
+                <Typography variant="subtitle1" color="primary">
                     {firstMeetDateTitle}
                 </Typography>
-                <Typography style={{ fontSize: 13, lineHeight: '16px', fontFamily: 'Source Sans Pro', fontWeight: 300 }}>
+                <Typography>
                     {project.description}
                 </Typography>
             </div>
