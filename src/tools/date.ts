@@ -6,6 +6,7 @@ export const r = []
 export const dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSS");
 
 export const formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
+export const formatter2 = DateTimeFormatter.ofPattern('yyyy-MM-dd');
 
 const m = {
     0: 'ЯНВ',
@@ -52,4 +53,14 @@ export const convertToMeetTime = (datetime?: string): string => {
 
     const localDateTime = LocalDateTime.parse(datetime, formatter)
     return localDateTime.format(DateTimeFormatter.ofPattern('HH:mm'))
+}
+
+/**
+ * Server datetime to 'yyyy-MM-dd'
+ */
+export const convertToMeetsGroupTime = (datetime?: string): string => {
+    if (!datetime) return '';
+
+    const localDateTime = LocalDateTime.parse(datetime, formatter)
+    return localDateTime.format(formatter2)
 }

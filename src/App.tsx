@@ -1,6 +1,6 @@
 import React from 'react';
 import {Route, Routes} from "react-router";
-import MeetsView from "./views/MeetsView";
+import MainView from "./views/MainView";
 import ProjectView from "./views/ProjectView";
 import PlaceView from "./views/PlaceView";
 import UserView from "./views/UserView";
@@ -14,7 +14,7 @@ function App() {
       <>
           <Routes>
               <Route path="/">
-                  <Route index element={<MeetsView />} />
+                  <Route index element={<MainView />} />
                   <Route path="meet" element={<MeetCreateView />} />
                   <Route path="project/:id" element={<ProjectView />} />
                   <Route path="place" element={<PlacesView />} />

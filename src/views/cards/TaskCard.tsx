@@ -3,7 +3,7 @@ import {makeStyles, createStyles} from '@material-ui/core/styles';
 import {Task} from "../../modules/task/types";
 import {Box, Button, Chip, Typography, Theme} from "@mui/material";
 
-import EmojiEventsIcon from "@material-ui/icons/EmojiEvents";
+import AutoAwesomeIcon from '@mui/icons-material/AutoAwesome';
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
@@ -13,7 +13,8 @@ const useStyles = makeStyles((theme: Theme) =>
             padding: 12,
             '& > * + *': {
                 marginTop: 8,
-            }
+            },
+            marginBottom: 12,
         },
         button: {
             marginRight: theme.spacing(2),
@@ -41,7 +42,7 @@ export default function TaskCard(task: Task) {
                     <Typography component="div" style={{ flexGrow: 1, fontSize: 14, lineHeight: '18px', fontFamily: 'Source Sans Pro', fontWeight: 400 }}>
                         Количество баллов
                     </Typography>
-                    <EmojiEventsIcon style={{ width: 20, height: 20 }}/>
+                    <AutoAwesomeIcon style={{ width: 20, height: 20 }} color="primary"/>
                     <Typography component="div" style={{ fontSize: 14, lineHeight: '20px', fontFamily: 'Source Sans Pro', fontWeight: 700, paddingLeft: 6 }}>
                          {task.points}
                     </Typography>
