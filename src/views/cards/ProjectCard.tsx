@@ -33,7 +33,7 @@ export default function ProjectCard(project: Project) {
             <Box sx={{display: 'block',
                 minWidth: '75px'}}>
                 <Image
-                    src={`/${project.image}`}
+                    src={project.image}
                     alt={project.title}
                     borderRadius={'12'}
                 />

@@ -33,11 +33,9 @@ Project.findByMeet = function (meet, result) {
 Project.findById = function (id, result) {
     dbConn.query("Select * from projects where  id = ? ", id, function (err, res) {
         if(err) {
-            console.log("error: ", err);
             result(err, null);
         }
         else{
-            // console.log('employees : ', res[0]);
             result(null, res[0]);
         }
     });

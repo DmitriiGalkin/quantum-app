@@ -1,8 +1,8 @@
 import {Project} from "./types";
-import {useMutation, useQuery, UseQueryResult} from "@tanstack/react-query";
-import {User} from "../user/types";
+import {useMutation, useQuery, useQueryClient, UseQueryResult} from "@tanstack/react-query";
+import {User} from "../user";
 import service, {UseMutate} from "../../tools/service";
-import {Meet} from "../meet/types";
+import {Meet} from "../meet";
 
 export const useProjects = (): UseQueryResult<Project[]> => {
     return useQuery(['projects'], () => service.get(`/projects`),)
@@ -23,6 +23,22 @@ interface ProjectUser {
     projectId: number
     userId?: number
 }
-export const useAddProjectUser = (): UseMutate<ProjectUser> => useMutation(({ userId = 1, projectId }) => service.post("/projects/" + projectId + '/user/' + userId))
-export const useDeleteProjectUser = (): UseMutate<ProjectUser> => useMutation(({ userId = 1, projectId }) => service.delete("/projects/" + projectId + '/user/' + userId))
+// export const useAddProjectUser = (): UseMutate<ProjectUser> => useMutation(({ userId = 1, projectId }) => service.post("/projects/" + projectId + '/user/' + userId))
+// export const useDeleteProjectUser = (): UseMutate<ProjectUser> => useMutation(({ userId = 1, projectId }) => service.delete("/projects/" + projectId + '/user/' + userId))
 
+export const useAddProjectUser = (projectId?: number): UseMutate<ProjectUser> => {
+    const queryClient = useQueryClient()
+    return useMutation(({ userId = 1, projectId }) => service.post("/projects/" + projectId + '/user/' + userId), {
+        onSuccess() {
+            queryClient.invalidateQueries(['projectUsers', projectId])
+        },
+    })
+}
+export const useDeleteProjectUser = (projectId?: number): UseMutate<ProjectUser> => {
+    const queryClient = useQueryClient()
+    return useMutation(({ userId = 1, projectId }) => service.delete("/projects/" + projectId + '/user/' + userId), {
+        onSuccess() {
+            queryClient.invalidateQueries(['projectUsers', projectId])
+        },
+    })
+}

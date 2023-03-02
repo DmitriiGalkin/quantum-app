@@ -5,6 +5,7 @@ const Project = require('../models/projectModel');
 const ProjectUser = require('../models/projectUserModel');
 const Meet = require('../models/meetModel');
 const Place = require('../models/placeModel');
+const User = require('../models/userModel');
 
 exports.findAll = function(req, res) {
     Project.findAll(function(err, projects) {
@@ -20,10 +21,15 @@ exports.findAll = function(req, res) {
     });
 };
 exports.findById = function(req, res) {
-    Project.findById(req.params.id, function(err, employee) {
+    Project.findById(req.params.id, function(err, project) {
         if (err)
             res.send(err);
-        res.json(employee);
+
+        Place.findById(project.placeId, function(err, place) {
+            if (err)
+                res.send(err);
+            res.send({ ...project, place });
+        });
     });
 };
 exports.findByPlaceId = function(req, res) {

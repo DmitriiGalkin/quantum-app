@@ -128,6 +128,7 @@ function getStepContent(project: Project, setProject: (project: Project)=> void,
 }
 const DEFAULT_PROJECT: Project = {
     id: 12,
+    image: '/group_dd.jpg',
     title: 'новый проект',
     description: 'описание нового проекта',
     placeId: null,

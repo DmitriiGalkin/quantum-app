@@ -1,27 +1,32 @@
 import React from 'react';
 import {makeStyles, Theme} from '@material-ui/core/styles';
-import {Container, Paper, useTheme} from "@material-ui/core";
 import ProjectCard from "./cards/ProjectCard";
 import {TabPanel} from "../tools/tabs";
-import AddIcon from "@material-ui/icons/Add";
-import EditIcon from '@material-ui/icons/Edit';
-import Zoom from '@material-ui/core/Zoom';
+import AddIcon from "@mui/icons-material/Add";
+import EditIcon from '@mui/icons-material/Edit';
 import TaskCard from "./cards/TaskCard";
 import AddMeetButton from "./buttons/AddMeetButton";
 import AddProjectButton from "./buttons/AddProjectButton";
-import {useMeets} from "../modules/meet/hook";
-import {useProjects} from "../modules/project/hook";
-import {useTasks} from "../modules/task/hook";
+import {Meet, useMeets} from "../modules/meet";
+import {useProjects} from "../modules/project";
+import {useTasks} from "../modules/task";
 import RocketIcon from '@mui/icons-material/Rocket';
 import GroupsIcon from '@mui/icons-material/Groups';
 import AutoAwesomeIcon from '@mui/icons-material/AutoAwesome';
-import {useUserUniques} from "../modules/user/hook";
-import {BottomNavigation, BottomNavigationAction} from "@mui/material";
 import EmojiEventsIcon from "@material-ui/icons/EmojiEvents";
-import {Box, Typography} from "@mui/material";
+import {useUserUniques} from "../modules/user";
+import {
+    BottomNavigation,
+    BottomNavigationAction,
+    Box,
+    Container,
+    Paper,
+    Typography,
+    useTheme,
+    Zoom
+} from "@mui/material";
 
 import DateMeets from "./cards/DateMeets";
-import {Meet} from "../modules/meet";
 import {getMeetsGroup} from "./helper";
 
 const useStyles = makeStyles((theme: Theme) => ({
@@ -41,7 +46,7 @@ const useStyles = makeStyles((theme: Theme) => ({
         left: theme.spacing(2),
     },
 }));
-const fabs = [
+const FABS = [
     {
         component: <AddMeetButton/>,
         icon: <AddIcon />,
@@ -136,7 +141,7 @@ export default function MainView() {
                     <BottomNavigationAction label="Ценности" icon={<AutoAwesomeIcon />} />
                 </BottomNavigation>
             </Paper>
-            {fabs.map((fab, index) => (
+            {FABS.map((fab, index) => (
                 <Zoom
                     key={index}
                     in={value === index}

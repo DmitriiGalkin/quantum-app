@@ -51,7 +51,6 @@ User.findByProjectMeet = function (project, result) {
 User.findByMeet = function (meet, result) {
     dbConn.query("Select * from users LEFT JOIN meet_user ON users.id = meet_user.userId where meetId = ? ORDER BY meet_user.created_at DESC", meet.id, function (err, res) {
         if(err) {
-            console.log("error: ", err);
             result(err, null);
         }
         else{

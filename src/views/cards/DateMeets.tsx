@@ -1,10 +1,9 @@
 import React from 'react';
-import {Meet, useAddMeetUser, useDeleteMeetUser} from "../../modules/meet";
-import {convertToMeetTime, getMonth} from "../../tools/date";
-import {Box, Typography, AvatarGroup, Avatar, Divider} from "@mui/material";
+import {Meet} from "../../modules/meet";
+import {getMonth} from "../../tools/date";
+import {Divider, Typography} from "@mui/material";
 import {LocalDate} from "@js-joda/core";
 import {makeStyles, Theme} from "@material-ui/core/styles";
-import {green} from "@material-ui/core/colors";
 import MeetCard from "./MeetCard";
 
 const useStyles = makeStyles((theme: Theme) => ({

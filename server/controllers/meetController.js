@@ -29,10 +29,13 @@ exports.findById = function(req, res) {
     });
 };
 exports.findByProjectId = function(req, res) {
-    Meet.findByProjectId(req.params.id, function(err, arr) {
+    Meet.findByProjectId(req.params.id, function(err, meets) {
         if (err)
             res.send(err);
-        res.json(arr);
+        async.map(meets, User.findByMeet, function(err, meetsWithUsers) {
+            if (err) console.log(err);
+            res.send(meetsWithUsers);
+        });
     });
 };
 
