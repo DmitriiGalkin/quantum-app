@@ -26,6 +26,8 @@ import {Divider, BottomNavigation, BottomNavigationAction, Chip} from "@mui/mate
 import WhatshotIcon from "@material-ui/icons/Whatshot";
 import EmojiEventsIcon from "@material-ui/icons/EmojiEvents";
 
+import DateMeets from "./cards/DateMeets";
+import {Meet} from "../modules/meet";
 
 const useStyles = makeStyles((theme: Theme) => ({
     title: {
@@ -91,15 +93,6 @@ const useStyles = makeStyles((theme: Theme) => ({
 
 export const formatter2 = DateTimeFormatter.ofPattern('yyyy-MM-dd');
 
-const m = {
-    0: 'ЯНВ',
-    1: 'ФЕВ',
-    2: 'МАР',
-    3: 'АПР',
-    4: 'МАЙ',
-}
-const getMonth = (n: number) => Object.values(m)[n]
-
 export function groupBy<K, V>(list: Array<V>, keyGetter: (input: V) => K): Map<K, Array<V>> {
    const map = new Map<K, Array<V>>();
     list.forEach((item) => {
@@ -129,9 +122,6 @@ export default function MeetsView() {
         return date
     }))];
 
-    const handleChange = (event: React.ChangeEvent<{}>, newValue: number) => {
-        setValue(newValue);
-    };
     const transitionDuration = {
         enter: theme.transitions.duration.enteringScreen,
         exit: theme.transitions.duration.leavingScreen,
@@ -148,49 +138,15 @@ export default function MeetsView() {
         }
     ];
 
-    const handleChangeIndex = (index: number) => {
-        setValue(index);
-    };
-
     return (
         <>
             <img src="/img.png" alt="мальчик" style={{ width: '90%' }}/>
             <div className={classes.content}>
                     <TabPanel value={value} index={0}>
                         <Container maxWidth="lg" style={{ padding: '0 0 0 8px' }} className={classes.container}>
-                        {meetsGroup.map(([date, meets], index) => {
-                            const localDate = LocalDate.parse(date)
-                            return (
-                                <>
-                                    {Boolean(index) && <Divider light />}
-                                    <div className={classes.meetsGroup} key={date}>
-                                        <div>
-                                            <div className={classes.date}>
-                                                <Typography style={{ fontFamily: 'Bebas Neue, cursive', fontSize: 26, lineHeight: '28px' }} component="span">
-                                                    {localDate.dayOfMonth()}
-                                                </Typography>
-                                                <Typography style={{ fontSize: 13, lineHeight: '19px', fontFamily: 'Source Sans Pro', fontWeight: 700 }}>
-                                                    {getMonth(localDate.monthValue())}
-                                                </Typography>
-                                            </div>
-                                        </div>
-                                        <div style={{ flexGrow: 1 }}>
-                                            <div>
-                                                {meets.map((meet, index) =>
-                                                    <>
-                                                        {Boolean(index) && <Divider light variant="middle" />}
-                                                        <div key={meet.id}>
-                                                            <MeetCard {...meet} refetch={refetch} />
-                                                        </div>
-                                                    </>
-                                                )}
-                                            </div>
-                                        </div>
-                                    </div>
-                                </>
-
-                            )
-                        })}
+                        {meetsGroup.map(([date, meets]) => (
+                            <DateMeets date={date} meets={meets as Meet[]} refetch={refetch}/>
+                        ))}
                         </Container>
                     </TabPanel>
                     <TabPanel value={value} index={1}>

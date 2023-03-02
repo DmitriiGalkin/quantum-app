@@ -38,7 +38,7 @@ User.findUniquesById = function (id, result) {
 };
 
 User.findByProjectMeet = function (project, result) {
-    dbConn.query("Select * from users LEFT JOIN meet_user ON users.id = meet_user.userId where meetId = ? ", meet.id, function (err, res) {
+    dbConn.query("Select * from users LEFT JOIN meet_user ON users.id = meet_user.userId where meetId = ? ORDER BY meet_user.created_at DESC", meet.id, function (err, res) {
         if(err) {
             console.log("error: ", err);
             result(err, null);
@@ -49,7 +49,7 @@ User.findByProjectMeet = function (project, result) {
     });
 };
 User.findByMeet = function (meet, result) {
-    dbConn.query("Select * from users LEFT JOIN meet_user ON users.id = meet_user.userId where meetId = ? ", meet.id, function (err, res) {
+    dbConn.query("Select * from users LEFT JOIN meet_user ON users.id = meet_user.userId where meetId = ? ORDER BY meet_user.created_at DESC", meet.id, function (err, res) {
         if(err) {
             console.log("error: ", err);
             result(err, null);
@@ -60,7 +60,7 @@ User.findByMeet = function (meet, result) {
     });
 };
 User.findByMeetId = function (id, result) {
-    dbConn.query("Select * from users LEFT JOIN meet_user ON users.id = meet_user.userId where meetId = ? ", id, function (err, res) {
+    dbConn.query("Select * from users LEFT JOIN meet_user ON users.id = meet_user.userId where meetId = ? ORDER BY meet_user.created_at DESC", id, function (err, res) {
         if(err) {
             console.log("error: ", err);
             result(err, null);

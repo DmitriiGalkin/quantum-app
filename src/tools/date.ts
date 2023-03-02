@@ -14,8 +14,7 @@ const m = {
     3: 'АПР',
     4: 'МАЙ',
 }
-
-const getMonth = (n: number) => Object.values(m)[n]
+export const getMonth = (n: number) => Object.values(m)[n]
 
 
 const LONG_MONTHS = {
@@ -43,4 +42,14 @@ export const convertToMeetDatetime = (datetime?: string): string => {
         + getLongMonth(Number(localDateTime.format(DateTimeFormatter.ofPattern('M'))))
         + ', '
         + localDateTime.format(DateTimeFormatter.ofPattern('HH:mm'))
+}
+
+/**
+ * Server datetime to 'HH:mm'
+ */
+export const convertToMeetTime = (datetime?: string): string => {
+    if (!datetime) return '';
+
+    const localDateTime = LocalDateTime.parse(datetime, formatter)
+    return localDateTime.format(DateTimeFormatter.ofPattern('HH:mm'))
 }

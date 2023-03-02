@@ -1,32 +1,30 @@
 import React from 'react';
-import {Meet} from "../../modules/meet/types";
-import {DateTimeFormatter, LocalDateTime} from "@js-joda/core";
-import {useAddMeetUser, useDeleteMeetUser} from "../../modules/meet/hook";
-import {formatter} from "../../tools/date";
+import {Meet, useAddMeetUser, useDeleteMeetUser} from "../../modules/meet";
+import {convertToMeetTime} from "../../tools/date";
 import {Box, Typography, AvatarGroup, Avatar} from "@mui/material";
 
 interface MeetCardProps extends Meet {
     refetch: () => void
 }
 export default function MeetCard({ refetch, ...meet }: MeetCardProps) {
-    const localDateTime = LocalDateTime.parse(meet.datetime, formatter)
-    const time = localDateTime.format(DateTimeFormatter.ofPattern('HH:mm'))
-    const mutation = useAddMeetUser()
-    const mutation2 = useDeleteMeetUser()
+    const time = convertToMeetTime(meet.datetime)
+    const active = meet.users.find((user) => user.id === 1) // TODO: убрать в бек
 
-    const active = meet.users.find((user) => user.id === 1)
+    const addMeetUser = useAddMeetUser()
+    const deleteMeetUser = useDeleteMeetUser()
+
     const onClick = () => {
         if (active) {
-            mutation2.mutate({ meetId: meet.id })
+            deleteMeetUser.mutate({ meetId: meet.id })
             refetch()
         } else {
-            mutation.mutate({ meetId: meet.id })
+            addMeetUser.mutate({ meetId: meet.id })
             refetch()
         }
     }
 
     return (
-        <Box style={{ padding: '8px 16px' }} onClick={onClick}>
+        <Box style={{ padding: '8px 16px', backgroundColor: active ? 'rgba(255,204,0,0.1)' : undefined }} onClick={onClick}>
             <Box style={{ display: 'flex', alignItems: 'center' }}>
                 <Box style={{ flexGrow: 1 }}>
                     <Typography variant="h6">
