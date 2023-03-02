@@ -1,65 +1,51 @@
 import React from 'react';
-import {makeStyles, createStyles} from '@material-ui/core/styles';
-import {Task} from "../../modules/task/types";
-import {Box, Button, Chip, Typography, Theme} from "@mui/material";
-
+import {Task} from "../../modules/task";
+import {Box, Button, Chip, Typography} from "@mui/material";
 import AutoAwesomeIcon from '@mui/icons-material/AutoAwesome';
 
-const useStyles = makeStyles((theme: Theme) =>
-    createStyles({
-        root: {
-            border: '1px solid #E1E3E8',
-            borderRadius: 12,
-            padding: 12,
-            '& > * + *': {
-                marginTop: 8,
-            },
-            marginBottom: 12,
-        },
-        button: {
-            marginRight: theme.spacing(2),
-        },
-    }),
-);
-
 export default function TaskCard(task: Task) {
-    const classes = useStyles();
 
     return (
-        <Box className={classes.root} sx={{ display: 'flex', flexDirection: 'column' }}>
+        <Box sx={{ display: 'flex', flexDirection: 'column', border: '1px solid #E1E3E8',
+            borderRadius: 2,
+            padding: 2,
+            '& > * + *': {
+                marginTop: 2,
+            },
+            marginBottom: 2,
+        }}>
             <div>
-                <Chip label="Рисование" color="primary" size="small" variant="outlined"                 sx={{
+                <Chip label="Рисование" color="primary" size="small" variant="outlined"
+                      sx={{
                     borderRadius: 2
                 }}/>
             </div>
             <div>
-                <Typography component="div" style={{ fontSize: 14, lineHeight: '20px', fontFamily: 'Source Sans Pro', fontWeight: 700 }}>
+                <Typography variant="h5">
                     {task.title}
                 </Typography>
             </div>
-            <Box sx={{ width: '100%', maxWidth: 360, bgcolor: 'background.paper' }}>
-                <Box style={{ display: 'flex' }}>
-                    <Typography component="div" style={{ flexGrow: 1, fontSize: 14, lineHeight: '18px', fontFamily: 'Source Sans Pro', fontWeight: 400 }}>
-                        Количество баллов
-                    </Typography>
-                    <AutoAwesomeIcon style={{ width: 20, height: 20 }} color="primary"/>
-                    <Typography component="div" style={{ fontSize: 14, lineHeight: '20px', fontFamily: 'Source Sans Pro', fontWeight: 700, paddingLeft: 6 }}>
-                         {task.points}
-                    </Typography>
-                </Box>
+            <Box style={{ display: 'flex', alignItems: 'center' }}>
+                <Typography component="div" style={{ flexGrow: 1 }}>
+                    Количество баллов
+                </Typography>
+                <AutoAwesomeIcon style={{ width: 20, height: 20 }} color="primary"/>
+                <Typography variant="subtitle1" sx={{ paddingLeft: 1 }}>
+                     {task.points}
+                </Typography>
             </Box>
-            <div><Button
+            <Button
                 variant="contained"
                 color="secondary"
-                // startIcon={<EmojiEventsIcon />}
-                className={classes.button}
                 fullWidth
                 sx={{
-                    borderRadius: 2
+                    borderRadius: 2,
+                    marginRight: 2,
+                    marginTop: 1,
                 }}
             >
                 Начать
-            </Button></div>
+            </Button>
 
 
         </Box>
