@@ -3,9 +3,9 @@ import {DateTimeFormatter, LocalDateTime} from "@js-joda/core";
 export const r = []
 
 // Форматирование даты, используемое для отправки на бек
-export const dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSS");
+export const dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
 
-export const formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
+export const formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss");
 export const formatter2 = DateTimeFormatter.ofPattern('yyyy-MM-dd');
 
 const m = {
@@ -33,11 +33,21 @@ const LONG_MONTHS = {
     11: 'Декабря',
 }
 const getLongMonth = (number: number) => Object.values(LONG_MONTHS)[number]
+const DAYS_OF_WEEK = new Map([
+    ['Su', 'Вс'],
+    ['Mo', 'Пн'],
+    ['Tu', 'Вт'],
+    ['We', 'Ср'],
+    ['Th', 'Чт'],
+    ['Fr', 'Пт'],
+    ['Sa', 'Сб']
+])
+export const getDayOfWeek = (day: string) => DAYS_OF_WEEK.get(day) as string
 
 export const convertToMeetDatetime = (datetime?: string): string => {
     if (!datetime) return '';
 
-    const localDateTime = LocalDateTime.parse(datetime, formatter)
+    const localDateTime = LocalDateTime.parse(datetime, DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'"))
     return localDateTime.format(DateTimeFormatter.ofPattern('d'))
         + ' '
         + getLongMonth(Number(localDateTime.format(DateTimeFormatter.ofPattern('M'))))
@@ -50,8 +60,7 @@ export const convertToMeetDatetime = (datetime?: string): string => {
  */
 export const convertToMeetTime = (datetime?: string): string => {
     if (!datetime) return '';
-
-    const localDateTime = LocalDateTime.parse(datetime, formatter)
+    const localDateTime = LocalDateTime.parse(datetime, DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'"))
     return localDateTime.format(DateTimeFormatter.ofPattern('HH:mm'))
 }
 
@@ -60,7 +69,15 @@ export const convertToMeetTime = (datetime?: string): string => {
  */
 export const convertToMeetsGroupTime = (datetime?: string): string => {
     if (!datetime) return '';
+    const localDateTime = LocalDateTime.parse(datetime, DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'"))
+    return localDateTime.format(formatter2)
+}
 
-    const localDateTime = LocalDateTime.parse(datetime, formatter)
+/**
+ * Server datetime to 'yyyy-MM-dd'
+ */
+export const convertToMeetsGroupTime2 = (datetime?: string): string => {
+    if (!datetime) return '';
+    const localDateTime = LocalDateTime.parse(datetime, DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss"))
     return localDateTime.format(formatter2)
 }

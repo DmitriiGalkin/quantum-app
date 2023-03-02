@@ -125,7 +125,7 @@ export default function ProjectView() {
                             Встречи
                         </Typography>
                         {meetsGroup.map(([date, meets]) => (
-                            <DateMeets date={date} meets={meets as Meet[]} refetch={refetch}/>
+                            <DateMeets date={date} meets={meets as Meet[]}/>
                         ))}
                     </div>
                     <div className={classes.block}>

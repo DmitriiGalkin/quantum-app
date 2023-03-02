@@ -8,5 +8,5 @@ function toHoursAndMinutes(totalMinutes: number) {
 }
 export function valuetext2(value: number) {
     const {hours, minutes} = toHoursAndMinutes(value)
-    return `${hours}:${minutes}`;
+    return `${hours}:${minutes === 0 ? '00' : minutes}`;
 }

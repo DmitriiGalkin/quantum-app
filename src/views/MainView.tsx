@@ -80,7 +80,7 @@ export default function MainView() {
                 <TabPanel value={value} index={0}>
                     <Container disableGutters>
                         {meetsGroup.map(([date, meets]) => (
-                            <DateMeets date={date} meets={meets as Meet[]} refetch={refetch}/>
+                            <DateMeets date={date} meets={meets as Meet[]}/>
                         ))}
                     </Container>
                 </TabPanel>

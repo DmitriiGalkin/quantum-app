@@ -5,6 +5,7 @@ import {useNavigate} from "react-router-dom";
 import {Box, Typography} from "@mui/material";
 import {convertToMeetDatetime} from "../../tools/date";
 import {Project, useProjectUsers} from "../../modules/project";
+import LocationOnIcon from '@mui/icons-material/LocationOn';
 
 interface ProjectCardProps extends Project {
     onClick: () => void
@@ -44,6 +45,10 @@ export default function ProjectCard(project: ProjectCardProps) {
                 </Typography>
                 <Typography>
                     {project.description}
+                </Typography>
+                <Typography>
+                    <LocationOnIcon/>
+                    {project.place?.title}
                 </Typography>
             </Box>
         </div>

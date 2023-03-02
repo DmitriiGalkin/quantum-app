@@ -3,10 +3,7 @@ import {Meet, useAddMeetUser, useDeleteMeetUser} from "../../modules/meet";
 import {convertToMeetTime} from "../../tools/date";
 import {Avatar, AvatarGroup, Box, Typography} from "@mui/material";
 
-interface MeetCardProps extends Meet {
-    refetch: () => void
-}
-export default function MeetCard({ refetch, ...meet }: MeetCardProps) {
+export default function MeetCard(meet: Meet) {
     const time = convertToMeetTime(meet.datetime)
     const active = meet.users?.find((user) => user.id === 1) // TODO: убрать в бек
 
@@ -22,7 +19,7 @@ export default function MeetCard({ refetch, ...meet }: MeetCardProps) {
     }
 
     return (
-        <Box style={{ padding: '8px 16px', backgroundColor: active ? 'rgba(255,204,0,0.1)' : undefined }} onClick={onClick}>
+        <Box style={{ padding: '8px 16px', backgroundColor: active ? 'rgba(255,204,0,0.2)' : undefined }} onClick={onClick}>
             <Box style={{ display: 'flex', alignItems: 'center' }}>
                 <Box style={{ flexGrow: 1 }}>
                     <Typography variant="h6">

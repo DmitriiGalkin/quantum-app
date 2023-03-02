@@ -20,7 +20,9 @@ import SettingsIcon from "@material-ui/icons/Settings";
 import GroupAddIcon from "@material-ui/icons/GroupAdd";
 import VideoLabelIcon from "@material-ui/icons/VideoLabel";
 import clsx from "clsx";
-import {Theme} from "@mui/material";
+import {Button, MobileStepper, Theme} from "@mui/material";
+import KeyboardArrowRight from "@mui/icons-material/KeyboardArrowRight";
+import KeyboardArrowLeft from "@mui/icons-material/KeyboardArrowLeft";
 
 const ColorlibConnector = withStyles({
     alternativeLabel: {
@@ -152,6 +154,7 @@ const DEFAULT_MEET: NewMeet = {
     image: null,
     datetime: nativeJs(new Date()).format(dateTimeFormatter),
     projectId: null,
+    startDatetime: '',
 }
 export default function MeetCreateView() {
     const classes = useStyles();
@@ -184,15 +187,8 @@ export default function MeetCreateView() {
     return (
         <div className={classes.root}>
             <ForwardAppBar title="Создать встречу"/>
-            <Stepper className={classes.stepper} alternativeLabel activeStep={activeStep} connector={<ColorlibConnector />}>
-                {steps.map(({ label }, index) => (
-                    <Step key={label} onClick={handleStep(index)}>
-                        <StepLabel StepIconComponent={ColorlibStepIcon}>{label}</StepLabel>
-                    </Step>
-                ))}
-            </Stepper>
             <div className={classes.content}>
-                <Container maxWidth="lg" style={{ padding: '24px 32px' }}>
+                <Container style={{ padding: '18px' }}>
                     {activeStep === steps.length ? (
                         <Typography className={classes.instructions}>
                             Встреча создана!
@@ -200,6 +196,31 @@ export default function MeetCreateView() {
                     ) : <ActiveStep {...props}/> }
                 </Container>
             </div>
+            <MobileStepper
+                variant="text"
+                steps={steps.length}
+                position="static"
+                activeStep={activeStep}
+                nextButton={
+                    <Button
+                        size="small"
+                        onClick={handleNext}
+                        disabled={1 === 3 - 1}
+                    >
+                        Далее
+                        <KeyboardArrowRight />
+                    </Button>
+                }
+                backButton={
+                    <Button size="small" onClick={handleBack} disabled={false}>
+                        <KeyboardArrowLeft />
+                        Назад
+                    </Button>
+                }
+                style={{
+                    backgroundColor: 'white',
+                }}
+            />
         </div>
     );
 }

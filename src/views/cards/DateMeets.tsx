@@ -33,9 +33,8 @@ const useStyles = makeStyles((theme: Theme) => ({
 interface DateMeetsProps {
     date: string
     meets: Meet[]
-    refetch: () => void
 }
-export default function DateMeets({ date, meets, refetch }: DateMeetsProps): JSX.Element {
+export default function DateMeets({ date, meets }: DateMeetsProps): JSX.Element {
     const classes = useStyles();
     const localDate = LocalDate.parse(date)
 
@@ -56,7 +55,7 @@ export default function DateMeets({ date, meets, refetch }: DateMeetsProps): JSX
                     <>
                         {Boolean(index) && <Divider light variant="middle" />}
                         <div key={meet.id}>
-                            <MeetCard {...meet} refetch={refetch} />
+                            <MeetCard {...meet} />
                         </div>
                     </>
                 )}

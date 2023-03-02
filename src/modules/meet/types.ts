@@ -19,4 +19,6 @@ export interface NewMeet {
     datetime: string
     image: string | null
     projectId: number | null
+    startDatetime: string,
+    endDatetime?: string,
 }

@@ -3,6 +3,8 @@ import {createStyles} from "@material-ui/core";
 import AddIcon from "@material-ui/icons/Add";
 import {makeStyles, Theme} from "@material-ui/core/styles";
 import {Fab} from "@mui/material";
+import {useNavigate} from "react-router-dom";
+import ProjectCard from "../../cards/ProjectCard";
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
@@ -17,20 +19,17 @@ const useStyles = makeStyles((theme: Theme) =>
 export default function Index() {
     const [open, setOpen] = React.useState(false);
     const classes = useStyles();
+    const navigate = useNavigate();
 
     const handleClickOpen = () => {
         setOpen(true);
     };
 
-    const handleClose = () => {
-        setOpen(false);
-    };
+    const onClick = () => navigate(`/meet`);
 
     return (
-        <div>
-            <Fab variant="extended" color="primary" aria-label="add" className={classes.margin} onClick={handleClickOpen}>
-                <AddIcon className={classes.extendedIcon} />
-            </Fab>
-        </div>
+        <Fab variant="extended" color="primary" aria-label="add" className={classes.margin} onClick={onClick}>
+            <AddIcon className={classes.extendedIcon} />
+        </Fab>
     );
 }
