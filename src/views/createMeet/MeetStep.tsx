@@ -1,34 +1,28 @@
-import React, {useState} from 'react';
-import {Typography, Slider, Button, Box, MobileStepper} from "@mui/material";
+import React from 'react';
+import {Typography, Slider, Box} from "@mui/material";
 import {MeetStepProps} from "./types";
 import {valuetext, valuetext2} from "./helper";
 import { CalendarPicker } from '@mui/x-date-pickers';
 import dayjs, { Dayjs } from 'dayjs';
-import {Simulate} from "react-dom/test-utils";
-import error = Simulate.error;
 
 export default function MeetStep({ meet, setMeet }: MeetStepProps) {
-    if (!meet.datetime) throw new Error('MeetStep `datetime` undefined');
-    const s = dayjs(meet.datetime).hour() * 60 + dayjs(meet.datetime).minute()
-    const e = dayjs(meet.endDatetime).hour() * 60 + dayjs(meet.endDatetime).minute()
-    //console.log(dayjs(meet.datetime), 'dayjs(meet.datetime)')
-    //console.log(meet.datetime, '=>', s, ' ',meet.endDatetime, '=>', e, 'in MeetStep')
-    const [value2, setValue2] = React.useState<number[]>([s, e]);
-    const [value, setValue] = React.useState<Dayjs | null>(meet.datetime ? dayjs(meet.datetime): dayjs().startOf('day'));
+    const calendarPickerDate = dayjs(meet.datetime)
+    const sliderValue = [dayjs(meet.datetime).hour() * 60 + dayjs(meet.datetime).minute(), dayjs(meet.endDatetime).hour() * 60 + dayjs(meet.endDatetime).minute()]
 
-    const onChangeDate = (date: Dayjs) => {
-        setValue(date)
-        date && setMeet({ ...meet, datetime: date.format('YYYY-MM-DDTHH:mm:ss') })
-    }
-    const minutesHandleChange = (event: any, newValue: number | number[]) => {
-        const [startMinutes, endMinutes] = newValue as number[]
-        setValue2(newValue as number[]);
-        const datetime = value?.add(startMinutes, 'minute').format('YYYY-MM-DDTHH:mm:ss')
-        const endDatetime = value?.add(endMinutes, 'minute').format('YYYY-MM-DDTHH:mm:ss')
-        value && datetime && setMeet({
+    const calendarPickerOnChange = (date: Dayjs | null) => {
+        if (!date) return
+        setMeet({
             ...meet,
-            datetime,
-            endDatetime,
+            datetime: date.startOf('day').add(dayjs(meet.datetime).hour(), 'hour').add(dayjs(meet.datetime).minute(), 'minute').format('YYYY-MM-DDTHH:mm:ss'),
+            endDatetime: date.startOf('day').add(dayjs(meet.endDatetime).hour(), 'hour').add(dayjs(meet.endDatetime).minute(), 'minute').format('YYYY-MM-DDTHH:mm:ss'),
+        })
+    }
+    const sliderOnChange = (event: any, newValue: number | number[]) => {
+        const [minutes, endMinutes] = newValue as number[]
+        setMeet({
+            ...meet,
+            datetime: dayjs(meet.datetime).startOf('day').add(minutes, 'minute').format('YYYY-MM-DDTHH:mm:ss'),
+            endDatetime: dayjs(meet.endDatetime).startOf('day').add(endMinutes, 'minute').format('YYYY-MM-DDTHH:mm:ss'),
         })
     };
 
@@ -54,7 +48,7 @@ export default function MeetStep({ meet, setMeet }: MeetStepProps) {
                     backgroundColor: (theme)=> theme.palette.primary.main + '!important',
                 }
             }}>
-                <CalendarPicker onChange={onChangeDate} date={value} disablePast/>
+                <CalendarPicker onChange={calendarPickerOnChange} date={calendarPickerDate} disablePast/>
             </Box>
 
             <Box sx={{
@@ -69,8 +63,8 @@ export default function MeetStep({ meet, setMeet }: MeetStepProps) {
                     Укажите время
                 </Typography>
                 <Slider
-                    value={value2}
-                    onChange={minutesHandleChange}
+                    value={sliderValue}
+                    onChange={sliderOnChange}
                     valueLabelDisplay="on"
                     aria-labelledby="range-slider"
                     valueLabelFormat={valuetext2}
