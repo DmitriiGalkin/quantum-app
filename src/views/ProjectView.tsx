@@ -16,7 +16,7 @@ import {
 } from "../modules/project";
 import Image from "./components/Image";
 import {getMeetsGroup} from "./helper";
-import DateMeets from "./cards/DateMeets";
+import DateMeets from "./components/DateMeets";
 import {Meet} from "../modules/meet";
 
 const useStyles = makeStyles((theme: Theme) => ({

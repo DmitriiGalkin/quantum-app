@@ -40,10 +40,16 @@ exports.findByPlaceId = function(req, res) {
     });
 };
 exports.findByUserId = function(req, res) {
-    Project.findByUserId(req.params.id, function(err, employee) {
-        if (err)
-            res.send(err);
-        res.json(employee);
+    Project.findByUserId(req.params.id, function(err, projects) {
+        if (err) res.send(err);
+
+        async.map(projects, Place.findByProject, function(err, projectsWithPlace) {
+            if (err) console.log(err);
+            async.map(projectsWithPlace, User.findByProject, function(err, projectsWithPlaceWithUsers) {
+                if (err) console.log(err);
+                res.send(projectsWithPlaceWithUsers);
+            });
+        });
     });
 };
 

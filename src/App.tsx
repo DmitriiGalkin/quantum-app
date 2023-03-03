@@ -5,7 +5,7 @@ import ProjectView from "./views/ProjectView";
 import PlaceView from "./views/PlaceView";
 import UserView from "./views/UserView";
 import PlacesView from "./views/PlacesView";
-import MeetCreateView from "./views/MeetCreateView";
+import CreateMeetView from "./views/createMeet/CreateMeetView";
 import './App.css'
 
 
@@ -15,7 +15,7 @@ function App() {
           <Routes>
               <Route path="/">
                   <Route index element={<MainView />} />
-                  <Route path="meet" element={<MeetCreateView />} />
+                  <Route path="meet" element={<CreateMeetView />} />
                   <Route path="project/:id" element={<ProjectView />} />
                   <Route path="place" element={<PlacesView />} />
                   <Route path="place/:id" element={<PlaceView />} />

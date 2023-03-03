@@ -2,8 +2,6 @@
 var dbConn = require('../db.config');
 
 var Meet = function(data){
-    this.title = data.title;
-    this.description = data.description;
     this.projectId = data.projectId;
     this.datetime = data.datetime;
     this.created_at = new Date();

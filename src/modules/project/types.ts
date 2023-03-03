@@ -1,5 +1,6 @@
 import {AgeLimit, Place} from "../place/types";
 import {Meet} from "../meet/types";
+import {User} from "../user";
 
 export interface Project {
     id: number,
@@ -12,4 +13,5 @@ export interface Project {
     ageLimit?: AgeLimit // Возрастное ограничение
     meet?: Meet
     place?: Place
+    users?: User[]
 }

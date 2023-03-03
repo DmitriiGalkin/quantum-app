@@ -4,19 +4,30 @@ import {MeetStepProps} from "./types";
 import {valuetext, valuetext2} from "./helper";
 import { CalendarPicker } from '@mui/x-date-pickers';
 import dayjs, { Dayjs } from 'dayjs';
+import {Simulate} from "react-dom/test-utils";
+import error = Simulate.error;
 
 export default function MeetStep({ meet, setMeet }: MeetStepProps) {
-    const [value2, setValue2] = React.useState<number[]>([600, 660]);
-    const [value, setValue] = React.useState<Dayjs | null>(dayjs());
+    if (!meet.datetime) throw new Error('MeetStep `datetime` undefined');
+    const s = dayjs(meet.datetime).hour() * 60 + dayjs(meet.datetime).minute()
+    const e = dayjs(meet.endDatetime).hour() * 60 + dayjs(meet.endDatetime).minute()
+    //console.log(dayjs(meet.datetime), 'dayjs(meet.datetime)')
+    //console.log(meet.datetime, '=>', s, ' ',meet.endDatetime, '=>', e, 'in MeetStep')
+    const [value2, setValue2] = React.useState<number[]>([s, e]);
+    const [value, setValue] = React.useState<Dayjs | null>(meet.datetime ? dayjs(meet.datetime): dayjs().startOf('day'));
 
-    const handleChange = (event: any, newValue: number | number[]) => {
+    const onChangeDate = (date: Dayjs) => {
+        setValue(date)
+        date && setMeet({ ...meet, datetime: date.format('YYYY-MM-DDTHH:mm:ss') })
+    }
+    const minutesHandleChange = (event: any, newValue: number | number[]) => {
         const [startMinutes, endMinutes] = newValue as number[]
         setValue2(newValue as number[]);
-        const startDatetime = value?.add(startMinutes, 'minute').format('YYYY-MM-DDTHH:mm:ss')
+        const datetime = value?.add(startMinutes, 'minute').format('YYYY-MM-DDTHH:mm:ss')
         const endDatetime = value?.add(endMinutes, 'minute').format('YYYY-MM-DDTHH:mm:ss')
-        value && startDatetime && setMeet({
+        value && datetime && setMeet({
             ...meet,
-            startDatetime,
+            datetime,
             endDatetime,
         })
     };
@@ -38,13 +49,12 @@ export default function MeetStep({ meet, setMeet }: MeetStepProps) {
                 },
                 '& .MuiPickersCalendarHeader-labelContainer .MuiPickersCalendarHeader-switchViewButton': {
                     display: 'none',
-                }}}>
-                <CalendarPicker onChange={(date) => {
-                    setValue(date)
-                    date && setMeet({ ...meet, datetime: date.format('YYYY-MM-DDTHH:mm:ss') })
-                }} date={value}
-                                disablePast
-                />
+                },
+                '& .MuiPickersDay-root.Mui-selected': {
+                    backgroundColor: (theme)=> theme.palette.primary.main + '!important',
+                }
+            }}>
+                <CalendarPicker onChange={onChangeDate} date={value} disablePast/>
             </Box>
 
             <Box sx={{
@@ -60,7 +70,7 @@ export default function MeetStep({ meet, setMeet }: MeetStepProps) {
                 </Typography>
                 <Slider
                     value={value2}
-                    onChange={handleChange}
+                    onChange={minutesHandleChange}
                     valueLabelDisplay="on"
                     aria-labelledby="range-slider"
                     valueLabelFormat={valuetext2}

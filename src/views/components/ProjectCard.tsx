@@ -1,18 +1,16 @@
 import React from 'react';
-import Image from "../components/Image";
+import Image from "./Image";
 
-import {useNavigate} from "react-router-dom";
 import {Box, Typography} from "@mui/material";
 import {convertToMeetDatetime} from "../../tools/date";
-import {Project, useProjectUsers} from "../../modules/project";
+import {Project} from "../../modules/project";
 import LocationOnIcon from '@mui/icons-material/LocationOn';
 
 interface ProjectCardProps extends Project {
     onClick: () => void
 }
 export default function ProjectCard(project: ProjectCardProps) {
-    const { data: users = [] } = useProjectUsers(project.id)
-    const active = users.find((user) => user.id === 1) // TODO: убрать в бек
+    const active = project.users?.find((user) => user.id === 1)
 
     const firstMeetDateTitle = convertToMeetDatetime(project.meet?.datetime)
     return (

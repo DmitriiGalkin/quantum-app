@@ -1,4 +1,4 @@
-import {NewMeet} from "../../../../modules/meet";
+import {NewMeet} from "../../modules/meet";
 
 export interface MeetStepProps {
     meet: NewMeet

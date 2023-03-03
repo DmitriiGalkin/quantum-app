@@ -1,6 +1,6 @@
 import React from 'react';
 import {Meet} from "../../modules/meet";
-import {getMonth} from "../../tools/date";
+import {getMonthShortTitle} from "../../tools/date";
 import {Divider, Typography} from "@mui/material";
 import {LocalDate} from "@js-joda/core";
 import {makeStyles, Theme} from "@material-ui/core/styles";
@@ -37,16 +37,17 @@ interface DateMeetsProps {
 export default function DateMeets({ date, meets }: DateMeetsProps): JSX.Element {
     const classes = useStyles();
     const localDate = LocalDate.parse(date)
-
+    const day = localDate.dayOfMonth()
+    const monthShortTitle = getMonthShortTitle(localDate.monthValue())
     return (
         <div className={classes.meetsGroup} key={date}>
             <div>
                 <div className={classes.date}>
                     <Typography style={{ fontFamily: 'Bebas Neue', fontSize: 26, lineHeight: '28px' }}>
-                        {localDate.dayOfMonth()}
+                        {day}
                     </Typography>
                     <Typography variant="subtitle1" style={{ fontSize: 13, fontWeight: 700 }}>
-                        {getMonth(localDate.monthValue())}
+                        {monthShortTitle}
                     </Typography>
                 </div>
             </div>

@@ -2,7 +2,7 @@ import React from 'react';
 import {makeStyles, Theme} from '@material-ui/core/styles';
 import {Container, Grid} from "@material-ui/core";
 import ForwardAppBar from "./components/ForwardAppBar";
-import PlaceCard from "./cards/PlaceCard";
+import PlaceCard from "./components/PlaceCard";
 import {usePlaces} from "../modules/place/hook";
 
 

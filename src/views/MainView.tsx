@@ -1,12 +1,10 @@
 import React from 'react';
 import {makeStyles, Theme} from '@material-ui/core/styles';
-import ProjectCard from "./cards/ProjectCard";
+import ProjectCard from "./components/ProjectCard";
 import {TabPanel} from "../tools/tabs";
 import AddIcon from "@mui/icons-material/Add";
 import EditIcon from '@mui/icons-material/Edit';
-import TaskCard from "./cards/TaskCard";
-import AddMeetButton from "./buttons/AddMeetButton";
-import AddProjectButton from "./buttons/AddProjectButton";
+import TaskCard from "./components/TaskCard";
 import {Meet, useMeets} from "../modules/meet";
 import {useProjects} from "../modules/project";
 import {useTasks} from "../modules/task";
@@ -19,14 +17,14 @@ import {
     BottomNavigation,
     BottomNavigationAction,
     Box,
-    Container,
+    Container, Fab,
     Paper,
     Typography,
     useTheme,
     Zoom
 } from "@mui/material";
 
-import DateMeets from "./cards/DateMeets";
+import DateMeets from "./components/DateMeets";
 import {getMeetsGroup} from "./helper";
 import {useNavigate} from "react-router-dom";
 
@@ -46,21 +44,19 @@ const useStyles = makeStyles((theme: Theme) => ({
         top: 100,
         left: theme.spacing(2),
     },
-}));
-const FABS = [
-    {
-        component: <AddMeetButton/>,
-        icon: <AddIcon />,
+    margin: {
+        margin: theme.spacing(1),
     },
-    {
-        component: <AddProjectButton/>,
-        icon: <EditIcon />,
-    }
-];
+    extendedIcon: {
+        marginRight: theme.spacing(1),
+    },
+}));
+
 
 export default function MainView() {
     const classes = useStyles();
     const theme = useTheme();
+    const navigate = useNavigate();
     const [value, setValue] = React.useState(0);
     const transitionDuration = {
         enter: theme.transitions.duration.enteringScreen,
@@ -71,8 +67,21 @@ export default function MainView() {
     const { data: tasks = [] } = useTasks()
     const { data: uniques = [] } = useUserUniques(1)
     const meetsGroup = getMeetsGroup(meets)
-    const navigate = useNavigate();
 
+    const FABS = [
+        {
+            component: <Fab variant="extended" color="primary" aria-label="add" className={classes.margin} onClick={() => navigate(`/meet`)}>
+                <AddIcon className={classes.extendedIcon} />
+            </Fab>,
+            icon: <AddIcon />,
+        },
+        {
+            component: <Fab variant="extended" color="primary" aria-label="add" className={classes.margin} onClick={() => navigate(`/project`)}>
+                <AddIcon className={classes.extendedIcon} />
+            </Fab>,
+            icon: <EditIcon />,
+        }
+    ];
     return (
         <div>
             <img src="/img.png" alt="мальчик" style={{ width: '90%' }}/>

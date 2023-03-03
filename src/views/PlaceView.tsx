@@ -9,7 +9,7 @@ import {TabPanel} from "../tools/tabs";
 import FaceIcon from "@material-ui/icons/Face";
 import {useNavigate, useParams} from "react-router-dom";
 import {Place} from "../modules/place/types";
-import ProjectCard from "./cards/ProjectCard";
+import ProjectCard from "./components/ProjectCard";
 import {usePlace, usePlaceProjects} from "../modules/place/hook";
 
 
