@@ -2,7 +2,13 @@ const express = require('express')
 const bodyParser = require('body-parser');
 const cors = require('cors');
 
+// const https = require('https');
+// const fs = require('fs');
+// const key = fs.readFileSync('./key.pem');
+// const cert = fs.readFileSync('./cert.pem');
+
 const app = express(); // create express app
+// const server = https.createServer({key: key, cert: cert }, app);
 const port = process.env.PORT || 3001; // Setup server port
 
 app.use(cors({ origin: '*' })); // Разрешаем корс методы
@@ -27,5 +33,5 @@ app.use('/api/v1/users', employeeRoutes) // using as middleware
 const mainRouter = require('./routes/mainRouter') // Require employee routes
 app.use('/api/v1/main', mainRouter) // using as middleware
 
-
+// server.
 app.listen(port, () => { console.log(`Server is listening on port ${port}`) }); // listen for requests

@@ -1,9 +1,11 @@
 import React from 'react';
 import {Task} from "../../modules/task";
-import {Box, Button, Chip, Typography} from "@mui/material";
+import {Box, Button, Chip, Tooltip, Typography} from "@mui/material";
 import AutoAwesomeIcon from '@mui/icons-material/AutoAwesome';
+import {useNavigate} from "react-router-dom";
 
 export default function TaskCard(task: Task) {
+    const navigate = useNavigate();
 
     return (
         <Box sx={{ display: 'flex', flexDirection: 'column', border: '1px solid #E1E3E8',
@@ -15,10 +17,12 @@ export default function TaskCard(task: Task) {
             marginBottom: 2,
         }}>
             <div>
-                <Chip label="Рисование" color="primary" size="small" variant="outlined"
-                      sx={{
-                    borderRadius: 2
-                }}/>
+                <Tooltip disableFocusListener title="Задание относится к проекту `Рисование`" enterTouchDelay={0}>
+                    <Chip label="Рисование" color="primary" size="small" variant="outlined"
+                          sx={{
+                        borderRadius: 2
+                    }}/>
+                </Tooltip>
             </div>
             <div>
                 <Typography variant="h5">
@@ -43,6 +47,7 @@ export default function TaskCard(task: Task) {
                     marginRight: 2,
                     marginTop: 1,
                 }}
+                onClick={() => navigate(`/task/${task.id}`)}
             >
                 Начать
             </Button>

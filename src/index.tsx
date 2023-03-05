@@ -4,12 +4,12 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import {BrowserRouter} from "react-router-dom";
 import {QueryClient, QueryClientProvider,} from '@tanstack/react-query'
-import {createMuiTheme, CssBaseline, ThemeProvider} from "@mui/material";
+import {createTheme, CssBaseline, ThemeProvider} from "@mui/material";
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { LocalizationProvider } from '@mui/x-date-pickers';
 import "dayjs/locale/ru";
 
-const theme = createMuiTheme({
+const theme = createTheme({
     typography: {
         fontFamily: 'Manrope, Arial',
         h5: {

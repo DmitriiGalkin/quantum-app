@@ -11,14 +11,16 @@ import {useTasks} from "../modules/task";
 import RocketIcon from '@mui/icons-material/Rocket';
 import GroupsIcon from '@mui/icons-material/Groups';
 import AutoAwesomeIcon from '@mui/icons-material/AutoAwesome';
+import MenuIcon from '@mui/icons-material/Menu';
 import EmojiEventsIcon from "@material-ui/icons/EmojiEvents";
 import {useUserUniques} from "../modules/user";
 import {
+    AppBar,
     BottomNavigation,
     BottomNavigationAction,
     Box,
-    Container, Fab,
-    Paper,
+    Container, Drawer, Fab, IconButton, List, ListItem, ListItemButton, ListItemIcon,
+    Paper, SwipeableDrawer, Toolbar,
     Typography,
     useTheme,
     Zoom
@@ -58,6 +60,8 @@ export default function MainView() {
     const theme = useTheme();
     const navigate = useNavigate();
     const [value, setValue] = React.useState(0);
+    const [open, setOpen] = React.useState(false);
+
     const transitionDuration = {
         enter: theme.transitions.duration.enteringScreen,
         exit: theme.transitions.duration.leavingScreen,
@@ -82,8 +86,95 @@ export default function MainView() {
             icon: <EditIcon />,
         }
     ];
+
+    const list => (
+        <Box
+            sx={{ width: anchor === 'top' || anchor === 'bottom' ? 'auto' : 250 }}
+            role="presentation"
+            onClick={()=> setOpen(false)}
+        >
+            <List>
+                {['Inbox', 'Starred', 'Send email', 'Drafts'].map((text, index) => (
+                    <ListItem key={text} disablePadding>
+                        <ListItemButton>
+                            <ListItemIcon>
+                                {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
+                            </ListItemIcon>
+                            <ListItemText primary={text} />
+                        </ListItemButton>
+                    </ListItem>
+                ))}
+            </List>
+            <Divider />
+            <List>
+                {['All mail', 'Trash', 'Spam'].map((text, index) => (
+                    <ListItem key={text} disablePadding>
+                        <ListItemButton>
+                            <ListItemIcon>
+                                {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
+                            </ListItemIcon>
+                            <ListItemText primary={text} />
+                        </ListItemButton>
+                    </ListItem>
+                ))}
+            </List>
+        </Box>
+    );
+
     return (
         <div>
+            <AppBar position="static">
+                <Toolbar>
+                    <IconButton
+                        size="large"
+                        edge="start"
+                        color="inherit"
+                        aria-label="menu"
+                        sx={{ mr: 2 }}
+                        onClick={() => setOpen(true)}
+                    >
+                        <MenuIcon />
+                    </IconButton>
+                    <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
+                        Quantum
+                    </Typography>
+                </Toolbar>
+            </AppBar>
+            <Drawer
+                open={open}
+                onClose={() => setOpen(false)}
+            >
+                <Box
+                    role="presentation"
+                    onClick={()=> setOpen(false)}
+                >
+                    <List>
+                        {['Inbox', 'Starred', 'Send email', 'Drafts'].map((text, index) => (
+                            <ListItem key={text} disablePadding>
+                                <ListItemButton>
+                                    <ListItemIcon>
+                                        {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
+                                    </ListItemIcon>
+                                    <ListItemText primary={text} />
+                                </ListItemButton>
+                            </ListItem>
+                        ))}
+                    </List>
+                    <Divider />
+                    <List>
+                        {['All mail', 'Trash', 'Spam'].map((text, index) => (
+                            <ListItem key={text} disablePadding>
+                                <ListItemButton>
+                                    <ListItemIcon>
+                                        {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
+                                    </ListItemIcon>
+                                    <ListItemText primary={text} />
+                                </ListItemButton>
+                            </ListItem>
+                        ))}
+                    </List>
+                </Box>
+            </Drawer>
             <img src="/img.png" alt="мальчик" style={{ width: '90%' }}/>
             <div className={classes.content}>
                 <TabPanel value={value} index={0}>
@@ -96,11 +187,25 @@ export default function MainView() {
                 <TabPanel value={value} index={1}>
                     <Container disableGutters>
                         {projects.map((project) => <ProjectCard {...project} onClick={() => navigate(`/project/${project.id}`)}/>)}
+                        <Box sx={{ display: 'flex', flexDirection: 'column', border: '1px solid #E1E3E8',
+                            borderRadius: 2,
+                            padding: 2,
+                            marginBottom: 2,
+                        }}>
+                            Список релевантных проектов: новые проекты, проекты поблизости, проекты по схожим тегам, проекты по схожим пространствам
+                        </Box>
                     </Container>
                 </TabPanel>
                 <TabPanel value={value} index={2}>
                     <Container disableGutters>
                         {tasks.map((task) => <TaskCard {...task} />)}
+                        <Box sx={{ display: 'flex', flexDirection: 'column', border: '1px solid #E1E3E8',
+                            borderRadius: 2,
+                            padding: 2,
+                            marginBottom: 2,
+                        }}>
+                            Новых заданий нет, - задания появляются со временем или после продвижения проектов
+                        </Box>
                     </Container>
                 </TabPanel>
                 <TabPanel value={value} index={3}>

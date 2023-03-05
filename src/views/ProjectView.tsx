@@ -5,7 +5,7 @@ import SaveIcon from '@material-ui/icons/Save';
 import FavoriteIcon from "@material-ui/icons/Favorite";
 import ShareIcon from "@material-ui/icons/Share";
 import ForwardAppBar from "./components/ForwardAppBar";
-import {useParams} from "react-router-dom";
+import {useNavigate, useParams} from "react-router-dom";
 import {
     Project,
     useAddProjectUser,
@@ -37,6 +37,7 @@ const useStyles = makeStyles((theme: Theme) => ({
 
 export default function ProjectView() {
     const classes = useStyles();
+    const navigate = useNavigate();
     const { id } = useParams();
     const { data: project = {} as Project } = useProject(Number(id))
     const { data: meets = [] } = useProjectMeets(Number(id))
@@ -51,6 +52,24 @@ export default function ProjectView() {
             deleteProjectUser.mutate({ projectId: project.id })
         } else {
             addProjectUser.mutate({ projectId: project.id })
+        }
+    }
+
+    const shareOnClick = async () => {
+        if (navigator.share) {
+            await navigator
+                .share({
+                    text: 'Супер проект',
+                    url: 'http://192.168.1.3:3000/projects/1'
+                })
+                .then(() => {
+                    console.log("Successfully shared");
+                })
+                .catch((error) => {
+                    console.error("Something went wrong", error);
+                });
+        } else {
+            console.error('navigator.share нет такого объекта. Возможно надо перейти на HTTPS');
         }
     }
 
@@ -90,7 +109,7 @@ export default function ProjectView() {
                             <IconButton aria-label="previous">
                                 <FavoriteIcon color={project.favorite ? 'primary' : undefined}/>
                             </IconButton>
-                            <IconButton aria-label="next">
+                            <IconButton aria-label="next" onClick={() => shareOnClick()}>
                                 <ShareIcon />
                             </IconButton>
                         </Box>
@@ -127,6 +146,15 @@ export default function ProjectView() {
                         {meetsGroup.map(([date, meets]) => (
                             <DateMeets date={date} meets={meets as Meet[]}/>
                         ))}
+                        <Button
+                            variant="contained"
+                            color="primary"
+                            size="large"
+                            startIcon={<SaveIcon />}
+                            onClick={() => navigate(`/meet`)}
+                        >
+                            Создать встречу
+                        </Button>
                     </div>
                     <div className={classes.block}>
                         <Typography variant="h5">
