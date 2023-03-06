@@ -19,7 +19,7 @@ import {
     AppBar,
     BottomNavigation,
     BottomNavigationAction,
-    Box,
+    Box, Button,
     Container, Divider, Drawer, Fab, IconButton, List, ListItem, ListItemButton, ListItemIcon, ListItemText,
     Paper, SwipeableDrawer, Toolbar,
     Typography,
@@ -30,6 +30,7 @@ import {
 import DateMeets from "./components/DateMeets";
 import {getMeetsGroup} from "./helper";
 import {useNavigate} from "react-router-dom";
+import {useAuth} from "../tools/hooks";
 
 const useStyles = makeStyles((theme: Theme) => ({
     content: {
@@ -62,6 +63,8 @@ export default function MainView() {
     const navigate = useNavigate();
     const [value, setValue] = React.useState(0);
     const [open, setOpen] = React.useState(false);
+    const { user, logout } = useAuth();
+    console.log(user, 'user')
 
     const transitionDuration = {
         enter: theme.transitions.duration.enteringScreen,
@@ -139,6 +142,17 @@ export default function MainView() {
                                 </ListItemButton>
                             </ListItem>
                         ))}
+                    </List>
+                    <Divider />
+                    <List>
+                            <ListItem key={'logout'} disablePadding>
+                                <ListItemButton onClick={logout}>
+                                    <ListItemIcon>
+                                        <InboxIcon />
+                                    </ListItemIcon>
+                                    <ListItemText primary='logout' />
+                                </ListItemButton>
+                            </ListItem>
                     </List>
                 </Box>
             </Drawer>

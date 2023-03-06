@@ -1,6 +1,5 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import App from './App';
 import reportWebVitals from './reportWebVitals';
 import {BrowserRouter} from "react-router-dom";
 import {QueryClient, QueryClientProvider,} from '@tanstack/react-query'
@@ -8,6 +7,8 @@ import {createTheme, CssBaseline, ThemeProvider} from "@mui/material";
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { LocalizationProvider } from '@mui/x-date-pickers';
 import "dayjs/locale/ru";
+import { RouterProvider } from "react-router-dom";
+import { router } from "./App";
 
 const theme = createTheme({
     typography: {
@@ -60,16 +61,14 @@ const root = ReactDOM.createRoot(
 );
 root.render(
   <React.StrictMode>
-      <BrowserRouter>
-          <ThemeProvider theme={theme}>
-              <QueryClientProvider client={queryClient}>
-                  <CssBaseline />
-                  <LocalizationProvider dateAdapter={AdapterDayjs} adapterLocale="ru">
-                    <App />
-                  </LocalizationProvider>
-              </QueryClientProvider>
-          </ThemeProvider>
-      </BrowserRouter>
+      <ThemeProvider theme={theme}>
+          <QueryClientProvider client={queryClient}>
+              <CssBaseline />
+              <LocalizationProvider dateAdapter={AdapterDayjs} adapterLocale="ru">
+                  <RouterProvider router={router} />
+              </LocalizationProvider>
+          </QueryClientProvider>
+      </ThemeProvider>
   </React.StrictMode>
 );
 
