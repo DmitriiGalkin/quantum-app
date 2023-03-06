@@ -6,8 +6,10 @@ import PlaceView from "./views/PlaceView";
 import UserView from "./views/UserView";
 import PlacesView from "./views/PlacesView";
 import TaskView from "./views/task/TaskView";
-import LoginView from "./views/LoginView";
+import LoginView from "./views/Login";
 import CreateMeetView from "./views/createMeet/CreateMeetView";
+import CreateUser from "./views/createUser";
+
 import './App.css'
 import { ProtectedLayout } from "./modules/login/ProtectedLayout";
 import {createBrowserRouter, createRoutesFromElements, defer} from "react-router-dom";
@@ -36,6 +38,7 @@ export const router = createBrowserRouter(
             </Route>
             <Route element={<HomeLayout />}>
                 <Route path="/login" element={<LoginView />} />
+                <Route path="user" element={<CreateUser />} />
                 <Route path="project/:id" element={<ProjectView />} />
                 <Route path="place/:id" element={<PlaceView />} />
                 <Route path="user/:id" element={<UserView />} />

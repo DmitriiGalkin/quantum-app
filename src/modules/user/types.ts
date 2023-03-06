@@ -3,3 +3,8 @@ export interface User {
     image: string
     title: string
 }
+export interface NewUser {
+    email?: string
+    password?: string
+    title?: string
+}

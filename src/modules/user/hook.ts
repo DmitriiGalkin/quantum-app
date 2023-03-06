@@ -1,6 +1,6 @@
-import {User} from "./types";
-import {useQuery, UseQueryResult} from "@tanstack/react-query";
-import service from "../../tools/service";
+import {NewUser, User} from "./types";
+import {useMutation, useQuery, UseQueryResult} from "@tanstack/react-query";
+import service, {UseMutate} from "../../tools/service";
 import {Unique} from "../unique/types";
 import {Project} from "../project/types";
 
@@ -13,3 +13,5 @@ export const useUserUniques = (id: number): UseQueryResult<Unique[]> => {
 export const useUserProjects = (id: number): UseQueryResult<Project[]> => {
     return useQuery(['userProjects', id], () => service.get(`/users/${id}/projects`),)
 }
+
+export const useAddUser = (): UseMutate<NewUser> => useMutation((user) => service.post("/users", user))

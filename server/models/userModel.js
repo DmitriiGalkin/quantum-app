@@ -1,20 +1,15 @@
 'use strict';
 var dbConn = require('../db.config');
 
-var User = function(employee){
-    this.first_name     = employee.first_name;
-    this.last_name      = employee.last_name;
-    this.email          = employee.email;
-    this.phone          = employee.phone;
-    this.organization   = employee.organization;
-    this.designation    = employee.designation;
-    this.salary         = employee.salary;
-    this.status         = employee.status ? employee.status : 1;
-    this.created_at     = new Date();
-    this.updated_at     = new Date();
+var User = function(user){
+    this.email = user.email;
+    this.password = user.password;
+    this.title = user.title;
+    this.created_at = new Date();
+    this.updated_at = new Date();
 };
-User.create = function (newEmp, result) {
-    dbConn.query("INSERT INTO users set ?", newEmp, function (err, res) {
+User.create = function (user, result) {
+    dbConn.query("INSERT INTO users set ?", user, function (err, res) {
         if (err) result(err, null);
         result(null, res.insertId);
     });

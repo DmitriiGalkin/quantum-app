@@ -6,6 +6,7 @@ import {makeStyles} from "@material-ui/core/styles";
 import {useAuth} from "../tools/hooks";
 import { Link as RouterLink } from "react-router-dom";
 import Link from "@mui/material/Link";
+import Typography from "@material-ui/core/Typography";
 
 
 const useStyles = makeStyles((theme: Theme) => ({
@@ -34,7 +35,13 @@ export default function LoginView() {
     return (
         <Box sx={{mt:6}} className={classes.content}>
                 <Container style={{ padding: '18px' }}>
-                <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
+                    <Typography variant="h5">
+                        Привет, участник
+                    </Typography>
+                    <Typography variant="subtitle1">
+                        Пожалуйста авторизуйся
+                    </Typography>
+                    <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
                     <TextField
                         margin="normal"
                         required
@@ -76,7 +83,7 @@ export default function LoginView() {
                         variant="contained"
                         sx={{ mt: 3, mb: 2 }}
                     >
-                        Login In
+                        Войти
                     </Button>
                     <Grid container>
                         <Grid item>
