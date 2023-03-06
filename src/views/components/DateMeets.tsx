@@ -53,12 +53,12 @@ export default function DateMeets({ date, meets }: DateMeetsProps): JSX.Element 
             </div>
             <div style={{ flexGrow: 1 }} className={classes.meets}>
                 {meets.map((meet, index) =>
-                    <>
+                    <div key={meet.id}>
                         {Boolean(index) && <Divider light variant="middle" />}
                         <div key={meet.id}>
                             <MeetCard {...meet} />
                         </div>
-                    </>
+                    </div>
                 )}
             </div>
         </div>

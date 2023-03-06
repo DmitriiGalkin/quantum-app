@@ -27,7 +27,7 @@ export default function MeetCard(meet: Meet) {
                     </Typography>
                     <Box sx={{ display: 'flex', paddingTop: 1 }}>
                         <AvatarGroup max={active ? 5 : 4} >
-                            {meet.users?.map((user) => <Avatar alt={user.title} src={user.image} sx={{ width: 24, height: 24 }}/>)}
+                            {meet.users?.map((user) => <Avatar key={user.id} alt={user.title} src={user.image} sx={{ width: 24, height: 24 }}/>)}
                         </AvatarGroup>
                     </Box>
                 </Box>

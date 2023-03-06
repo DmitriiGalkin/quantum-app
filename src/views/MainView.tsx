@@ -10,6 +10,7 @@ import {useProjects} from "../modules/project";
 import {useTasks} from "../modules/task";
 import RocketIcon from '@mui/icons-material/Rocket';
 import GroupsIcon from '@mui/icons-material/Groups';
+import InboxIcon from '@mui/icons-material/Inbox';
 import AutoAwesomeIcon from '@mui/icons-material/AutoAwesome';
 import MenuIcon from '@mui/icons-material/Menu';
 import EmojiEventsIcon from "@material-ui/icons/EmojiEvents";
@@ -19,7 +20,7 @@ import {
     BottomNavigation,
     BottomNavigationAction,
     Box,
-    Container, Drawer, Fab, IconButton, List, ListItem, ListItemButton, ListItemIcon,
+    Container, Divider, Drawer, Fab, IconButton, List, ListItem, ListItemButton, ListItemIcon, ListItemText,
     Paper, SwipeableDrawer, Toolbar,
     Typography,
     useTheme,
@@ -87,40 +88,6 @@ export default function MainView() {
         }
     ];
 
-    const list => (
-        <Box
-            sx={{ width: anchor === 'top' || anchor === 'bottom' ? 'auto' : 250 }}
-            role="presentation"
-            onClick={()=> setOpen(false)}
-        >
-            <List>
-                {['Inbox', 'Starred', 'Send email', 'Drafts'].map((text, index) => (
-                    <ListItem key={text} disablePadding>
-                        <ListItemButton>
-                            <ListItemIcon>
-                                {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-                            </ListItemIcon>
-                            <ListItemText primary={text} />
-                        </ListItemButton>
-                    </ListItem>
-                ))}
-            </List>
-            <Divider />
-            <List>
-                {['All mail', 'Trash', 'Spam'].map((text, index) => (
-                    <ListItem key={text} disablePadding>
-                        <ListItemButton>
-                            <ListItemIcon>
-                                {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-                            </ListItemIcon>
-                            <ListItemText primary={text} />
-                        </ListItemButton>
-                    </ListItem>
-                ))}
-            </List>
-        </Box>
-    );
-
     return (
         <div>
             <AppBar position="static">
@@ -153,7 +120,7 @@ export default function MainView() {
                             <ListItem key={text} disablePadding>
                                 <ListItemButton>
                                     <ListItemIcon>
-                                        {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
+                                        <InboxIcon />
                                     </ListItemIcon>
                                     <ListItemText primary={text} />
                                 </ListItemButton>
@@ -166,7 +133,7 @@ export default function MainView() {
                             <ListItem key={text} disablePadding>
                                 <ListItemButton>
                                     <ListItemIcon>
-                                        {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
+                                        <InboxIcon />
                                     </ListItemIcon>
                                     <ListItemText primary={text} />
                                 </ListItemButton>
@@ -180,13 +147,13 @@ export default function MainView() {
                 <TabPanel value={value} index={0}>
                     <Container disableGutters>
                         {meetsGroup.map(([date, meets]) => (
-                            <DateMeets date={date} meets={meets as Meet[]}/>
+                            <DateMeets key={date} date={date} meets={meets as Meet[]}/>
                         ))}
                     </Container>
                 </TabPanel>
                 <TabPanel value={value} index={1}>
                     <Container disableGutters>
-                        {projects.map((project) => <ProjectCard {...project} onClick={() => navigate(`/project/${project.id}`)}/>)}
+                        {projects.map((project) => <ProjectCard key={project.id} {...project} onClick={() => navigate(`/project/${project.id}`)}/>)}
                         <Box sx={{ display: 'flex', flexDirection: 'column', border: '1px solid #E1E3E8',
                             borderRadius: 2,
                             padding: 2,
@@ -198,7 +165,7 @@ export default function MainView() {
                 </TabPanel>
                 <TabPanel value={value} index={2}>
                     <Container disableGutters>
-                        {tasks.map((task) => <TaskCard {...task} />)}
+                        {tasks.map((task) => <TaskCard key={task.id} {...task} />)}
                         <Box sx={{ display: 'flex', flexDirection: 'column', border: '1px solid #E1E3E8',
                             borderRadius: 2,
                             padding: 2,
@@ -230,7 +197,7 @@ export default function MainView() {
                             }}
                         >
                             {uniques.map((unique) => (
-                                <Box sx={{ display: 'flex' }}>
+                                <Box key={unique.id} sx={{ display: 'flex' }}>
                                     <Typography variant="subtitle1" color="primary" style={{ flexGrow: 1 }}>
                                         {unique.title}
                                     </Typography>
