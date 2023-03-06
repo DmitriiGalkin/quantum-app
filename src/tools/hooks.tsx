@@ -51,7 +51,7 @@ export const AuthProvider = ({ children }: {children: JSX.Element}) => {
     // call this function when you want to authenticate the user
     const login = async (data: string) => {
         setUser(data);
-        navigate("/profile");
+        navigate("/login");
     };
 
     // call this function to sign out logged in user

@@ -14,41 +14,13 @@ import {createBrowserRouter, createRoutesFromElements, defer} from "react-router
 import {AuthLayout} from "./modules/login/AuthLayout";
 import {HomeLayout} from "./modules/login/HomeLayout";
 
-// function App() {
-//     return (
-//       <>
-//           <Routes>
-//               <Route path="/">
-//                   <Route index element={<MainView />} />
-//                   <Route path="login" element={<LoginView />} />
-//                   <Route path="meet" element={<CreateMeetView />} />
-//                   <Route path="project/:id" element={<ProjectView />} />
-//                   <Route path="place" element={<PlacesView />} />
-//                   <Route path="place/:id" element={<PlaceView />} />
-//                   <Route path="user/:id" element={<UserView />} />
-//                   <Route path="task/:id" element={<TaskView />} />
-//               </Route>
-//           </Routes>
-//           <Routes>
-//               <Route element={<HomeLayout />}>
-//                   <Route path="/" element={<HomePage />} />
-//                   <Route path="/login" element={<LoginPage />} />
-//               </Route>
-//
-//               <Route path="/dashboard" element={<ProtectedLayout />}>
-//                   <Route path="profile" element={<ProfilePage />} />
-//                   <Route path="settings" element={<SettingsPage />} />
-//               </Route>
-//           </Routes>
-//       </>
-//   )
-// }
+
 const getUserData = () =>
     new Promise((resolve) =>
         setTimeout(() => {
             const user = window.localStorage.getItem("user");
             resolve(user);
-        }, 3000)
+        }, 10)
     );
 export const router = createBrowserRouter(
     createRoutesFromElements(
@@ -56,19 +28,19 @@ export const router = createBrowserRouter(
             element={<AuthLayout />}
             loader={() => defer({ userPromise: getUserData() })}
         >
-            <Route element={<HomeLayout />}>
-                <Route path="/" element={<div />} />
-                <Route path="/login" element={<LoginView />} />
-                <Route path="project/:id" element={<ProjectView />} />
-                <Route path="place/:id" element={<PlaceView />} />
-                <Route path="user/:id" element={<UserView />} />
-            </Route>
             <Route element={<ProtectedLayout />}>
                 <Route index element={<MainView />} />
                 <Route path="meet" element={<CreateMeetView />} />
                 <Route path="place" element={<PlacesView />} />
                 <Route path="task/:id" element={<TaskView />} />
             </Route>
+            <Route element={<HomeLayout />}>
+                <Route path="/login" element={<LoginView />} />
+                <Route path="project/:id" element={<ProjectView />} />
+                <Route path="place/:id" element={<PlaceView />} />
+                <Route path="user/:id" element={<UserView />} />
+            </Route>
+
         </Route>
     )
 );
