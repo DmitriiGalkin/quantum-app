@@ -1,15 +1,17 @@
 import React from 'react';
 import {Route, Routes} from "react-router";
-import MainView from "./views/MainView";
-import ProjectView from "./views/ProjectView";
-import PlaceView from "./views/PlaceView";
-import UserView from "./views/UserView";
-import PlacesView from "./views/PlacesView";
-import Task from "./views/task";
-import LoginView from "./views/Login";
-import CreateMeet from "./views/createMeet";
-import CreateUser from "./views/createUser";
-import CreateProject from "./views/createProject";
+import Main from "./pages/main";
+import Project from "./pages/project";
+import Map from "./pages/map";
+import User from "./pages/user";
+import Task from "./pages/task";
+import Login from "./pages/login";
+import CreateMeet from "./pages/createMeet";
+import CreateUser from "./pages/createUser";
+import CreateProject from "./pages/createProject";
+import CreatePlace from "./pages/createPlace";
+
+import Place from "./pages/place";
 
 import './App.css'
 import { ProtectedLayout } from "./modules/login/ProtectedLayout";
@@ -32,20 +34,20 @@ export const router = createBrowserRouter(
             loader={() => defer({ userPromise: getUserData() })}
         >
             <Route element={<ProtectedLayout />}>
-                <Route index element={<MainView />} />
+                <Route index element={<Main />} />
                 <Route path="meet" element={<CreateMeet />} />
-                <Route path="place" element={<PlacesView />} />
+                <Route path="map" element={<Map />} />
                 <Route path="project" element={<CreateProject />} />
+                <Route path="user" element={<CreateUser />} />
+                <Route path="place" element={<CreatePlace />} />
                 <Route path="task/:id" element={<Task />} />
+                <Route path="project/:id" element={<Project />} />
+                <Route path="place/:id" element={<Place />} />
+                <Route path="user/:id" element={<User />} />
             </Route>
             <Route element={<HomeLayout />}>
-                <Route path="/login" element={<LoginView />} />
-                <Route path="user" element={<CreateUser />} />
-                <Route path="project/:id" element={<ProjectView />} />
-                <Route path="place/:id" element={<PlaceView />} />
-                <Route path="user/:id" element={<UserView />} />
+                <Route path="/login" element={<Login />} />
             </Route>
-
         </Route>
     )
 );

@@ -1,6 +1,7 @@
 import {useState} from "react";
 import { createContext, useContext, useMemo } from "react";
 import { useNavigate } from "react-router-dom";
+import {User, useUserByLogin} from "../modules/user";
 
 export function useLocalStorage<T>(key: string, initialValue: T) {
     // State to store our value
@@ -44,14 +45,22 @@ export function useLocalStorage<T>(key: string, initialValue: T) {
 
 const AuthContext = createContext('auth' as any);
 
+export interface LoginData { email: string, password: string }
+
 export const AuthProvider = ({ children }: {children: JSX.Element}) => {
     const [user, setUser] = useLocalStorage<string | null>("user", null);
     const navigate = useNavigate();
+    const userByLogin = useUserByLogin()
 
     // call this function when you want to authenticate the user
-    const login = async (data: string) => {
-        setUser(data);
-        navigate("/login");
+    const login = async (data: LoginData) => {
+        userByLogin.mutateAsync(data).then((result) => {
+            console.log(data, result, 'data result')
+            if (!!result) {
+                setUser(JSON.stringify(result));
+            }
+            navigate("/login");
+        })
     };
 
     // call this function to sign out logged in user

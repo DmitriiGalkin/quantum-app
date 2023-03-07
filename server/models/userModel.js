@@ -15,6 +15,13 @@ User.create = function (user, result) {
         result(null, res.insertId);
     });
 };
+
+User.islogin = function (email, password, result) {
+    dbConn.query("Select * from users where email = ? AND password = ?", [email, password], function (err, res) {
+        if(err) result(err, null);
+        result(null, res);
+    });
+};
 User.findById = function (id, result) {
     dbConn.query("Select * from users where id = ? ", id, function (err, res) {
         if(err) result(err, null);

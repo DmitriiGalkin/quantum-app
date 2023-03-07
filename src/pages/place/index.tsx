@@ -4,13 +4,13 @@ import AppBar from '@material-ui/core/AppBar';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import {Chip, Container, Grid} from "@material-ui/core";
-import ForwardAppBar from "./components/ForwardAppBar";
-import {TabPanel} from "../tools/tabs";
+import ForwardAppBar from "../components/ForwardAppBar";
+import {TabPanel} from "../../tools/tabs";
 import FaceIcon from "@material-ui/icons/Face";
 import {useNavigate, useParams} from "react-router-dom";
-import {Place} from "../modules/place/types";
-import ProjectCard from "./components/ProjectCard";
-import {usePlace, usePlaceProjects} from "../modules/place/hook";
+import {Place} from "../../modules/place/types";
+import ProjectCard from "../components/ProjectCard";
+import {usePlace, usePlaceProjects} from "../../modules/place/hook";
 
 
 const useStyles = makeStyles((theme: Theme) => ({

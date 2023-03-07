@@ -4,7 +4,7 @@ import {Avatar, Box, Button, Container, IconButton, Typography} from "@mui/mater
 import SaveIcon from '@material-ui/icons/Save';
 import FavoriteIcon from "@material-ui/icons/Favorite";
 import ShareIcon from "@material-ui/icons/Share";
-import ForwardAppBar from "./components/ForwardAppBar";
+import ForwardAppBar from "../components/ForwardAppBar";
 import {useNavigate, useParams} from "react-router-dom";
 import {
     Project,
@@ -13,11 +13,11 @@ import {
     useProject,
     useProjectMeets,
     useProjectUsers
-} from "../modules/project";
-import Image from "./components/Image";
-import {getMeetsGroup} from "./helper";
-import DateMeets from "./components/DateMeets";
-import {Meet} from "../modules/meet";
+} from "../../modules/project";
+import Image from "../components/Image";
+import {getMeetsGroup} from "../helper";
+import DateMeets from "../components/DateMeets";
+import {Meet} from "../../modules/meet";
 
 const useStyles = makeStyles((theme: Theme) => ({
     container: {

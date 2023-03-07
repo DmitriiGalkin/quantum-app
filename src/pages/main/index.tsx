@@ -1,20 +1,20 @@
 import React from 'react';
 import {makeStyles, Theme} from '@material-ui/core/styles';
-import ProjectCard from "./components/ProjectCard";
-import {TabPanel} from "../tools/tabs";
+import ProjectCard from "../components/ProjectCard";
+import {TabPanel} from "../../tools/tabs";
 import AddIcon from "@mui/icons-material/Add";
 import EditIcon from '@mui/icons-material/Edit';
-import TaskCard from "./components/TaskCard";
-import {Meet, useMeets} from "../modules/meet";
-import {useProjects} from "../modules/project";
-import {useTasks} from "../modules/task";
+import TaskCard from "../components/TaskCard";
+import {Meet, useMeets} from "../../modules/meet";
+import {useProjects} from "../../modules/project";
+import {useTasks} from "../../modules/task";
 import RocketIcon from '@mui/icons-material/Rocket';
 import GroupsIcon from '@mui/icons-material/Groups';
 import InboxIcon from '@mui/icons-material/Inbox';
 import AutoAwesomeIcon from '@mui/icons-material/AutoAwesome';
 import MenuIcon from '@mui/icons-material/Menu';
 import EmojiEventsIcon from "@material-ui/icons/EmojiEvents";
-import {useEditUser, useUser, useUserUniques} from "../modules/user";
+import {useEditUser, useUser, useUserUniques} from "../../modules/user";
 import {
     AppBar,
     BottomNavigation,
@@ -27,12 +27,12 @@ import {
     Zoom
 } from "@mui/material";
 
-import DateMeets from "./components/DateMeets";
-import {getMeetsGroup} from "./helper";
+import DateMeets from "../components/DateMeets";
+import {getMeetsGroup} from "../helper";
 import {useNavigate} from "react-router-dom";
-import {useAuth} from "../tools/hooks";
+import {useAuth} from "../../tools/hooks";
 import ArrowUpward from "@material-ui/icons/ArrowUpward";
-import {useEditUnique} from "../modules/unique";
+import {useEditUnique} from "../../modules/unique";
 
 const useStyles = makeStyles((theme: Theme) => ({
     content: {
@@ -65,17 +65,22 @@ export default function MainView() {
     const navigate = useNavigate();
     const [value, setValue] = React.useState(0);
     const [open, setOpen] = React.useState(false);
-    const { user, logout } = useAuth();
+    const { user: userString, logout } = useAuth();
+    const user = JSON.parse(userString)
+
+    const map = () => {
+        navigate('/map')
+    }
 
     const transitionDuration = {
         enter: theme.transitions.duration.enteringScreen,
         exit: theme.transitions.duration.leavingScreen,
     };
-    const { data: userD } = useUser(1)
+    const { data: userD } = useUser(user.id)
     const { data: meets = [], refetch } = useMeets()
     const { data: projects = [] } = useProjects()
     const { data: tasks = [] } = useTasks()
-    const { data: uniques = [] } = useUserUniques(1)
+    const { data: uniques = [] } = useUserUniques(user.id)
     const meetsGroup = getMeetsGroup(meets)
 
     const editUser = useEditUser(1)
@@ -142,16 +147,14 @@ export default function MainView() {
                     </List>
                     <Divider />
                     <List>
-                        {['All mail', 'Trash', 'Spam'].map((text, index) => (
-                            <ListItem key={text} disablePadding>
-                                <ListItemButton>
-                                    <ListItemIcon>
-                                        <InboxIcon />
-                                    </ListItemIcon>
-                                    <ListItemText primary={text} />
-                                </ListItemButton>
-                            </ListItem>
-                        ))}
+                        <ListItem disablePadding>
+                            <ListItemButton onClick={map} >
+                                <ListItemIcon>
+                                    <InboxIcon />
+                                </ListItemIcon>
+                                <ListItemText primary={'Карта'} />
+                            </ListItemButton>
+                        </ListItem>
                     </List>
                     <Divider />
                     <List>

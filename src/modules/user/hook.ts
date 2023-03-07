@@ -3,6 +3,7 @@ import {useMutation, useQuery, useQueryClient, UseQueryResult} from "@tanstack/r
 import service, {UseMutate} from "../../tools/service";
 import {Unique} from "../unique/types";
 import {Project} from "../project/types";
+import {LoginData} from "../../tools/hooks";
 
 export const useUser = (id: number): UseQueryResult<User> => {
     return useQuery(['user', id], () => service.get(`/users/${id}`),)
@@ -26,3 +27,7 @@ export const useEditUser = (userId: number): UseMutate<User> => {
     })
 }
 
+// export const useUserByLogin = (data: LoginData): UseQueryResult<User> => {
+//     return useQuery(['user', data.email, data.password], () => service.get(`/users/login`, {params: {...data}}),)
+// }
+export const useUserByLogin = (): UseMutate<LoginData> => useMutation((data) => service.post("/users/login", data))

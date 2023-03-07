@@ -5,6 +5,7 @@ const projectController =   require('../controllers/projectController');
 
 router.get('/', userController.findAll);
 router.post('/', userController.create);
+router.post('/login', userController.islogin);
 router.get('/:id', userController.findById);
 router.put('/:id', userController.update);
 router.delete('/:id', userController.delete);

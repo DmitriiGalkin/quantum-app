@@ -20,6 +20,13 @@ exports.create = function(req, res) {
         });
     }
 };
+
+exports.islogin = function(req, res) {
+    User.islogin(req.body.email, req.body.password, function(err, users) {
+        if (err) res.send(err);
+        res.send(users && users[0]);
+    });
+};
 exports.findById = function(req, res) {
     User.findById(req.params.id, function(err, users) {
         if (err) res.send(err);
