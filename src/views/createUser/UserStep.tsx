@@ -1,34 +1,54 @@
-import React from 'react';
-import {Typography, Slider, Box} from "@mui/material";
+import React, {useState} from 'react';
 import {UserStepProps} from "./types";
-import {valuetext, valuetext2} from "./helper";
-import { CalendarPicker } from '@mui/x-date-pickers';
-import dayjs, { Dayjs } from 'dayjs';
+import {Box, Button, TextField} from "@mui/material";
+import {useAuth} from "../../tools/hooks";
 
-export default function UserStep({ user, setUser }: UserStepProps) {
-    const calendarPickerDate = dayjs(meet.datetime)
-    const sliderValue = [dayjs(meet.datetime).hour() * 60 + dayjs(meet.datetime).minute(), dayjs(meet.endDatetime).hour() * 60 + dayjs(meet.endDatetime).minute()]
+export default function UserStep({ user, setUser, handleNext }: UserStepProps) {
+    const [email, setEmail] = useState<string | undefined>()
+    const [password, setPassword] = useState<string | undefined>()
+    const [title, setTitle] = useState<string | undefined>()
+    const { login } = useAuth();
 
-    const calendarPickerOnChange = (date: Dayjs | null) => {
-        if (!date) return
-        setUser({
+    // const handleSubmit = () => {
+    //     console.log({...user, email, password, title}, '{...user, email, password, title}')
+    //     setUser({...user, email, password, title})
+    //     // handleNext()
+    // }
+    const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+        console.log(event, 'event')
+        const data = new FormData(event.currentTarget);
+        console.log(data, 'data')
+
+        const f = {
             ...user,
-            datetime: date.startOf('day').add(dayjs(meet.datetime).hour(), 'hour').add(dayjs(meet.datetime).minute(), 'minute').format('YYYY-MM-DDTHH:mm:ss'),
-            endDatetime: date.startOf('day').add(dayjs(meet.endDatetime).hour(), 'hour').add(dayjs(meet.endDatetime).minute(), 'minute').format('YYYY-MM-DDTHH:mm:ss'),
-        })
-    }
-    const sliderOnChange = (event: any, newValue: number | number[]) => {
-        const [minutes, endMinutes] = newValue as number[]
-        setUser({
-            ...user,
-            datetime: dayjs(meet.datetime).startOf('day').add(minutes, 'minute').format('YYYY-MM-DDTHH:mm:ss'),
-            endDatetime: dayjs(meet.endDatetime).startOf('day').add(endMinutes, 'minute').format('YYYY-MM-DDTHH:mm:ss'),
-        })
+            email: data.get("email") as string,
+            password: data.get("password") as string,
+            title: data.get("title") as string,
+        }
+        console.log(f, 'f')
+
+        setUser(f);
+        // login({
+        //     email: data.get("email"),
+        //     password: data.get("password")
+        // });
+        handleNext()
+        event.preventDefault();
     };
 
     return (
-        <div>
-
-        </div>
+        <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
+            <TextField name='email' label="Телефон/Почта" variant="standard" fullWidth/>
+            <TextField name='password' label="Пароль" variant="standard" fullWidth/>
+            <TextField name='title' label="Пароль" variant="standard" fullWidth/>
+            <Button
+                type="submit"
+                fullWidth
+                variant="contained"
+                sx={{ mt: 3, mb: 2 }}
+            >
+                Создать
+            </Button>
+        </Box>
     );
 }

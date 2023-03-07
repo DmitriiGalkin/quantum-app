@@ -52,8 +52,6 @@ const theme = createTheme({
     }
 });
 
-//
-
 const queryClient = new QueryClient()
 
 const root = ReactDOM.createRoot(

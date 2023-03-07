@@ -14,14 +14,14 @@ import InboxIcon from '@mui/icons-material/Inbox';
 import AutoAwesomeIcon from '@mui/icons-material/AutoAwesome';
 import MenuIcon from '@mui/icons-material/Menu';
 import EmojiEventsIcon from "@material-ui/icons/EmojiEvents";
-import {useUserUniques} from "../modules/user";
+import {useEditUser, useUser, useUserUniques} from "../modules/user";
 import {
     AppBar,
     BottomNavigation,
     BottomNavigationAction,
-    Box, Button,
+    Box,
     Container, Divider, Drawer, Fab, IconButton, List, ListItem, ListItemButton, ListItemIcon, ListItemText,
-    Paper, SwipeableDrawer, Toolbar,
+    Paper, Toolbar,
     Typography,
     useTheme,
     Zoom
@@ -31,6 +31,8 @@ import DateMeets from "./components/DateMeets";
 import {getMeetsGroup} from "./helper";
 import {useNavigate} from "react-router-dom";
 import {useAuth} from "../tools/hooks";
+import ArrowUpward from "@material-ui/icons/ArrowUpward";
+import {useEditUnique} from "../modules/unique";
 
 const useStyles = makeStyles((theme: Theme) => ({
     content: {
@@ -64,17 +66,25 @@ export default function MainView() {
     const [value, setValue] = React.useState(0);
     const [open, setOpen] = React.useState(false);
     const { user, logout } = useAuth();
-    console.log(user, 'user')
 
     const transitionDuration = {
         enter: theme.transitions.duration.enteringScreen,
         exit: theme.transitions.duration.leavingScreen,
     };
+    const { data: userD } = useUser(1)
     const { data: meets = [], refetch } = useMeets()
     const { data: projects = [] } = useProjects()
     const { data: tasks = [] } = useTasks()
     const { data: uniques = [] } = useUserUniques(1)
     const meetsGroup = getMeetsGroup(meets)
+
+    const editUser = useEditUser(1)
+    const editUnique = useEditUnique(1)
+
+    const toTop = ({ user, unique, points }: any) => {
+        editUser.mutate({ ...user, points: user.points - points })
+        editUnique.mutate({ ...unique, points: unique.points + points })
+    }
 
     const FABS = [
         {
@@ -193,10 +203,13 @@ export default function MainView() {
                     <Container disableGutters>
                         <div style={{ padding: 24 }}>
                             <Typography component="div" style={{ fontSize: 30, textAlign: 'center' }}>
-                                Дмитрий Галкин
+                                {userD?.title}
                             </Typography>
                             <Typography component="div" style={{ fontWeight: 700, textAlign: 'center' }}>
                                 - твои Уникальные Ценности!
+                            </Typography>
+                            <Typography component="div" style={{ fontWeight: 700, textAlign: 'center' }}>
+                                Свободных баллов {userD?.points ? userD?.points : 'нет'}
                             </Typography>
                         </div>
                         <Box sx={{
@@ -216,9 +229,12 @@ export default function MainView() {
                                         {unique.title}
                                     </Typography>
                                     <Typography variant="subtitle1" sx={{ paddingRight: 1}}>
-                                        15
+                                        {unique.points}
                                     </Typography>
                                     <AutoAwesomeIcon style={{ width: 20, height: 20 }} color="primary"/>
+                                    {userD?.points && <IconButton onClick={() => toTop({ user: userD, unique, points: 1 })}>
+                                        <ArrowUpward/>
+                                    </IconButton>}
                                 </Box>
                             ))}
                         </Box>

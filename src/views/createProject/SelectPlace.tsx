@@ -1,11 +1,11 @@
 import {makeStyles, Theme} from "@material-ui/core/styles";
 import {Card, CardActionArea, CardContent, Grid} from "@material-ui/core";
 import React from "react";
-import {usePlaces} from "../../../../modules/place/hook";
+import {usePlaces} from "../../modules/place/hook";
 import CardMedia from "@material-ui/core/CardMedia";
 import Typography from "@material-ui/core/Typography";
 import {red} from "@material-ui/core/colors";
-import {Project} from "../../../../modules/project/types";
+import {Project} from "../../modules/project/types";
 
 const useStyles = makeStyles((theme: Theme) => ({
     root: {

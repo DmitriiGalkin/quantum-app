@@ -5,6 +5,7 @@ var User = function(user){
     this.email = user.email;
     this.password = user.password;
     this.title = user.title;
+    this.points = user.points;
     this.created_at = new Date();
     this.updated_at = new Date();
 };
@@ -94,25 +95,16 @@ User.findAll = function (result) {
         }
     });
 };
-User.update = function(id, employee, result){
-    dbConn.query("UPDATE users SET first_name=?,last_name=?,email=?,phone=?,organization=?,designation=?,salary=? WHERE id = ?", [employee.first_name,employee.last_name,employee.email,employee.phone,employee.organization,employee.designation,employee.salary, id], function (err, res) {
-        if(err) {
-            console.log("error: ", err);
-            result(null, err);
-        }else{
-            result(null, res);
-        }
+User.update = function(id, user, result){
+    dbConn.query("UPDATE users SET title=?,points=? WHERE id = ?", [user.title,user.points, id], function (err, res) {
+        if(err) result(null, err);
+        result(null, res);
     });
 };
 User.delete = function(id, result){
     dbConn.query("DELETE FROM users WHERE id = ?", [id], function (err, res) {
-        if(err) {
-            console.log("error: ", err);
-            result(null, err);
-        }
-        else{
-            result(null, res);
-        }
+        if(err) result(null, err);
+        result(null, res);
     });
 };
 module.exports = User;

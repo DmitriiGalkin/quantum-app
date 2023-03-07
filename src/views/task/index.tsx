@@ -3,11 +3,12 @@ import {makeStyles, Theme} from '@material-ui/core/styles';
 import {Card, CardActionArea, CardContent, CardHeader, Container, Grid} from "@material-ui/core";
 import ForwardAppBar from "../components/ForwardAppBar";
 import {useParams} from "react-router-dom";
-import {Task, useTask} from "../../modules/task";
+import {Task, useEditTask, useTask} from "../../modules/task";
 import CampaignIcon from '@mui/icons-material/Campaign';
-import {IconButton} from "@mui/material";
+import {Button, IconButton} from "@mui/material";
 import ArrowBackIos from "@material-ui/icons/ArrowBackIos";
 import SelectEmotion from "./SelectEmotion";
+import {useAddUser, useEditUser, useUser} from "../../modules/user";
 
 const useStyles = makeStyles((theme: Theme) => ({
     root: {
@@ -42,12 +43,23 @@ const useStyles = makeStyles((theme: Theme) => ({
 export default function UserView() {
     const classes = useStyles();
     const { id } = useParams();
+    const { data: user = {} as Task } = useUser(1)
     const { data: task = {} as Task } = useTask(Number(id))
     const campaignIconOnClick = () => {
         let utterance = new SpeechSynthesisUtterance(task.title);
         speechSynthesis.speak(utterance);
     }
     const [emotion, setEmotion] = useState<number>()
+    const editTask = useEditTask()
+    const editUser = useEditUser(1)
+
+    const onClick = () => {
+        editTask.mutate({ ...task, result: JSON.stringify({ emotion }) })
+        setTimeout(() => {
+            editUser.mutate({ ...user, points: user.points + task.points })
+        }, 10)
+
+    };
 
     return (
         <div className={classes.root}>
@@ -55,6 +67,14 @@ export default function UserView() {
             <Container style={{ paddingTop: 20 }}>
                 <SelectEmotion onClick={(v) => setEmotion(v)}/>
                 {emotion === 6 && 'У тебя сегодня прекрасное настроение!'}
+                <Button
+                    fullWidth
+                    variant="contained"
+                    sx={{ mt: 3, mb: 2 }}
+                    onClick={onClick}
+                >
+                    Отправить
+                </Button>
             </Container>
         </div>
     );

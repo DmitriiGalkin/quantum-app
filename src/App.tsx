@@ -5,10 +5,11 @@ import ProjectView from "./views/ProjectView";
 import PlaceView from "./views/PlaceView";
 import UserView from "./views/UserView";
 import PlacesView from "./views/PlacesView";
-import TaskView from "./views/task/TaskView";
+import Task from "./views/task";
 import LoginView from "./views/Login";
-import CreateMeetView from "./views/createMeet/CreateMeetView";
+import CreateMeet from "./views/createMeet";
 import CreateUser from "./views/createUser";
+import CreateProject from "./views/createProject";
 
 import './App.css'
 import { ProtectedLayout } from "./modules/login/ProtectedLayout";
@@ -32,9 +33,10 @@ export const router = createBrowserRouter(
         >
             <Route element={<ProtectedLayout />}>
                 <Route index element={<MainView />} />
-                <Route path="meet" element={<CreateMeetView />} />
+                <Route path="meet" element={<CreateMeet />} />
                 <Route path="place" element={<PlacesView />} />
-                <Route path="task/:id" element={<TaskView />} />
+                <Route path="project" element={<CreateProject />} />
+                <Route path="task/:id" element={<Task />} />
             </Route>
             <Route element={<HomeLayout />}>
                 <Route path="/login" element={<LoginView />} />

@@ -2,10 +2,10 @@
 var async = require("async");
 
 const Project = require('../models/projectModel');
-const ProjectUser = require('../models/projectUserModel');
 const Meet = require('../models/meetModel');
 const Place = require('../models/placeModel');
 const User = require('../models/userModel');
+const ProjectUser = require('../models/projectUserModel');
 
 exports.findAll = function(req, res) {
     Project.findAll(function(err, projects) {

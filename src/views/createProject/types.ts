@@ -1,4 +1,4 @@
-import {Project} from "../../../../modules/project/types";
+import {Project} from "../../modules/project/types";
 
 export interface ProjectStepProps {
     project: Project,

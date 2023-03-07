@@ -87,7 +87,7 @@ export default function LoginView() {
                     </Button>
                     <Grid container>
                         <Grid item>
-                            <RouterLink to="/register">
+                            <RouterLink to="/user">
                                 <Link href="#" variant="body2">
                                     {"Нет аккаунта? Быстрая регистрация"}
                                 </Link>

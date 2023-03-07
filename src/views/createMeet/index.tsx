@@ -1,17 +1,14 @@
 import React, {useState} from 'react';
 import {makeStyles} from '@material-ui/core/styles';
-import Typography from '@material-ui/core/Typography';
-import {Container} from "@material-ui/core";
+import {Typography, Container, Theme} from "@mui/material";
 import ForwardAppBar from "../components/ForwardAppBar";
 import {useAddMeet} from "../../modules/meet";
 import SelectProjectStep from "./SelectProjectStep";
 import MeetStep from "./MeetStep";
 import ConfirmationStep from "./ConfirmationStep";
-import {Button, MobileStepper, Paper, Theme} from "@mui/material";
-import KeyboardArrowRight from "@mui/icons-material/KeyboardArrowRight";
-import KeyboardArrowLeft from "@mui/icons-material/KeyboardArrowLeft";
 import {TabPanel} from "../../tools/tabs";
 import {DEFAULT_MEET} from "./helper";
+import QStepper from "../components/QStepper";
 
 const useStyles = makeStyles((theme: Theme) => ({
     content: {
@@ -40,7 +37,6 @@ export default function CreateMeetView() {
     const handleBack = () => {
         setActiveStep((prevActiveStep) => prevActiveStep - 1);
     };
-    console.log(meet, 'meet CreateMeetView')
     const props = {
         meet,
         setMeet,
@@ -69,33 +65,7 @@ export default function CreateMeetView() {
                     </TabPanel>
                 </Container>
             </div>
-            <Paper className={classes.bottomNavigation} elevation={3} style={{zIndex: 10 }}>
-                <MobileStepper
-                    variant="text"
-                    steps={3}
-                    position="static"
-                    activeStep={activeStep}
-                    nextButton={
-                        <Button
-                            size="small"
-                            onClick={handleNext}
-                            disabled={1 === 3 - 1}
-                        >
-                            Далее
-                            <KeyboardArrowRight />
-                        </Button>
-                    }
-                    backButton={
-                        <Button size="small" onClick={handleBack} disabled={false}>
-                            <KeyboardArrowLeft />
-                            Назад
-                        </Button>
-                    }
-                    style={{
-                        backgroundColor: 'white',
-                    }}
-                />
-            </Paper>
+            <QStepper activeStep={activeStep} handleBack={handleBack} handleNext={handleNext}/>
         </div>
     );
 }

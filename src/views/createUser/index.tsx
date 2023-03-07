@@ -29,9 +29,10 @@ export default function CreateUserPage() {
     const [activeStep, setActiveStep] = React.useState(0);
     const [user, setUser] = useState(DEFAULT_USER)
     const addUser = useAddUser()
+    console.log(user, 'user')
     const handleNext = () => {
         setActiveStep((prevActiveStep) => prevActiveStep + 1);
-        if (activeStep === 1) {
+        if (activeStep === 0) {
             addUser.mutate(user)
         }
     };
@@ -47,13 +48,13 @@ export default function CreateUserPage() {
     }
     return (
         <div>
-            <ForwardAppBar title="Создать встречу"/>
+            <ForwardAppBar title="Регистрация"/>
             <div className={classes.content}>
                 <Container style={{ padding: '18px' }}>
                     <TabPanel value={activeStep} index={0}>
                         <UserStep {...props}/>
                     </TabPanel>
-                    <TabPanel value={activeStep} index={3}>
+                    <TabPanel value={activeStep} index={1}>
                         <Typography>
                             Участник создан!
                             - найти пространства
