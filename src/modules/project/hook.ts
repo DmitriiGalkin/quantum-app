@@ -5,10 +5,10 @@ import service, {UseMutate} from "../../tools/service";
 import {Meet} from "../meet";
 
 export const useProjects = (): UseQueryResult<Project[]> => {
-    return useQuery(['projects'], () => service.get(`/projects`),)
+    return useQuery(['projects'], () => service.get(`/project`),)
 }
 export const useProject = (id: number): UseQueryResult<Project> => {
-    return useQuery(['project', id], () => service.get(`/projects/${id}`),)
+    return useQuery(['project', id], () => service.get(`/project/${id}`),)
 }
 export const useProjectMeets = (id: number): UseQueryResult<Meet[]> => {
     return useQuery(['projectMeets', id], () => service.get(`/project/${id}/meet`),)
@@ -24,8 +24,6 @@ interface ProjectUser {
     projectId: number
     userId?: number
 }
-// export const useAddProjectUser = (): UseMutate<ProjectUser> => useMutation(({ userId = 1, projectId }) => service.post("/projects/" + projectId + '/user/' + userId))
-// export const useDeleteProjectUser = (): UseMutate<ProjectUser> => useMutation(({ userId = 1, projectId }) => service.delete("/projects/" + projectId + '/user/' + userId))
 
 export const useAddProjectUser = (projectId?: number): UseMutate<ProjectUser> => {
     const queryClient = useQueryClient()

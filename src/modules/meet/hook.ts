@@ -1,13 +1,13 @@
 import {Meet, NewMeet} from "./types";
 import {useMutation, useQuery, useQueryClient, UseQueryResult} from "@tanstack/react-query";
 import service, {UseMutate} from "../../tools/service";
-import {User} from "../user/types";
+import {User} from "../user";
 
 export const useMeets = (): UseQueryResult<Meet[]> => {
-    return useQuery(['meets'], () => service.get(`/meets`),)
+    return useQuery(['meets'], () => service.get(`/meet`),)
 }
 export const useMeetUsers = (id: number): UseQueryResult<User[]> => {
-    return useQuery(['meetUsers', id], () => service.get(`/meets/${id}/users`),)
+    return useQuery(['meetUsers', id], () => service.get(`/meet/${id}/users`),)
 }
 
 export const useAddMeet = (): UseMutate<NewMeet> => useMutation((meet) => service.post("/meet", meet))

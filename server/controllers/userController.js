@@ -35,9 +35,8 @@ exports.findById = function(req, res) {
 };
 exports.findUniquesById = function(req, res) {
     User.findUniquesById(req.params.id, function(err, employee) {
-        if (err)
-            res.send(err);
-        res.json(employee);
+        if (err) res.send(err);
+        res.send(employee);
     });
 };
 
