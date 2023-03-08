@@ -1,5 +1,5 @@
-import { Navigate, useOutlet } from "react-router-dom";
-import { useAuth } from "../../tools/hooks";
+import {Navigate, useOutlet} from "react-router-dom";
+import {useAuth} from "../../tools/hooks";
 
 export const HomeLayout = () => {
     const { user } = useAuth();

@@ -1,5 +1,5 @@
 import {makeStyles, Theme} from "@material-ui/core/styles";
-import {Card, CardActionArea, CardContent, Grid} from "@material-ui/core";
+import {CardActionArea, CardContent, Grid} from "@material-ui/core";
 import React from "react";
 import {usePlaces} from "../../modules/place/hook";
 import CardMedia from "@material-ui/core/CardMedia";

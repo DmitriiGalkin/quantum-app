@@ -1,9 +1,9 @@
 import React from 'react';
-import {Typography, Slider, Box} from "@mui/material";
+import {Box, Slider, Typography} from "@mui/material";
 import {MeetStepProps} from "./types";
 import {valuetext, valuetext2} from "./helper";
-import { CalendarPicker } from '@mui/x-date-pickers';
-import dayjs, { Dayjs } from 'dayjs';
+import {CalendarPicker} from '@mui/x-date-pickers';
+import dayjs, {Dayjs} from 'dayjs';
 
 export default function MeetStep({ meet, setMeet }: MeetStepProps) {
     const calendarPickerDate = dayjs(meet.datetime)

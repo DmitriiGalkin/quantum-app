@@ -1,7 +1,7 @@
 import {useMutation, useQuery, UseQueryResult} from "@tanstack/react-query";
 import service, {UseMutate} from "../../tools/service";
 import {Task} from "./types";
-import {NewUser, User} from "../user";
+import {User} from "../user";
 
 export const useTask = (id: number): UseQueryResult<User> => {
     return useQuery(['task', id], () => service.get(`/task/${id}`),)

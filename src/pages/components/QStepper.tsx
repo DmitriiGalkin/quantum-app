@@ -1,8 +1,5 @@
 import React from 'react';
-import {Task} from "../../modules/task";
-import {Box, Button, Chip, MobileStepper, Paper, Theme, Tooltip, Typography} from "@mui/material";
-import AutoAwesomeIcon from '@mui/icons-material/AutoAwesome';
-import {useNavigate} from "react-router-dom";
+import {Button, MobileStepper, Paper, Theme} from "@mui/material";
 import KeyboardArrowRight from "@mui/icons-material/KeyboardArrowRight";
 import KeyboardArrowLeft from "@mui/icons-material/KeyboardArrowLeft";
 import {makeStyles} from "@material-ui/core/styles";

@@ -1,6 +1,5 @@
 import React from 'react';
-import {Route, Routes} from "react-router";
-import Main from "./pages/main";
+import {Route} from "react-router";
 import Project from "./pages/project";
 import Map from "./pages/map";
 import User from "./pages/user";
@@ -10,15 +9,19 @@ import CreateMeet from "./pages/createMeet";
 import CreateUser from "./pages/createUser";
 import CreateProject from "./pages/createProject";
 import CreatePlace from "./pages/createPlace";
+import Meets from "./pages/meets";
+import Projects from "./pages/projects";
+import Tasks from "./pages/tasks";
+import Uniques from "./pages/uniques";
 
 import Place from "./pages/place";
 
 import './App.css'
-import { ProtectedLayout } from "./modules/login/ProtectedLayout";
+import {ProtectedLayout} from "./modules/login/ProtectedLayout";
 import {createBrowserRouter, createRoutesFromElements, defer} from "react-router-dom";
 import {AuthLayout} from "./modules/login/AuthLayout";
 import {HomeLayout} from "./modules/login/HomeLayout";
-
+import MainLayout from './layouts/MainLayout'
 
 const getUserData = () =>
     new Promise((resolve) =>
@@ -34,7 +37,12 @@ export const router = createBrowserRouter(
             loader={() => defer({ userPromise: getUserData() })}
         >
             <Route element={<ProtectedLayout />}>
-                <Route index element={<Main />} />
+                <Route element={<MainLayout />}>
+                    <Route path="meets" element={<Meets />} />
+                    <Route path="projects" element={<Projects />} />
+                    <Route path="tasks" element={<Tasks />} />
+                    <Route path="uniques" element={<Uniques />} />
+                </Route>
                 <Route path="meet" element={<CreateMeet />} />
                 <Route path="map" element={<Map />} />
                 <Route path="project" element={<CreateProject />} />

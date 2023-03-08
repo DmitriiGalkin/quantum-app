@@ -2,7 +2,6 @@ import React from 'react';
 import {createStyles, makeStyles, Theme} from '@material-ui/core/styles';
 import ArrowBackIos from '@material-ui/icons/ArrowBackIos';
 import {Container, IconButton, Skeleton, Typography} from "@mui/material";
-import CampaignIcon from "@mui/icons-material/Campaign";
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({

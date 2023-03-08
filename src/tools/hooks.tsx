@@ -1,7 +1,6 @@
-import {useState} from "react";
-import { createContext, useContext, useMemo } from "react";
-import { useNavigate } from "react-router-dom";
-import {User, useUserByLogin} from "../modules/user";
+import {createContext, useContext, useMemo, useState} from "react";
+import {useNavigate} from "react-router-dom";
+import {useUserByLogin} from "../modules/user";
 
 export function useLocalStorage<T>(key: string, initialValue: T) {
     // State to store our value

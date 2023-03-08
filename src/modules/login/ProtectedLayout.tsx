@@ -1,5 +1,5 @@
-import {Link, Navigate, Outlet} from "react-router-dom";
-import { useAuth } from "../../tools/hooks";
+import {Navigate, Outlet} from "react-router-dom";
+import {useAuth} from "../../tools/hooks";
 
 export const ProtectedLayout = () => {
     const { user } = useAuth();

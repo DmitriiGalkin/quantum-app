@@ -1,14 +1,13 @@
 import React, {useState} from 'react';
 import {makeStyles, Theme} from '@material-ui/core/styles';
-import {Card, CardActionArea, CardContent, CardHeader, Container, Grid} from "@material-ui/core";
+import {Container} from "@material-ui/core";
 import ForwardAppBar from "../components/ForwardAppBar";
 import {useParams} from "react-router-dom";
 import {Task, useEditTask, useTask} from "../../modules/task";
 import CampaignIcon from '@mui/icons-material/Campaign';
-import {Button, IconButton} from "@mui/material";
-import ArrowBackIos from "@material-ui/icons/ArrowBackIos";
+import {Button} from "@mui/material";
 import SelectEmotion from "./SelectEmotion";
-import {useAddUser, useEditUser, useUser} from "../../modules/user";
+import {useEditUser, useUser} from "../../modules/user";
 
 const useStyles = makeStyles((theme: Theme) => ({
     root: {

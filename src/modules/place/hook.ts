@@ -2,7 +2,6 @@ import {useMutation, useQuery, UseQueryResult} from "@tanstack/react-query";
 import service, {UseMutate} from "../../tools/service";
 import {NewPlace, Place} from "./types";
 import {Project} from "../project/types";
-import {NewMeet} from "../meet";
 
 export const usePlaces = (): UseQueryResult<Place[]> => {
     return useQuery(['places'], () => service.get(`/place`),)
