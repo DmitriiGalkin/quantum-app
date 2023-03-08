@@ -9,6 +9,6 @@ router.post('/', placeController.create);
 
 
 // Retrieve a single employee with id
-router.get('/:id/projects', projectController.findByPlaceId);
+router.get('/:id/project', projectController.findByPlaceId);
 
 module.exports = router

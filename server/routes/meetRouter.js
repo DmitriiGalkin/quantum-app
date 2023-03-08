@@ -5,7 +5,7 @@ const userController =   require('../controllers/userController');
 
 router.get('/', meetController.findAll); // Встречи
 router.get('/:id', meetController.findById); // Встреча
-router.get('/:id/users', userController.findByMeetId); // Участники встречи
+router.get('/:id/user', userController.findByMeetId); // Участники встречи
 
 router.post('/', meetController.create); // Создание встречи
 

@@ -9,8 +9,8 @@ router.get('/:id', projectController.findById);
 router.post('/', projectController.create);
 router.put('/:id', projectController.update);
 
-router.get('/:id/users', userController.findByProjectId); // Участники проекта
-router.get('/:id/meets', meetController.findByProjectId); // Встречи проекта
+router.get('/:id/user', userController.findByProjectId); // Участники проекта
+router.get('/:id/meet', meetController.findByProjectId); // Встречи проекта
 
 router.post('/:projectId/user/:userId', projectController.createProjectUser );
 router.delete('/:projectId/user/:userId', projectController.deleteProjectUser );

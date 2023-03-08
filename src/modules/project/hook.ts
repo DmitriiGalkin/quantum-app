@@ -11,14 +11,14 @@ export const useProject = (id: number): UseQueryResult<Project> => {
     return useQuery(['project', id], () => service.get(`/projects/${id}`),)
 }
 export const useProjectMeets = (id: number): UseQueryResult<Meet[]> => {
-    return useQuery(['projectMeets', id], () => service.get(`/projects/${id}/meets`),)
+    return useQuery(['projectMeets', id], () => service.get(`/project/${id}/meet`),)
 }
 export const useProjectUsers = (id: number): UseQueryResult<User[]> => {
-    return useQuery(['projectUsers', id], () => service.get(`/projects/${id}/users`),)
+    return useQuery(['projectUsers', id], () => service.get(`/project/${id}/user`),)
 }
 
-export const useAddProject = (): UseMutate<Project> => useMutation((project) => service.post("/projects", project))
-export const useUpdateProject = (): UseMutate<Project> => useMutation((project) => service.put(`/projects/${project.id}`, project))
+export const useAddProject = (): UseMutate<Project> => useMutation((project) => service.post("/project", project))
+export const useUpdateProject = (): UseMutate<Project> => useMutation((project) => service.put(`/project/${project.id}`, project))
 
 interface ProjectUser {
     projectId: number
@@ -29,7 +29,7 @@ interface ProjectUser {
 
 export const useAddProjectUser = (projectId?: number): UseMutate<ProjectUser> => {
     const queryClient = useQueryClient()
-    return useMutation(({ userId = 1, projectId }) => service.post("/projects/" + projectId + '/user/' + userId), {
+    return useMutation(({ userId = 1, projectId }) => service.post("/project/" + projectId + '/user/' + userId), {
         onSuccess() {
             queryClient.invalidateQueries(['projectUsers', projectId])
         },
@@ -37,7 +37,7 @@ export const useAddProjectUser = (projectId?: number): UseMutate<ProjectUser> =>
 }
 export const useDeleteProjectUser = (projectId?: number): UseMutate<ProjectUser> => {
     const queryClient = useQueryClient()
-    return useMutation(({ userId = 1, projectId }) => service.delete("/projects/" + projectId + '/user/' + userId), {
+    return useMutation(({ userId = 1, projectId }) => service.delete("/project/" + projectId + '/user/' + userId), {
         onSuccess() {
             queryClient.invalidateQueries(['projectUsers', projectId])
         },

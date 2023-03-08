@@ -10,7 +10,7 @@ export const useMeetUsers = (id: number): UseQueryResult<User[]> => {
     return useQuery(['meetUsers', id], () => service.get(`/meets/${id}/users`),)
 }
 
-export const useAddMeet = (): UseMutate<NewMeet> => useMutation((meet) => service.post("/meets", meet))
+export const useAddMeet = (): UseMutate<NewMeet> => useMutation((meet) => service.post("/meet", meet))
 
 interface MeetUser {
     meetId: number
@@ -22,7 +22,7 @@ interface MeetUser {
 
 export const useAddMeetUser = (projectId?: number): UseMutate<MeetUser> => {
     const queryClient = useQueryClient()
-    return useMutation(({ userId = 1, meetId }) => service.post("/meets/" + meetId + '/user/' + userId), {
+    return useMutation(({ userId = 1, meetId }) => service.post("/meet/" + meetId + '/user/' + userId), {
         onSuccess() {
             queryClient.invalidateQueries(['meets'])
             queryClient.invalidateQueries(['projectMeets', projectId])
@@ -31,7 +31,7 @@ export const useAddMeetUser = (projectId?: number): UseMutate<MeetUser> => {
 }
 export const useDeleteMeetUser = (projectId?: number): UseMutate<MeetUser> => {
     const queryClient = useQueryClient()
-    return useMutation(({ userId = 1, meetId }) => service.delete("/meets/" + meetId + '/user/' + userId), {
+    return useMutation(({ userId = 1, meetId }) => service.delete("/meet/" + meetId + '/user/' + userId), {
         onSuccess() {
             queryClient.invalidateQueries(['meets'])
             queryClient.invalidateQueries(['projectMeets', projectId])

@@ -6,7 +6,7 @@ import {User} from "../user";
 
 export const useEditUnique = (userId: number): UseMutate<User> => {
     const queryClient = useQueryClient()
-    return useMutation((unique) => service.put(`/uniques/${unique.id}`, unique), {
+    return useMutation((unique) => service.put(`/unique/${unique.id}`, unique), {
         onSuccess() {
             queryClient.invalidateQueries(['userUniques', userId])
         },

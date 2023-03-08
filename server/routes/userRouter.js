@@ -10,7 +10,7 @@ router.get('/:id', userController.findById);
 router.put('/:id', userController.update);
 router.delete('/:id', userController.delete);
 
-router.get('/:id/uniques', userController.findUniquesById);
-router.get('/:id/projects', projectController.findByUserId);
+router.get('/:id/unique', userController.findUniquesById);
+router.get('/:id/project', projectController.findByUserId);
 
 module.exports = router

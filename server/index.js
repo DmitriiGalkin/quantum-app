@@ -21,17 +21,17 @@ app.get('/', (req, res) => {
 }); // define a root route
 
 const taskRouter = require('./routes/taskRouter') // Require employee routes
-app.use('/api/v1/tasks', taskRouter) // using as middleware
+app.use('/api/v1/task', taskRouter) // using as middleware
 const meetRoutes = require('./routes/meetRouter') // Require employee routes
-app.use('/api/v1/meets', meetRoutes) // using as middleware
+app.use('/api/v1/meet', meetRoutes) // using as middleware
 const projectRoutes = require('./routes/projectRouter') // Require employee routes
-app.use('/api/v1/projects', projectRoutes) // using as middleware
+app.use('/api/v1/project', projectRoutes) // using as middleware
 const placeRouter = require('./routes/placeRouter') // Require employee routes
-app.use('/api/v1/places', placeRouter) // using as middleware
+app.use('/api/v1/place', placeRouter) // using as middleware
 const employeeRoutes = require('./routes/userRouter')
-app.use('/api/v1/users', employeeRoutes)
+app.use('/api/v1/user', employeeRoutes)
 const uniqueRoutes = require('./routes/uniqueRouter')
-app.use('/api/v1/uniques', uniqueRoutes)
+app.use('/api/v1/unique', uniqueRoutes)
 const mainRouter = require('./routes/mainRouter')
 app.use('/api/v1/main', mainRouter) // using as middleware
 

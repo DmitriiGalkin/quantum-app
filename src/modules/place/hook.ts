@@ -5,13 +5,13 @@ import {Project} from "../project/types";
 import {NewMeet} from "../meet";
 
 export const usePlaces = (): UseQueryResult<Place[]> => {
-    return useQuery(['places'], () => service.get(`/places`),)
+    return useQuery(['places'], () => service.get(`/place`),)
 }
 export const usePlace = (id: number): UseQueryResult<Place> => {
-    return useQuery(['place', id], () => service.get(`/places/${id}`),)
+    return useQuery(['place', id], () => service.get(`/place/${id}`),)
 }
 export const usePlaceProjects = (id: number): UseQueryResult<Project[]> => {
-    return useQuery(['placeProjects', id], () => service.get(`/places/${id}/projects`),)
+    return useQuery(['placeProjects', id], () => service.get(`/place/${id}/project`),)
 }
 
-export const useAddPlace = (): UseMutate<NewPlace> => useMutation((place) => service.post("/places", place))
+export const useAddPlace = (): UseMutate<NewPlace> => useMutation((place) => service.post("/place", place))
