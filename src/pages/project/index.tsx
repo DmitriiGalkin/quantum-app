@@ -5,7 +5,7 @@ import SaveIcon from '@material-ui/icons/Save';
 import FavoriteIcon from "@material-ui/icons/Favorite";
 import ShareIcon from "@material-ui/icons/Share";
 import PenIcon from "@material-ui/icons/Edit";
-import ForwardAppBar from "../components/ForwardAppBar";
+import ForwardAppBar from "../../components/ForwardAppBar";
 import {useNavigate, useParams} from "react-router-dom";
 import {
     Project,
@@ -15,9 +15,9 @@ import {
     useProjectMeets,
     useProjectUsers
 } from "../../modules/project";
-import Image from "../components/Image";
+import Image from "../../components/Image";
 import {getMeetsGroup} from "../helper";
-import DateMeets from "../components/DateMeets";
+import DateMeets from "../../components/DateMeets";
 import {Meet} from "../../modules/meet";
 
 const useStyles = makeStyles((theme: Theme) => ({

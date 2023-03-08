@@ -5,7 +5,7 @@ import EmojiEventsIcon from "@material-ui/icons/EmojiEvents";
 import AutoAwesomeIcon from "@mui/icons-material/AutoAwesome";
 import React from "react";
 import {makeStyles, Theme} from "@material-ui/core/styles";
-import {useNavigate} from "react-router-dom";
+import {useNavigate, useLocation} from "react-router-dom";
 
 const useStyles = makeStyles((theme: Theme) => ({
     bottomNavigation: {
@@ -16,14 +16,18 @@ const useStyles = makeStyles((theme: Theme) => ({
     },
 }));
 
-export default function QBottomNavigation({ value }: {value: number}) {
+const MAIN_PAGES = ['', 'projects', 'tasks', 'uniques']
+export default function QBottomNavigation() {
     const classes = useStyles();
     const navigate = useNavigate();
+    const location = useLocation();
+    const value = MAIN_PAGES.findIndex((pageName) => '/' + pageName === location.pathname) || 0
+
     const onChange = (index: number) => {
         switch (index) {
             case 0:
             default:
-                return navigate('/meets')
+                return navigate('/')
             case 1:
                 return navigate('/projects')
             case 2:

@@ -1,6 +1,6 @@
 import React from 'react';
-import {Meet, useAddMeetUser, useDeleteMeetUser} from "../../modules/meet";
-import {convertToMeetTime} from "../../tools/date";
+import {Meet, useAddMeetUser, useDeleteMeetUser} from "../modules/meet";
+import {convertToMeetTime} from "../tools/date";
 import {Avatar, AvatarGroup, Box, Typography} from "@mui/material";
 
 export default function MeetCard(meet: Meet) {

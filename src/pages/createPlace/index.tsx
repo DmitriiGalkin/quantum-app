@@ -1,10 +1,10 @@
 import React, {useState} from 'react';
-import ForwardAppBar from "../components/ForwardAppBar";
-import {TabPanel} from "../../tools/tabs";
+import ForwardAppBar from "../../components/ForwardAppBar";
+import {TabPanel} from "../../components/tabs";
 import {DEFAULT_PLACE} from "./helper";
 import PlaceStep from "./PlaceStep";
-import QStepper from "../components/QStepper";
-import QContainer from "../components/QContainer";
+import QStepper from "../../components/QStepper";
+import QContainer from "../../components/QContainer";
 import {Typography} from "@mui/material";
 import {useAddPlace} from "../../modules/place";
 

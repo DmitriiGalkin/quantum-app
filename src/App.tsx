@@ -16,12 +16,13 @@ import Uniques from "./pages/uniques";
 
 import Place from "./pages/place";
 
-import './App.css'
 import {ProtectedLayout} from "./modules/login/ProtectedLayout";
 import {createBrowserRouter, createRoutesFromElements, defer} from "react-router-dom";
 import {AuthLayout} from "./modules/login/AuthLayout";
 import {HomeLayout} from "./modules/login/HomeLayout";
 import MainLayout from './layouts/MainLayout'
+import ModalLayout from './layouts/ModalLayout'
+import './App.css'
 
 const getUserData = () =>
     new Promise((resolve) =>
@@ -38,21 +39,23 @@ export const router = createBrowserRouter(
         >
             <Route element={<ProtectedLayout />}>
                 <Route element={<MainLayout />}>
-                    <Route path="meets" element={<Meets />} />
+                    <Route index element={<Meets />} />
                     <Route path="projects" element={<Projects />} />
                     <Route path="tasks" element={<Tasks />} />
                     <Route path="uniques" element={<Uniques />} />
                 </Route>
-                <Route path="meet" element={<CreateMeet />} />
-                <Route path="map" element={<Map />} />
-                <Route path="project" element={<CreateProject />} />
-                <Route path="project/:id/edit" element={<CreateProject isEdit />} />
-                <Route path="project/:id" element={<Project />} />
-                <Route path="user" element={<CreateUser />} />
-                <Route path="place" element={<CreatePlace />} />
-                <Route path="task/:id" element={<Task />} />
-                <Route path="place/:id" element={<Place />} />
-                <Route path="user/:id" element={<User />} />
+                <Route element={<ModalLayout />}>
+                    <Route path="meet" element={<CreateMeet />} />
+                    <Route path="map" element={<Map />} />
+                    <Route path="project" element={<CreateProject />} />
+                    <Route path="project/:id/edit" element={<CreateProject isEdit />} />
+                    <Route path="project/:id" element={<Project />} />
+                    <Route path="user" element={<CreateUser />} />
+                    <Route path="place" element={<CreatePlace />} />
+                    <Route path="task/:id" element={<Task />} />
+                    <Route path="place/:id" element={<Place />} />
+                    <Route path="user/:id" element={<User />} />
+                </Route>
             </Route>
             <Route element={<HomeLayout />}>
                 <Route path="/login" element={<Login />} />

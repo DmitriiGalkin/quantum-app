@@ -1,14 +1,14 @@
 import React, {useState} from 'react';
 import {Typography} from "@mui/material";
-import ForwardAppBar from "../components/ForwardAppBar";
+import ForwardAppBar from "../../components/ForwardAppBar";
 import {useAddMeet} from "../../modules/meet";
 import SelectProjectStep from "./SelectProjectStep";
 import MeetStep from "./MeetStep";
 import ConfirmationStep from "./ConfirmationStep";
-import {TabPanel} from "../../tools/tabs";
+import {TabPanel} from "../../components/tabs";
 import {DEFAULT_MEET} from "./helper";
-import QStepper from "../components/QStepper";
-import QContainer from "../components/QContainer";
+import QStepper from "../../components/QStepper";
+import QContainer from "../../components/QContainer";
 
 export default function CreateMeetView() {
     const [meet, setMeet] = useState(DEFAULT_MEET)

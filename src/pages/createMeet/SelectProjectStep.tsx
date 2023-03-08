@@ -1,7 +1,7 @@
 import React from "react";
 import {MeetStepProps} from "./types";
 import {useUserProjects} from "../../modules/user";
-import ProjectCard from "../components/ProjectCard";
+import ProjectCard from "../../components/ProjectCard";
 import {Typography} from "@mui/material";
 import {getProjectDefaultDatetime} from "./helper";
 

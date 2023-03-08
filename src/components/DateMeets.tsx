@@ -1,6 +1,6 @@
 import React from 'react';
-import {Meet} from "../../modules/meet";
-import {getMonthShortTitle} from "../../tools/date";
+import {Meet} from "../modules/meet";
+import {getMonthShortTitle} from "../tools/date";
 import {Divider, Typography} from "@mui/material";
 import {LocalDate} from "@js-joda/core";
 import {makeStyles, Theme} from "@material-ui/core/styles";

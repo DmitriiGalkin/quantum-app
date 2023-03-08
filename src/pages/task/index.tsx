@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import {makeStyles, Theme} from '@material-ui/core/styles';
 import {Container} from "@material-ui/core";
-import ForwardAppBar from "../components/ForwardAppBar";
+import ForwardAppBar from "../../components/ForwardAppBar";
 import {useParams} from "react-router-dom";
 import {Task, useEditTask, useTask} from "../../modules/task";
 import CampaignIcon from '@mui/icons-material/Campaign';

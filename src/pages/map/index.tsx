@@ -1,8 +1,8 @@
 import React from 'react';
 import {makeStyles, Theme} from '@material-ui/core/styles';
 import {Container, Grid} from "@material-ui/core";
-import ForwardAppBar from "../components/ForwardAppBar";
-import PlaceCard from "../components/PlaceCard";
+import ForwardAppBar from "../../components/ForwardAppBar";
+import PlaceCard from "../../components/PlaceCard";
 import {usePlaces} from "../../modules/place/hook";
 import Button from "@material-ui/core/Button";
 import {useNavigate} from "react-router-dom";

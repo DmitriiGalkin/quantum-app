@@ -2,11 +2,11 @@ import React from 'react';
 import {MeetStepProps} from "./types";
 import {Typography} from "@mui/material";
 import {Meet} from "../../modules/meet";
-import DateMeets from "../components/DateMeets";
+import DateMeets from "../../components/DateMeets";
 import {convertToMeetsGroupTime2, toServerDatetime} from "../../tools/date";
 import {Project, useProject} from "../../modules/project";
 import {User, useUser} from "../../modules/user";
-import ProjectCard from "../components/ProjectCard";
+import ProjectCard from "../../components/ProjectCard";
 
 export default function ConfirmationStep({ meet }: MeetStepProps) {
     const { data: project = {} as Project } = useProject(meet.projectId || 0)

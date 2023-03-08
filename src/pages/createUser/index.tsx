@@ -1,11 +1,11 @@
 import React, {useState} from 'react';
-import ForwardAppBar from "../components/ForwardAppBar";
-import {TabPanel} from "../../tools/tabs";
+import ForwardAppBar from "../../components/ForwardAppBar";
+import {TabPanel} from "../../components/tabs";
 import {DEFAULT_USER} from "./helper";
 import UserStep from "./UserStep";
 import {useAddUser} from "../../modules/user";
-import QStepper from "../components/QStepper";
-import QContainer from "../components/QContainer";
+import QStepper from "../../components/QStepper";
+import QContainer from "../../components/QContainer";
 import {Typography} from "@mui/material";
 
 export default function CreateUserPage() {

@@ -4,7 +4,7 @@ import InboxIcon from '@mui/icons-material/Inbox';
 import MenuIcon from '@mui/icons-material/Menu';
 import {
     AppBar,
-    Box,
+    Box, Container,
     Divider,
     Drawer,
     IconButton,
@@ -19,12 +19,22 @@ import {
 
 import {Outlet, useNavigate} from "react-router-dom";
 import {useAuth} from "../tools/hooks";
+import QBottomNavigation from "../components/QBottomNavigation";
+import {makeStyles, Theme} from "@material-ui/core/styles";
 
+const useStyles = makeStyles((theme: Theme) => ({
+    content: {
+        backgroundColor: theme.palette.background.paper,
+        borderRadius: `${theme.spacing(4)}px ${theme.spacing(4)}px 0 0`,
+    },
+}));
 
 export default function MainView() {
+    const classes = useStyles();
+
     const navigate = useNavigate();
     const [open, setOpen] = React.useState(false);
-    const { user: userString, logout } = useAuth();
+    const { logout } = useAuth();
 
     const map = () => {
         navigate('/map')
@@ -94,7 +104,14 @@ export default function MainView() {
                 </Box>
             </Drawer>
             <img src="/img.png" alt="мальчик" style={{ width: '90%' }}/>
-            <Outlet />
+            <div className={classes.content}>
+                <Box p={3}>
+                    <Container disableGutters>
+                        <Outlet />
+                    </Container>
+                </Box>
+            </div>
+            <QBottomNavigation/>
         </div>
     );
 }

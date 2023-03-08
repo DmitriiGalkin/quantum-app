@@ -1,5 +1,5 @@
 import React from 'react';
-import {Task} from "../../modules/task";
+import {Task} from "../modules/task";
 import {Box, Button, Chip, Tooltip, Typography} from "@mui/material";
 import AutoAwesomeIcon from '@mui/icons-material/AutoAwesome';
 import {useNavigate} from "react-router-dom";

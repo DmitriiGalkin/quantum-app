@@ -4,10 +4,10 @@ import StepPlace from "./SelectPlace";
 import ProjectStep from "./ProjectStep";
 import StepConfirmation from "./ProjectConfirmation";
 import {Project, useAddProject, useProject, useUpdateProject} from "../../modules/project";
-import QStepper from "../components/QStepper";
-import ForwardAppBar from "../components/ForwardAppBar";
-import {TabPanel} from "../../tools/tabs";
-import QContainer from "../components/QContainer";
+import QStepper from "../../components/QStepper";
+import ForwardAppBar from "../../components/ForwardAppBar";
+import {TabPanel} from "../../components/tabs";
+import QContainer from "../../components/QContainer";
 import {useParams} from "react-router-dom";
 
 const DEFAULT_PROJECT: Project = {

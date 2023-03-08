@@ -4,7 +4,7 @@ import CardMedia from '@material-ui/core/CardMedia';
 import CardContent from '@material-ui/core/CardContent';
 import Typography from '@material-ui/core/Typography';
 import {red} from '@material-ui/core/colors';
-import {Place} from "../../modules/place/types";
+import {Place} from "../modules/place/types";
 import {CardActionArea} from "@material-ui/core";
 import {Link} from "react-router-dom";
 import {Box} from "@mui/material";
