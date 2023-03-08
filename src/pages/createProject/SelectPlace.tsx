@@ -6,17 +6,13 @@ import CardMedia from "@material-ui/core/CardMedia";
 import Typography from "@material-ui/core/Typography";
 import {red} from "@material-ui/core/colors";
 import {Project} from "../../modules/project/types";
+import {Box} from "@mui/material";
 
 const useStyles = makeStyles((theme: Theme) => ({
-    root: {
-        flexGrow: 1,
-        backgroundColor: theme.palette.background.paper,
-    },
     large: {
         width: theme.spacing(7),
         height: theme.spacing(7),
     },
-
     media: {
         height: 0,
         paddingTop: '56.25%', // 16:9
@@ -41,14 +37,17 @@ export default function SelectPlace({ project, handleNext, setProject }: {projec
     const { data: places = [] } = usePlaces()
 
     return (
-        <div className={classes.root}>
+        <div>
             <Grid container spacing={2} alignItems="stretch">
                 {places.map((place) =>
                     <Grid item lg={4} xs={12} key={place.id} onClick={() => {
                         setProject({ ...project, placeId: place.id })
                         handleNext()
                     }}>
-                        <Card className={classes.root}>
+                        <Box sx={{
+                            flexGrow: 1,
+                            backgroundColor: (theme) => project.placeId === place.id ? 'rgba(255,204,0,0.1)' : theme.palette.background.paper,
+                        }}>
                             <CardActionArea>
                                 <CardMedia
                                     className={classes.media}
@@ -64,7 +63,7 @@ export default function SelectPlace({ project, handleNext, setProject }: {projec
                                     </Typography>
                                 </CardContent>
                             </CardActionArea>
-                        </Card>
+                        </Box>
                     </Grid>
                 )}
             </Grid>

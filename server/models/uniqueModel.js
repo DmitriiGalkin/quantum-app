@@ -9,7 +9,7 @@ var Unique = function(unique){
 };
 
 Unique.update = function(id, unique, result){
-    dbConn.query("UPDATE uniques SET points=? WHERE id = ?", [unique.points, id], function (err, res) {
+    dbConn.query("UPDATE unique SET points=? WHERE id = ?", [unique.points, id], function (err, res) {
         if(err) result(null, err);
         result(null, res);
     });

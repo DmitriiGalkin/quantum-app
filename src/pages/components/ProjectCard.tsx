@@ -7,6 +7,7 @@ import {Project} from "../../modules/project";
 import LocationOnIcon from '@mui/icons-material/LocationOn';
 
 interface ProjectCardProps extends Project {
+    selected?: boolean
     onClick: () => void
 }
 export default function ProjectCard(project: ProjectCardProps) {
@@ -21,7 +22,7 @@ export default function ProjectCard(project: ProjectCardProps) {
                 paddingTop: 2,
             },
             marginBottom: 2,
-            backgroundColor: active ? 'rgba(255,204,0,0.1)' : undefined
+            backgroundColor: active || project.selected ? 'rgba(255,204,0,0.1)' : undefined
         }}
          onClick={project.onClick}
     >

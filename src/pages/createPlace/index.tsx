@@ -12,6 +12,8 @@ export default function CreatePlacePage() {
     const [place, setPlace] = useState(DEFAULT_PLACE)
     const [activeStep, setActiveStep] = React.useState(0);
     const addPlace = useAddPlace()
+    console.log(place, 'place before send0')
+
     const handleNext = () => {
         setActiveStep((prevActiveStep) => prevActiveStep + 1);
         if (activeStep === 0) {
@@ -21,6 +23,7 @@ export default function CreatePlacePage() {
     const handleBack = () => {
         setActiveStep((prevActiveStep) => prevActiveStep - 1);
     };
+
     const props = {
         place,
         setPlace,
@@ -30,16 +33,14 @@ export default function CreatePlacePage() {
     }
     return (
         <div>
-            <ForwardAppBar title="Регистрация"/>
+            <ForwardAppBar title="Создание пространства"/>
             <QContainer>
                 <TabPanel value={activeStep} index={0}>
                     <PlaceStep {...props}/>
                 </TabPanel>
                 <TabPanel value={activeStep} index={1}>
                     <Typography>
-                        Участник создан!
-                        - найти пространства
-                        - найти проекты
+                        Пространство создано
                     </Typography>
                 </TabPanel>
             </QContainer>

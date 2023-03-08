@@ -16,7 +16,7 @@ var Main = function(employee){
 };
 
 Main.getMain = function (result) {
-    dbConn.query("Select * from meets", function (err, res) {
+    dbConn.query("Select * from meet", function (err, res) {
         if(err) {
             console.log("error: ", err);
             result(null, err);

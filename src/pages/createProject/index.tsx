@@ -3,11 +3,12 @@ import {Typography} from "@mui/material";
 import StepPlace from "./SelectPlace";
 import ProjectStep from "./ProjectStep";
 import StepConfirmation from "./ProjectConfirmation";
-import {Project, useAddProject} from "../../modules/project";
+import {Project, useAddProject, useProject, useUpdateProject} from "../../modules/project";
 import QStepper from "../components/QStepper";
 import ForwardAppBar from "../components/ForwardAppBar";
 import {TabPanel} from "../../tools/tabs";
 import QContainer from "../components/QContainer";
+import {useParams} from "react-router-dom";
 
 const DEFAULT_PROJECT: Project = {
     id: 12,
@@ -16,15 +17,18 @@ const DEFAULT_PROJECT: Project = {
     description: 'описание нового проекта',
     placeId: null,
 }
-export default function CreateProjectStepperDialog() {
-    const [project, setProject] = useState(DEFAULT_PROJECT)
+export default function CreateProjectStepperDialog({ isEdit }: {isEdit?: boolean}) {
+    const { id } = useParams();
+    const { data: projectOld } = useProject(Number(id))
+    const [project, setProject] = useState(projectOld || DEFAULT_PROJECT)
     const [activeStep, setActiveStep] = React.useState(0);
     const addProject = useAddProject()
+    const updateProject = useUpdateProject()
 
     const handleNext = () => {
         setActiveStep((prevActiveStep) => prevActiveStep + 1);
         if (activeStep === 2) {
-            addProject.mutate(project)
+            isEdit ? updateProject.mutate(project) : addProject.mutate(project)
         }
     };
 
@@ -40,7 +44,7 @@ export default function CreateProjectStepperDialog() {
     }
     return (
         <div>
-            <ForwardAppBar title="Создать проект"/>
+            <ForwardAppBar title={isEdit ? 'Редактирование проекта' : "Создание проекта"}/>
             <QContainer>
                 <TabPanel value={activeStep} index={0}>
                     <StepPlace {...props}/>

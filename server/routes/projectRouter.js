@@ -5,8 +5,9 @@ const userController =   require('../controllers/userController');
 const meetController =   require('../controllers/meetController');
 
 router.get('/', projectController.findAll);
-router.get('/:id', projectController.findById); // Retrieve a single employee with id
-router.post('/', projectController.create); // Create a new employee
+router.get('/:id', projectController.findById);
+router.post('/', projectController.create);
+router.put('/:id', projectController.update);
 
 router.get('/:id/users', userController.findByProjectId); // Участники проекта
 router.get('/:id/meets', meetController.findByProjectId); // Встречи проекта

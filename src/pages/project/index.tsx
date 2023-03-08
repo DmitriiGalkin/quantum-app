@@ -4,6 +4,7 @@ import {Avatar, Box, Button, Container, IconButton, Typography} from "@mui/mater
 import SaveIcon from '@material-ui/icons/Save';
 import FavoriteIcon from "@material-ui/icons/Favorite";
 import ShareIcon from "@material-ui/icons/Share";
+import PenIcon from "@material-ui/icons/Edit";
 import ForwardAppBar from "../components/ForwardAppBar";
 import {useNavigate, useParams} from "react-router-dom";
 import {
@@ -75,7 +76,7 @@ export default function ProjectView() {
 
     return (
         <Box sx={{ flexGrow: 1 }}>
-            <ForwardAppBar title={project.title}/>
+            <ForwardAppBar title={project.title} icon={<PenIcon style={{ color: 'white' }}/>} onClick={() => navigate(`/project/${project.id}/edit` )}/>
             <div className={classes.container}>
                 <Box sx={{ margin: '0 18px', paddingTop: 3}}>
                     <Image alt={project.title} src={project.image} borderRadius={'24px 24px 0 0'} />

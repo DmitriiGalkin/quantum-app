@@ -38,10 +38,11 @@ export const router = createBrowserRouter(
                 <Route path="meet" element={<CreateMeet />} />
                 <Route path="map" element={<Map />} />
                 <Route path="project" element={<CreateProject />} />
+                <Route path="project/:id/edit" element={<CreateProject isEdit />} />
+                <Route path="project/:id" element={<Project />} />
                 <Route path="user" element={<CreateUser />} />
                 <Route path="place" element={<CreatePlace />} />
                 <Route path="task/:id" element={<Task />} />
-                <Route path="project/:id" element={<Project />} />
                 <Route path="place/:id" element={<Place />} />
                 <Route path="user/:id" element={<User />} />
             </Route>

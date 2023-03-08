@@ -18,6 +18,7 @@ export const useProjectUsers = (id: number): UseQueryResult<User[]> => {
 }
 
 export const useAddProject = (): UseMutate<Project> => useMutation((project) => service.post("/projects", project))
+export const useUpdateProject = (): UseMutate<Project> => useMutation((project) => service.put(`/projects/${project.id}`, project))
 
 interface ProjectUser {
     projectId: number

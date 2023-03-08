@@ -8,12 +8,10 @@ import {red} from '@material-ui/core/colors';
 import {Place} from "../../modules/place/types";
 import {CardActionArea} from "@material-ui/core";
 import {Link} from "react-router-dom";
+import {Box} from "@mui/material";
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
-        root: {
-            // maxWidth: 345,
-        },
         media: {
             height: 0,
             paddingTop: '56.25%', // 16:9
@@ -33,12 +31,16 @@ const useStyles = makeStyles((theme: Theme) =>
         },
     }),
 );
-
-export default function PlaceCard(place: Place) {
+interface PlaceCardProps extends Place {
+    selected?: boolean
+}
+export default function PlaceCard(place: PlaceCardProps) {
     const classes = useStyles();
 
     return (
-        <Card className={classes.root}>
+        <Box sx={{
+            backgroundColor: place.selected ? 'rgba(255,204,0,0.1)' : undefined
+        }}>
             <CardActionArea component={Link} to={`/place/${place.id}`}>
                 <CardMedia
                     className={classes.media}
@@ -54,6 +56,6 @@ export default function PlaceCard(place: Place) {
                     </Typography>
                 </CardContent>
             </CardActionArea>
-        </Card>
+        </Box>
     );
 }

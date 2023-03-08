@@ -10,7 +10,7 @@ var Project = function(project){
 };
 
 Project.findAll = function (result) {
-    dbConn.query(`Select * from projects`, function (err, res) {
+    dbConn.query(`Select * from project`, function (err, res) {
         if(err) {
             result(err, null);
         }
@@ -21,7 +21,7 @@ Project.findAll = function (result) {
 };
 
 Project.findByMeet = function (meet, result) {
-    dbConn.query("Select * from projects where  id = ? ", meet.projectId, function (err, res) {
+    dbConn.query("Select * from project where  id = ? ", meet.projectId, function (err, res) {
         if(err) {
             result(err, null);
         }
@@ -31,7 +31,7 @@ Project.findByMeet = function (meet, result) {
     });
 };
 Project.findById = function (id, result) {
-    dbConn.query("Select * from projects where  id = ? ", id, function (err, res) {
+    dbConn.query("Select * from project where  id = ? ", id, function (err, res) {
         if(err) {
             result(err, null);
         }
@@ -41,7 +41,7 @@ Project.findById = function (id, result) {
     });
 };
 Project.findByPlaceId = function (id, result) {
-    dbConn.query('Select * from projects WHERE placeId = ?', id, function (err, res) {
+    dbConn.query('Select * from project WHERE placeId = ?', id, function (err, res) {
         if(err) {
             console.log("error: ", err);
             result(null, err);
@@ -52,7 +52,7 @@ Project.findByPlaceId = function (id, result) {
     });
 };
 Project.findByUserId = function (id, result) {
-    dbConn.query('Select * from projects LEFT JOIN project_user ON projects.id = project_user.projectId WHERE project_user.userId = ?', id, function (err, res) {
+    dbConn.query('Select * from project LEFT JOIN project_user ON projects.id = project_user.projectId WHERE project_user.userId = ?', id, function (err, res) {
         if(err) {
             console.log("error: ", err);
             result(null, err);
@@ -64,9 +64,15 @@ Project.findByUserId = function (id, result) {
 };
 
 Project.create = function (project, result) {
-    dbConn.query("INSERT INTO projects set ?", project, function (err, res) {
+    dbConn.query("INSERT INTO project set ?", project, function (err, res) {
         if (err) result(err, null);
         result(null, res.insertId);
+    });
+};
+Project.update = function(id, project, result){
+    dbConn.query("UPDATE project SET title=?,description=?,placeId=? WHERE id = ?", [project.title,project.description, project.placeId, id], function (err, res) {
+        if(err) result(null, err);
+        result(null, res);
     });
 };
 

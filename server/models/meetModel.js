@@ -9,7 +9,7 @@ var Meet = function(data){
 };
 
 Meet.findAll = function (result) {
-    dbConn.query("Select * from meets", function (err, res) {
+    dbConn.query("Select * from meet", function (err, res) {
         if(err) {
             result(null, err);
         }
@@ -20,19 +20,19 @@ Meet.findAll = function (result) {
 };
 
 Meet.findByProject = function (project, result) {
-    dbConn.query("Select * from meets where projectId = ? ", project.id, function (err, res) {
+    dbConn.query("Select * from meet where projectId = ? ", project.id, function (err, res) {
         if(err) result(err, null);
         result(null, {...project, meets: res});
     });
 };
 Meet.findFirstByProject = function (project, result) {
-    dbConn.query("Select * from meets where  projectId = ? LIMIT 1", project.id, function (err, res) {
+    dbConn.query("Select * from meet where  projectId = ? LIMIT 1", project.id, function (err, res) {
         if(err) result(err, null);
         result(null, {...project, meet: res[0]});
     });
 };
 Meet.findById = function (id, result) {
-    dbConn.query("Select * from meets where  id = ? ", id, function (err, res) {
+    dbConn.query("Select * from meet where  id = ? ", id, function (err, res) {
         if(err) {
             console.log("error: ", err);
             result(err, null);
@@ -45,7 +45,7 @@ Meet.findById = function (id, result) {
 };
 
 Meet.findByProjectId = function (id, result) {
-    dbConn.query("Select * from meets where projectId = ? ", id, function (err, res) {
+    dbConn.query("Select * from meet where projectId = ? ", id, function (err, res) {
         if(err) {
             console.log("error: ", err);
             result(err, null);
@@ -55,7 +55,7 @@ Meet.findByProjectId = function (id, result) {
 };
 
 Meet.create = function (data, result) {
-    dbConn.query("INSERT INTO meets set ?", data, function (err, res) {
+    dbConn.query("INSERT INTO meet set ?", data, function (err, res) {
         if (err) result(err, null);
         result(null, res.insertId);
     });
