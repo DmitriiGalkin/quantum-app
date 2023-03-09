@@ -35,3 +35,7 @@ export const useUserMeet = (): UseQueryResult<Meet[]> => {
     const user = useUnit();
     return useQuery(['userMeets', user.id], () => service.get(`/user/${user.id}/allMeet`))
 }
+export const useOnlyUserProjects = (): UseQueryResult<Project[]> => {
+    const user = useUnit();
+    return useQuery(['onlyUserProjects', user.id], () => service.get(`/user/${user.id}/allProject`))
+}

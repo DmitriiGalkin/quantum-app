@@ -76,4 +76,14 @@ Project.update = function(id, project, result){
     });
 };
 
+/**
+ * Проекты пространств на которые подписан участник
+ */
+Project.findAllByUserId = function (id, result) {
+    dbConn.query('Select project.*,  from project LEFT JOIN place ON place.id = project.placeId LEFT JOIN place_user ON place_user.placeId = project.placeId WHERE place_user.userId = ?', id, function (err, res) {
+        if(err) result(null, err);
+            result(null, res);
+    });
+};
+
 module.exports = Project;

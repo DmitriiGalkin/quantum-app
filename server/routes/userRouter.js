@@ -16,5 +16,6 @@ router.get('/:id/unique', userController.findUniquesById);
 router.get('/:id/project', projectController.findByUserId);
 
 router.get('/:id/allMeet', meetController.findAllByUserId);
+router.get('/:id/allProject', projectController.findAllByUserId);
 
 module.exports = router

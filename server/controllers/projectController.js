@@ -98,3 +98,23 @@ exports.deleteProjectUser = function(req, res) {
     });
 };
 
+exports.findAllByUserId = function(req, res) {
+    console.log(req.params.id, 'req.params.userId')
+    Project.findAllByUserId(req.params.id, function(err, projects) {
+        if (err) res.send(err);
+        if (projects) {
+            console.log(projects,'projects')
+            async.map(projects || [], Meet.findFirstByProject, function(err, projectsWithMeet) {
+                if (err) console.log(err);
+                console.log(projectsWithMeet, 'projectsWithMeet')
+                async.map(projectsWithMeet, Place.findByProject, function(err, projectsWithMeetWithPlace) {
+                    if (err) console.log(err);
+                    res.send(projectsWithMeetWithPlace);
+                });
+            });
+        } else {
+            res.send([])
+        }
+    });
+};
+

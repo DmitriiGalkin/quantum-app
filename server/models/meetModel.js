@@ -28,7 +28,7 @@ Meet.findByProject = function (project, result) {
 Meet.findFirstByProject = function (project, result) {
     dbConn.query("Select * from meet where  projectId = ? LIMIT 1", project.id, function (err, res) {
         if(err) result(err, null);
-        result(null, {...project, meet: res[0]});
+        result(null, {...project, meet: res.length ? res[0] : undefined});
     });
 };
 Meet.findById = function (id, result) {

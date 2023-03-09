@@ -17,8 +17,6 @@ interface MeetUser {
     meetId: number
     userId?: number
 }
-// export const useAddMeetUser = (): UseMutate<MeetUser> => useMutation(({ userId = 1, meetId }) => service.post("/meets/" + meetId + '/user/' + userId))
-// export const useDeleteMeetUser = (): UseMutate<MeetUser> => useMutation(({ userId = 1, meetId }) => service.delete("/meets/" + meetId + '/user/' + userId))
 
 
 export const useAddMeetUser = (projectId?: number): UseMutate<MeetUser> => {
