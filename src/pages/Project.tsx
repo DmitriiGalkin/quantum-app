@@ -42,7 +42,7 @@ export default function ProjectPage() {
     const { id } = useParams();
     const { data: project = {} as Project } = useProject(Number(id))
     const { data: meets = [] } = useProjectMeets(Number(id))
-    const { data: users = [], refetch } = useProjectUsers(Number(id))
+    const { data: users = [] } = useProjectUsers(Number(id))
     const addProjectUser = useAddProjectUser(Number(id))
     const deleteProjectUser = useDeleteProjectUser(Number(id))
     const active = users.map((user) => user.id).includes(1) // TODO: доделать после авторизации

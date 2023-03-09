@@ -109,7 +109,10 @@ exports.findAllByUserId = function(req, res) {
                 console.log(projectsWithMeet, 'projectsWithMeet')
                 async.map(projectsWithMeet, Place.findByProject, function(err, projectsWithMeetWithPlace) {
                     if (err) console.log(err);
-                    res.send(projectsWithMeetWithPlace);
+                    async.map(projectsWithMeetWithPlace, User.findByProject, function(err, projectsWithMeetWithPlaceWithUsers) {
+                        if (err) console.log(err);
+                        res.send(projectsWithMeetWithPlaceWithUsers);
+                    });
                 });
             });
         } else {
