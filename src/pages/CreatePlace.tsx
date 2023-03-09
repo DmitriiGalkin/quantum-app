@@ -1,10 +1,10 @@
 import React, {useState} from 'react';
-import ForwardAppBar from "../../components/ForwardAppBar";
-import {TabPanel} from "../../components/tabs";
-import QStepper from "../../components/QStepper";
-import QContainer from "../../components/QContainer";
+import ForwardAppBar from "../components/ForwardAppBar";
+import {TabPanel} from "../components/tabs";
+import QStepper from "../components/QStepper";
+import QContainer from "../components/QContainer";
 import {Box, TextField, Typography} from "@mui/material";
-import {NewPlace, useAddPlace} from "../../modules/place";
+import {NewPlace, useAddPlace} from "../modules/place";
 
 const DEFAULT_PLACE: NewPlace = {}
 export default function CreatePlacePage() {

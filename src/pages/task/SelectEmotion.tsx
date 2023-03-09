@@ -1,8 +1,5 @@
 import React from "react";
 
-// const EMOTIONS = () =>
-
-
 export default function SelectEmotion({ onClick }: { onClick: (n: number) => void }) {
     return (
         <div>

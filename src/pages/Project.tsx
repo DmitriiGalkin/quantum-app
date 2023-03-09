@@ -1,11 +1,11 @@
 import React from 'react';
-import {makeStyles, Theme} from '@material-ui/core/styles';
-import {Avatar, Box, Button, Container, IconButton, Typography} from "@mui/material";
-import SaveIcon from '@material-ui/icons/Save';
-import FavoriteIcon from "@material-ui/icons/Favorite";
-import ShareIcon from "@material-ui/icons/Share";
-import PenIcon from "@material-ui/icons/Edit";
-import ForwardAppBar from "../../components/ForwardAppBar";
+import {makeStyles} from '@mui/styles';
+import {Avatar, Box, Button, Container, IconButton, Typography, Theme} from "@mui/material";
+import SaveIcon from '@mui/icons-material/Save';
+import FavoriteIcon from "@mui/icons-material/Favorite";
+import ShareIcon from "@mui/icons-material/Share";
+import PenIcon from "@mui/icons-material/Edit";
+import ForwardAppBar from "../components/ForwardAppBar";
 import {useNavigate, useParams} from "react-router-dom";
 import {
     Project,
@@ -14,11 +14,11 @@ import {
     useProject,
     useProjectMeets,
     useProjectUsers
-} from "../../modules/project";
-import Image from "../../components/Image";
-import {getMeetsGroup} from "../../tools/helper";
-import DateMeets from "../../components/DateMeets";
-import {Meet} from "../../modules/meet";
+} from "../modules/project";
+import Image from "../components/Image";
+import {getMeetsGroup} from "../tools/helper";
+import Day from "../components/Day";
+import {Meet} from "../modules/meet";
 
 const useStyles = makeStyles((theme: Theme) => ({
     container: {
@@ -36,7 +36,7 @@ const useStyles = makeStyles((theme: Theme) => ({
     },
 }));
 
-export default function ProjectView() {
+export default function ProjectPage() {
     const classes = useStyles();
     const navigate = useNavigate();
     const { id } = useParams();
@@ -145,7 +145,7 @@ export default function ProjectView() {
                             Встречи
                         </Typography>
                         {meetsGroup.map(([date, meets]) => (
-                            <DateMeets date={date} meets={meets as Meet[]}/>
+                            <Day date={date} meets={meets as Meet[]}/>
                         ))}
                         <Button
                             variant="contained"

@@ -1,13 +1,13 @@
 import React from 'react';
-import {Meet, useMeets} from "../../modules/meet";
+import {Meet, useMeets} from "../modules/meet";
 
-import DateMeets from "../../components/DateMeets";
-import {getMeetsGroup} from "../../tools/helper";
-import {Fab} from "@mui/material";
-import QZoom from "../../components/QZoom";
+import Day from "../components/Day";
+import {getMeetsGroup} from "../tools/helper";
+import {Fab, Theme} from "@mui/material";
+import QZoom from "../components/QZoom";
 import AddIcon from "@mui/icons-material/Add";
 import {useNavigate} from "react-router-dom";
-import {makeStyles, Theme} from "@material-ui/core/styles";
+import {makeStyles} from "@mui/styles";
 
 const useStyles = makeStyles((theme: Theme) => ({
     content: {
@@ -21,7 +21,7 @@ const useStyles = makeStyles((theme: Theme) => ({
         marginRight: theme.spacing(1),
     },
 }));
-export default function MeetsView() {
+export default function MeetsPage() {
     const classes = useStyles();
     const { data: meets = [] } = useMeets()
     const meetsGroup = getMeetsGroup(meets)
@@ -30,7 +30,7 @@ export default function MeetsView() {
     return (
         <div>
             {meetsGroup.map(([date, meets]) => (
-                <DateMeets key={date} date={date} meets={meets as Meet[]}/>
+                <Day key={date} date={date} meets={meets as Meet[]}/>
             ))}
             <QZoom>
                 <Fab variant="extended" color="primary" aria-label="add" className={classes.margin} onClick={() => navigate(`/meet`)}>

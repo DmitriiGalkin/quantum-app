@@ -1,35 +1,29 @@
 import React from 'react';
-import {createStyles, makeStyles, Theme} from '@material-ui/core/styles';
-import CardMedia from '@material-ui/core/CardMedia';
-import CardContent from '@material-ui/core/CardContent';
-import Typography from '@material-ui/core/Typography';
-import {red} from '@material-ui/core/colors';
-import {Place} from "../modules/place/types";
-import {CardActionArea} from "@material-ui/core";
+import {Place} from "../modules/place";
 import {Link} from "react-router-dom";
-import {Box} from "@mui/material";
+import {Box, CardMedia, CardContent, Typography, CardActionArea, Theme} from "@mui/material";
+import {makeStyles} from "@mui/styles";
 
-const useStyles = makeStyles((theme: Theme) =>
-    createStyles({
-        media: {
-            height: 0,
-            paddingTop: '56.25%', // 16:9
-        },
-        expand: {
-            transform: 'rotate(0deg)',
-            marginLeft: 'auto',
-            transition: theme.transitions.create('transform', {
-                duration: theme.transitions.duration.shortest,
-            }),
-        },
-        expandOpen: {
-            transform: 'rotate(180deg)',
-        },
-        avatar: {
-            backgroundColor: red[500],
-        },
-    }),
-);
+
+const useStyles = makeStyles((theme: Theme) => ({
+    media: {
+        height: 0,
+        paddingTop: '56.25%', // 16:9
+    },
+    expand: {
+        transform: 'rotate(0deg)',
+        marginLeft: 'auto',
+        transition: theme.transitions.create('transform', {
+            duration: theme.transitions.duration.shortest,
+        }),
+    },
+    expandOpen: {
+        transform: 'rotate(180deg)',
+    },
+    avatar: {
+        backgroundColor: theme.palette.primary.main,
+    },
+}));
 interface PlaceCardProps extends Place {
     selected?: boolean
 }

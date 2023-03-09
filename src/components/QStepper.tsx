@@ -1,8 +1,7 @@
 import React from 'react';
 import {Button, MobileStepper, Paper, Theme} from "@mui/material";
-import KeyboardArrowRight from "@mui/icons-material/KeyboardArrowRight";
-import KeyboardArrowLeft from "@mui/icons-material/KeyboardArrowLeft";
-import {makeStyles} from "@material-ui/core/styles";
+import {KeyboardArrowRight, KeyboardArrowLeft} from "@mui/icons-material";
+import {makeStyles} from "@mui/styles";
 
 const useStyles = makeStyles((theme: Theme) => ({
     bottomNavigation: {

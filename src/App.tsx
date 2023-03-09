@@ -1,25 +1,24 @@
 import React from 'react';
 import {Route} from "react-router";
-import Project from "./pages/project";
-import Map from "./pages/map";
-import User from "./pages/user";
+import Project from "./pages/Project";
+import Map from "./pages/Map";
+import User from "./pages/User";
 import Task from "./pages/task";
-import Login from "./pages/login";
+import Login from "./pages/Login";
 import CreateMeet from "./pages/createMeet";
-import CreateUser from "./pages/createUser";
-import CreateProject from "./pages/createProject";
-import CreatePlace from "./pages/createPlace";
-import Meets from "./pages/meets";
-import Projects from "./pages/projects";
-import Tasks from "./pages/tasks";
-import Uniques from "./pages/uniques";
+import CreateUser from "./pages/CreateUser";
+import CreateProject from "./pages/CreateProject";
+import CreatePlace from "./pages/CreatePlace";
+import Meets from "./pages/Meets";
+import Projects from "./pages/Projects";
+import Tasks from "./pages/Tasks";
+import Uniques from "./pages/Uniques";
+import Place from "./pages/Place";
 
-import Place from "./pages/place";
-
-import {ProtectedLayout} from "./modules/login/ProtectedLayout";
+import {ProtectedLayout} from "./layouts/ProtectedLayout";
 import {createBrowserRouter, createRoutesFromElements, defer} from "react-router-dom";
-import {AuthLayout} from "./modules/login/AuthLayout";
-import {HomeLayout} from "./modules/login/HomeLayout";
+import {AuthLayout} from "./layouts/AuthLayout";
+import {HomeLayout} from "./layouts/HomeLayout";
 import MainLayout from './layouts/MainLayout'
 import ModalLayout from './layouts/ModalLayout'
 import './App.css'

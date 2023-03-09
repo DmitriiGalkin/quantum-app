@@ -1,13 +1,11 @@
 import React from 'react';
-import {makeStyles, Theme} from '@material-ui/core/styles';
-import Typography from '@material-ui/core/Typography';
-import {Card, CardActionArea, CardContent, CardHeader, Container, Grid} from "@material-ui/core";
-import ForwardAppBar from "../../components/ForwardAppBar";
-import Image from "../../components/Image";
+import {makeStyles} from '@mui/styles';
+import {Card, CardActionArea, CardContent, CardHeader, Container, Grid, Typography, CardMedia, Theme} from "@mui/material";
+import ForwardAppBar from "../components/ForwardAppBar";
+import Image from "../components/Image";
 import {Link, useParams} from "react-router-dom";
-import {User} from "../../modules/user/types";
-import {useUser, useUserProjects, useUserUniques} from "../../modules/user/hook";
-import CardMedia from "@material-ui/core/CardMedia";
+import {User} from "../modules/user";
+import {useUser, useUserProjects, useUserUniques} from "../modules/user";
 
 const useStyles = makeStyles((theme: Theme) => ({
     root: {
@@ -39,7 +37,7 @@ const useStyles = makeStyles((theme: Theme) => ({
     },
 }));
 
-export default function UserView() {
+export default function UserPage() {
     const classes = useStyles();
     const { id } = useParams();
     const { data: user = {} as User } = useUser(Number(id))
@@ -54,7 +52,7 @@ export default function UserView() {
                 <Typography variant="h5">
                     {user.title}
                 </Typography>
-                <Grid container spacing={5} justify="center">
+                <Grid container spacing={5}>
                     <Grid item>
                         <Card>
                             <CardHeader

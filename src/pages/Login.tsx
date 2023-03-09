@@ -1,12 +1,10 @@
 import React, {useState} from 'react';
-import {Box, Button, Container, Grid, IconButton, InputAdornment, TextField, Theme} from "@mui/material";
+import {Box, Button, Container, Grid, IconButton, InputAdornment, TextField, Theme, Link, Typography} from "@mui/material";
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
-import {makeStyles} from "@material-ui/core/styles";
-import {useAuth} from "../../tools/hooks";
+import {makeStyles} from "@mui/styles";
+import {useAuth} from "../tools/hooks";
 import {Link as RouterLink} from "react-router-dom";
-import Link from "@mui/material/Link";
-import Typography from "@material-ui/core/Typography";
 
 
 const useStyles = makeStyles((theme: Theme) => ({
@@ -15,7 +13,7 @@ const useStyles = makeStyles((theme: Theme) => ({
         borderRadius: '32px 32px 0 0',
     },
 }));
-export default function LoginView() {
+export default function LoginPage() {
     const classes = useStyles();
 
     const { login } = useAuth();

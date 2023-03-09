@@ -1,7 +1,7 @@
 import React from 'react';
 import {Task} from "../modules/task";
 import {Box, Button, Chip, Tooltip, Typography} from "@mui/material";
-import AutoAwesomeIcon from '@mui/icons-material/AutoAwesome';
+import {AutoAwesome} from '@mui/icons-material';
 import {useNavigate} from "react-router-dom";
 
 export default function TaskCard(task: Task) {
@@ -33,7 +33,7 @@ export default function TaskCard(task: Task) {
                 <Typography component="div" style={{ flexGrow: 1 }}>
                     Количество баллов
                 </Typography>
-                <AutoAwesomeIcon style={{ width: 20, height: 20 }} color="primary"/>
+                <AutoAwesome style={{ width: 20, height: 20 }} color="primary"/>
                 <Typography variant="subtitle1" sx={{ paddingLeft: 1 }}>
                      {task.points}
                 </Typography>

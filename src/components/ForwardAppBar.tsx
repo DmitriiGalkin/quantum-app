@@ -1,29 +1,26 @@
 import React from 'react';
-import {createStyles, makeStyles, Theme} from '@material-ui/core/styles';
-import ArrowBackIos from '@material-ui/icons/ArrowBackIos';
-import {Container, IconButton, Skeleton, Typography} from "@mui/material";
+import ArrowBackIos from '@mui/icons-material/ArrowBackIos';
+import {Container, IconButton, Skeleton, Typography, Theme} from "@mui/material";
+import { makeStyles } from '@mui/styles';
 
-const useStyles = makeStyles((theme: Theme) =>
-    createStyles({
-        root: {
-            display: 'flex',
-            justifyContent: 'space-between',
-            padding: '8px 16px',
-        },
-        menuButton: {
-            padding: 0,
-            marginRight: theme.spacing(2),
-        },
-        title: {
-            flexGrow: 1,
-            color: theme.palette.background.paper,
-        },
-    }),
-);
+const useStyles = makeStyles((theme: Theme) => ({
+    root: {
+        display: 'flex',
+        justifyContent: 'space-between',
+        padding: '8px 16px',
+    },
+    menuButton: {
+        padding: 0,
+        marginRight: theme.spacing(2),
+    },
+    title: {
+        flexGrow: 1,
+        color: theme.palette.background.paper,
+    },
+}));
 
 export function ForwardAppBar({ title, icon, onClick }: { title?: string, icon?: JSX.Element, onClick?: () => void }) {
     const classes = useStyles();
-    // onClick && onClick()
 
     return (
         <Container>

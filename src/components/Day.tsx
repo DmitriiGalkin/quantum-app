@@ -1,9 +1,9 @@
 import React from 'react';
 import {Meet} from "../modules/meet";
 import {getMonthShortTitle} from "../tools/date";
-import {Divider, Typography} from "@mui/material";
+import {Divider, Typography, Theme} from "@mui/material";
+import { makeStyles } from '@mui/styles';
 import {LocalDate} from "@js-joda/core";
-import {makeStyles, Theme} from "@material-ui/core/styles";
 import MeetCard from "./MeetCard";
 
 const useStyles = makeStyles((theme: Theme) => ({
@@ -30,11 +30,11 @@ const useStyles = makeStyles((theme: Theme) => ({
     },
 }));
 
-interface DateMeetsProps {
+interface DayProps {
     date: string
     meets: Meet[]
 }
-export default function DateMeets({ date, meets }: DateMeetsProps): JSX.Element {
+export default function Day({ date, meets }: DayProps): JSX.Element {
     const classes = useStyles();
     const localDate = LocalDate.parse(date)
     const day = localDate.dayOfMonth()

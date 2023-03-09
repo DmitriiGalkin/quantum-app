@@ -15,12 +15,13 @@ import {
     ListItemText,
     Toolbar,
     Typography,
+    Theme
 } from "@mui/material";
 
 import {Outlet, useNavigate} from "react-router-dom";
 import {useAuth} from "../tools/hooks";
 import QBottomNavigation from "../components/QBottomNavigation";
-import {makeStyles, Theme} from "@material-ui/core/styles";
+import {makeStyles} from "@mui/styles";
 
 const useStyles = makeStyles((theme: Theme) => ({
     content: {

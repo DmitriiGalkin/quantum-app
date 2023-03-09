@@ -1,9 +1,9 @@
 import React from 'react';
 import {Box} from "@mui/material";
-import TaskCard from "../../components/TaskCard";
-import {useTasks} from "../../modules/task";
+import TaskCard from "../components/TaskCard";
+import {useTasks} from "../modules/task";
 
-export default function TasksView() {
+export default function TasksPage() {
     const { data: tasks = [] } = useTasks()
 
     return (

@@ -1,17 +1,13 @@
 import React, {useState} from 'react';
-import {Box, Typography} from "@mui/material";
-import {Project, useAddProject, useProject, useUpdateProject} from "../../modules/project";
-import QStepper from "../../components/QStepper";
-import ForwardAppBar from "../../components/ForwardAppBar";
-import {TabPanel} from "../../components/tabs";
-import QContainer from "../../components/QContainer";
+import {Project, useAddProject, useProject, useUpdateProject} from "../modules/project";
+import QStepper from "../components/QStepper";
+import ForwardAppBar from "../components/ForwardAppBar";
+import {TabPanel} from "../components/tabs";
+import QContainer from "../components/QContainer";
 import {useParams} from "react-router-dom";
-import TextField from "@material-ui/core/TextField";
-import {CardActionArea, CardContent, Grid} from "@material-ui/core";
-import CardMedia from "@material-ui/core/CardMedia";
-import {usePlaces} from "../../modules/place";
-import {makeStyles, Theme} from "@material-ui/core/styles";
-import {red} from "@material-ui/core/colors";
+import {Box, Typography, CardActionArea, CardContent, Grid, CardMedia, TextField, Theme} from "@mui/material";
+import {usePlaces} from "../modules/place";
+import {makeStyles} from "@mui/styles";
 
 const DEFAULT_PROJECT: Project = {
     id: 12,
@@ -41,9 +37,6 @@ const useStyles = makeStyles((theme: Theme) => ({
     },
     expandOpen: {
         transform: 'rotate(180deg)',
-    },
-    avatar: {
-        backgroundColor: red[500],
     },
 }));
 export default function CreateProjectStepperDialog({ isEdit }: {isEdit?: boolean}) {

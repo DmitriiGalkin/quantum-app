@@ -8,7 +8,7 @@ import QStepper from "../../components/QStepper";
 import QContainer from "../../components/QContainer";
 import ProjectCard from "../../components/ProjectCard";
 import {User, useUser, useUserProjects} from "../../modules/user";
-import DateMeets from "../../components/DateMeets";
+import Day from "../../components/Day";
 import {convertToMeetsGroupTime2, toServerDatetime} from "../../tools/date";
 import {Project, useProject} from "../../modules/project";
 import {CalendarPicker} from "@mui/x-date-pickers";
@@ -132,7 +132,7 @@ export default function CreateMeetView() {
                         <Typography variant="h5" sx={{ paddingBottom: 6 }}>
                             Время
                         </Typography>
-                        <DateMeets date={convertToMeetsGroupTime2(meet.datetime)} meets={[{...meet, id: 0, project, users: [user], datetime: toServerDatetime(meet.datetime)}] as Meet[]}/>
+                        <Day date={convertToMeetsGroupTime2(meet.datetime)} meets={[{...meet, id: 0, project, users: [user], datetime: toServerDatetime(meet.datetime)}] as Meet[]}/>
                     </div>
                 </TabPanel>
                 <TabPanel value={activeStep} index={3}>

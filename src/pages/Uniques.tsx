@@ -1,11 +1,11 @@
 import React from 'react';
 import {Box, IconButton, Typography} from "@mui/material";
-import {useEditUser, useUser, useUserUniques} from "../../modules/user";
+import {useEditUser, useUser, useUserUniques} from "../modules/user";
 import AutoAwesomeIcon from "@mui/icons-material/AutoAwesome";
-import ArrowUpward from "@material-ui/icons/ArrowUpward";
-import {useEditUnique} from "../../modules/unique";
+import ArrowUpward from "@mui/icons-material/ArrowUpward";
+import {useEditUnique} from "../modules/unique";
 
-export default function UniquesView() {
+export default function UniquesPage() {
     const { data: uniques = [] } = useUserUniques(1)
     const { data: userD } = useUser(1)
     const editUser = useEditUser(1)

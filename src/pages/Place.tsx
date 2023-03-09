@@ -1,6 +1,6 @@
 import React from 'react';
-import {makeStyles, Theme} from '@material-ui/core/styles';
-import ForwardAppBar from "../../components/ForwardAppBar";
+import {makeStyles} from '@mui/styles';
+import ForwardAppBar from "../components/ForwardAppBar";
 import {useNavigate, useParams} from "react-router-dom";
 import {
     Place,
@@ -9,12 +9,12 @@ import {
     usePlace,
     usePlaceProjects,
     usePlaceUsers
-} from "../../modules/place";
-import ProjectCard from "../../components/ProjectCard";
-import PenIcon from "@material-ui/icons/Edit";
-import {Avatar, Box, Button, Container, Typography} from "@mui/material";
-import Image from "../../components/Image";
-import SaveIcon from "@material-ui/icons/Save";
+} from "../modules/place";
+import ProjectCard from "../components/ProjectCard";
+import PenIcon from '@mui/icons-material/Edit';
+import {Avatar, Box, Button, Container, Typography, Theme} from "@mui/material";
+import Image from "../components/Image";
+import SaveIcon from "@mui/icons-material/Save";
 
 
 const useStyles = makeStyles((theme: Theme) => ({
@@ -44,7 +44,7 @@ const useStyles = makeStyles((theme: Theme) => ({
     },
 }));
 
-export default function PlaceView() {
+export default function PlacePage() {
     const classes = useStyles();
     const id = Number(useParams().id);
     const { data: place = {} as Place } = usePlace(id)

@@ -1,11 +1,11 @@
 import React from 'react';
-import ProjectCard from "../../components/ProjectCard";
-import {Box, Fab} from "@mui/material";
-import {useProjects} from "../../modules/project";
+import ProjectCard from "../components/ProjectCard";
+import {Box, Fab, Theme} from "@mui/material";
+import {useProjects} from "../modules/project";
 import {useNavigate} from "react-router-dom";
-import QZoom from "../../components/QZoom";
+import QZoom from "../components/QZoom";
 import AddIcon from "@mui/icons-material/Add";
-import {makeStyles, Theme} from "@material-ui/core/styles";
+import {makeStyles} from "@mui/styles";
 
 const useStyles = makeStyles((theme: Theme) => ({
     margin: {
@@ -15,7 +15,7 @@ const useStyles = makeStyles((theme: Theme) => ({
         marginRight: theme.spacing(1),
     },
 }));
-export default function ProjectsView() {
+export default function ProjectsPage() {
     const classes = useStyles();
     const navigate = useNavigate();
     const { data: projects = [] } = useProjects()

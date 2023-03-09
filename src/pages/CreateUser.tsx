@@ -1,9 +1,9 @@
 import React, {useState} from 'react';
-import ForwardAppBar from "../../components/ForwardAppBar";
-import {TabPanel} from "../../components/tabs";
-import {NewUser, useAddUser} from "../../modules/user";
-import QStepper from "../../components/QStepper";
-import QContainer from "../../components/QContainer";
+import ForwardAppBar from "../components/ForwardAppBar";
+import {TabPanel} from "../components/tabs";
+import {NewUser, useAddUser} from "../modules/user";
+import QStepper from "../components/QStepper";
+import QContainer from "../components/QContainer";
 import {Box, TextField, Typography} from "@mui/material";
 
 const DEFAULT_USER: NewUser = {}
