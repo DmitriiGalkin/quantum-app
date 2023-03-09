@@ -8,14 +8,8 @@ var UserMeet = function(employee){
 };
 UserMeet.create = function (newEmp, result) {
     dbConn.query("INSERT INTO meet_user set ?", newEmp, function (err, res) {
-        if(err) {
-            console.log("error: ", err);
-            result(err, null);
-        }
-        else{
-            console.log(res.insertId);
-            result(null, res.insertId);
-        }
+        if(err) result(err, null);
+        result(null, res.insertId);
     });
 };
 UserMeet.delete = function(userId, meetId, result){

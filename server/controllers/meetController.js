@@ -72,3 +72,21 @@ exports.deleteMeetUser = function(req, res) {
         res.json({ error:false, message: 'Employee successfully deleted' });
     });
 };
+
+
+/**
+ * Найти все встречи на которые потенциально может претендовать участник
+ */
+exports.findAllByUserId = function(req, res) {
+    Meet.findAllByUserId(req.params.id, function(err, meets) {
+        if (err) res.send(err);
+
+        async.map(meets, User.findByMeet, function(err, meetsWithUsers) {
+            if (err) console.log(err);
+            async.map(meetsWithUsers, Project.findByMeet, function(err, meetsWithProject) {
+                if (err) console.log(err);
+                res.send(meetsWithProject);
+            });
+        });
+    });
+};

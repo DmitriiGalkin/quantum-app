@@ -1,7 +1,11 @@
 import React from 'react';
 
-import InboxIcon from '@mui/icons-material/Inbox';
+import LogoutIcon from '@mui/icons-material/Logout';
 import MenuIcon from '@mui/icons-material/Menu';
+import MapIcon from '@mui/icons-material/Map';
+import AccountCircleIcon from '@mui/icons-material/AccountCircle';
+import AssignmentInd from '@mui/icons-material/AssignmentInd';
+
 import {
     AppBar,
     Box, Container,
@@ -56,7 +60,7 @@ export default function MainView() {
                         <MenuIcon />
                     </IconButton>
                     <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-                        Quantum
+                        СВОЙ ПРОЕКТ
                     </Typography>
                 </Toolbar>
             </AppBar>
@@ -69,23 +73,20 @@ export default function MainView() {
                     onClick={()=> setOpen(false)}
                 >
                     <List>
-                        {['Inbox', 'Starred', 'Send email', 'Drafts'].map((text, index) => (
-                            <ListItem key={text} disablePadding>
-                                <ListItemButton>
-                                    <ListItemIcon>
-                                        <InboxIcon />
-                                    </ListItemIcon>
-                                    <ListItemText primary={text} />
-                                </ListItemButton>
-                            </ListItem>
-                        ))}
+                        <ListItem disablePadding>
+                            <ListItemButton onClick={() => navigate('/user/1')} >
+                                <ListItemIcon>
+                                    <AccountCircleIcon />
+                                </ListItemIcon>
+                                <ListItemText primary={'Профиль'} />
+                            </ListItemButton>
+                        </ListItem>
                     </List>
-                    <Divider />
                     <List>
                         <ListItem disablePadding>
                             <ListItemButton onClick={map} >
                                 <ListItemIcon>
-                                    <InboxIcon />
+                                    <MapIcon />
                                 </ListItemIcon>
                                 <ListItemText primary={'Карта'} />
                             </ListItemButton>
@@ -93,14 +94,24 @@ export default function MainView() {
                     </List>
                     <Divider />
                     <List>
-                            <ListItem key={'logout'} disablePadding>
-                                <ListItemButton onClick={logout}>
-                                    <ListItemIcon>
-                                        <InboxIcon />
-                                    </ListItemIcon>
-                                    <ListItemText primary='logout' />
-                                </ListItemButton>
-                            </ListItem>
+                        <ListItem disablePadding>
+                            <ListItemButton onClick={() => navigate('/user/1/edit')}>
+                                <ListItemIcon>
+                                    <AssignmentInd />
+                                </ListItemIcon>
+                                <ListItemText primary='Настройки' />
+                            </ListItemButton>
+                        </ListItem>
+                    </List>
+                    <List>
+                        <ListItem key={'logout'} disablePadding>
+                            <ListItemButton onClick={logout}>
+                                <ListItemIcon>
+                                    <LogoutIcon />
+                                </ListItemIcon>
+                                <ListItemText primary='logout' />
+                            </ListItemButton>
+                        </ListItem>
                     </List>
                 </Box>
             </Drawer>

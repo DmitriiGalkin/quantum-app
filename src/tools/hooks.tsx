@@ -42,7 +42,7 @@ export function useLocalStorage<T>(key: string, initialValue: T) {
 }
 
 
-const AuthContext = createContext('auth' as any);
+export const AuthContext = createContext('auth' as any);
 
 export interface LoginData { email: string, password: string }
 
@@ -82,3 +82,5 @@ export const AuthProvider = ({ children }: {children: JSX.Element}) => {
 export const useAuth = () => {
     return useContext(AuthContext);
 };
+
+export const useUnit = () => JSON.parse(useContext(AuthContext).user)

@@ -50,10 +50,11 @@ export const router = createBrowserRouter(
                     <Route path="project/:id/edit" element={<CreateProject isEdit />} />
                     <Route path="project/:id" element={<Project />} />
                     <Route path="user" element={<CreateUser />} />
+                    <Route path="user/:id/edit" element={<CreateUser isEdit />} />
+                    <Route path="user/:id" element={<User />} />
                     <Route path="place" element={<CreatePlace />} />
                     <Route path="task/:id" element={<Task />} />
                     <Route path="place/:id" element={<Place />} />
-                    <Route path="user/:id" element={<User />} />
                 </Route>
             </Route>
             <Route element={<HomeLayout />}>

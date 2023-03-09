@@ -2,10 +2,12 @@ import React from 'react';
 import {Meet, useAddMeetUser, useDeleteMeetUser} from "../modules/meet";
 import {convertToMeetTime} from "../tools/date";
 import {Avatar, AvatarGroup, Box, Typography} from "@mui/material";
+import {useUnit} from "../tools/hooks";
 
 export default function MeetCard(meet: Meet) {
+    const unit = useUnit()
     const time = convertToMeetTime(meet.datetime)
-    const active = meet.users?.find((user) => user.id === 1) // TODO: убрать в бек
+    const active = meet.users?.find((user) => user.id === unit.id) // TODO: убрать в бек
 
     const addMeetUser = useAddMeetUser(meet.projectId)
     const deleteMeetUser = useDeleteMeetUser(meet.projectId)

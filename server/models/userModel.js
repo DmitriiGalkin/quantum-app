@@ -110,7 +110,7 @@ User.findAll = function (result) {
     });
 };
 User.update = function(id, user, result){
-    dbConn.query("UPDATE user SET title=?,points=? WHERE id = ?", [user.title,user.points, id], function (err, res) {
+    dbConn.query("UPDATE user SET title=?,points=?,email=?,password=? WHERE id = ?", [user.title,user.points,user.email,user.password, id], function (err, res) {
         if(err) result(null, err);
         result(null, res);
     });

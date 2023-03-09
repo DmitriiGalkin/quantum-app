@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useContext} from 'react';
 import {Meet, useMeets} from "../modules/meet";
 
 import Day from "../components/Day";
@@ -8,6 +8,7 @@ import QZoom from "../components/QZoom";
 import AddIcon from "@mui/icons-material/Add";
 import {useNavigate} from "react-router-dom";
 import {makeStyles} from "@mui/styles";
+import {useUserMeet} from "../modules/user";
 
 const useStyles = makeStyles((theme: Theme) => ({
     content: {
@@ -23,7 +24,7 @@ const useStyles = makeStyles((theme: Theme) => ({
 }));
 export default function MeetsPage() {
     const classes = useStyles();
-    const { data: meets = [] } = useMeets()
+    const { data: meets = [] } = useUserMeet()
     const meetsGroup = getMeetsGroup(meets)
     const navigate = useNavigate();
 

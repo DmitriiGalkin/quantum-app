@@ -3,9 +3,6 @@ export interface User {
     image?: string
     title: string
     points: number
-}
-export interface NewUser {
     email?: string
     password?: string
-    title?: string
 }

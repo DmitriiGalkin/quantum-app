@@ -97,3 +97,4 @@ exports.deleteProjectUser = function(req, res) {
         res.json({ error:false, message: 'Employee successfully deleted' });
     });
 };
+
