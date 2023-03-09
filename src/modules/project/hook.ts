@@ -7,8 +7,10 @@ import {Meet} from "../meet";
 export const useProjects = (): UseQueryResult<Project[]> => {
     return useQuery(['projects'], () => service.get(`/project`),)
 }
-export const useProject = (id: number): UseQueryResult<Project> => {
-    return useQuery(['project', id], () => service.get(`/project/${id}`),)
+export const useProject = (id?: number): UseQueryResult<Project> => {
+    return useQuery(['project', id], () => service.get(`/project/${id}`), {
+        enabled: Boolean(id),
+    })
 }
 export const useProjectMeets = (id: number): UseQueryResult<Meet[]> => {
     return useQuery(['projectMeets', id], () => service.get(`/project/${id}/meet`),)

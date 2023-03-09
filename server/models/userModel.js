@@ -89,6 +89,13 @@ User.findByProjectId = function (id, result) {
         }
     });
 };
+User.findByPlaceId = function (id, result) {
+    dbConn.query("Select * from user LEFT JOIN place_user ON user.id = place_user.userId where placeId = ? ", id, function (err, res) {
+        if (err) result(err, null);
+        result(null, res);
+    });
+};
+
 
 
 User.findAll = function (result) {

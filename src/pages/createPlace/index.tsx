@@ -1,18 +1,16 @@
 import React, {useState} from 'react';
 import ForwardAppBar from "../../components/ForwardAppBar";
 import {TabPanel} from "../../components/tabs";
-import {DEFAULT_PLACE} from "./helper";
-import PlaceStep from "./PlaceStep";
 import QStepper from "../../components/QStepper";
 import QContainer from "../../components/QContainer";
-import {Typography} from "@mui/material";
-import {useAddPlace} from "../../modules/place";
+import {Box, TextField, Typography} from "@mui/material";
+import {NewPlace, useAddPlace} from "../../modules/place";
 
+const DEFAULT_PLACE: NewPlace = {}
 export default function CreatePlacePage() {
     const [place, setPlace] = useState(DEFAULT_PLACE)
     const [activeStep, setActiveStep] = React.useState(0);
     const addPlace = useAddPlace()
-    console.log(place, 'place before send0')
 
     const handleNext = () => {
         setActiveStep((prevActiveStep) => prevActiveStep + 1);
@@ -24,19 +22,22 @@ export default function CreatePlacePage() {
         setActiveStep((prevActiveStep) => prevActiveStep - 1);
     };
 
-    const props = {
-        place,
-        setPlace,
-        step: activeStep,
-        handleBack,
-        handleNext,
-    }
     return (
         <div>
             <ForwardAppBar title="Создание пространства"/>
             <QContainer>
                 <TabPanel value={activeStep} index={0}>
-                    <PlaceStep {...props}/>
+                    <Box sx={{ mt: 1 }}>
+                        <TextField
+                            name='title'
+                            label="Название"
+                            variant="standard"
+                            fullWidth
+                            value={place.title}
+                            onChange={(e) => setPlace({ ...place, title: e.target.value})}
+                        />
+                        <TextField name='description' label="Описание" variant="standard" fullWidth value={place.description} onChange={(e) => setPlace({ ...place, description: e.target.value})}/>
+                    </Box>
                 </TabPanel>
                 <TabPanel value={activeStep} index={1}>
                     <Typography>

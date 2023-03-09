@@ -2,7 +2,7 @@ import React from 'react';
 import {Meet, useMeets} from "../../modules/meet";
 
 import DateMeets from "../../components/DateMeets";
-import {getMeetsGroup} from "../helper";
+import {getMeetsGroup} from "../../tools/helper";
 import {Fab} from "@mui/material";
 import QZoom from "../../components/QZoom";
 import AddIcon from "@mui/icons-material/Add";

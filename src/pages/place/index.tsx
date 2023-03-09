@@ -1,19 +1,36 @@
 import React from 'react';
 import {makeStyles, Theme} from '@material-ui/core/styles';
-import AppBar from '@material-ui/core/AppBar';
-import Tabs from '@material-ui/core/Tabs';
-import Tab from '@material-ui/core/Tab';
-import {Chip, Container, Grid} from "@material-ui/core";
 import ForwardAppBar from "../../components/ForwardAppBar";
-import {TabPanel} from "../../components/tabs";
-import FaceIcon from "@material-ui/icons/Face";
 import {useNavigate, useParams} from "react-router-dom";
-import {Place} from "../../modules/place/types";
+import {
+    Place,
+    useAddPlaceUser,
+    useDeletePlaceUser,
+    usePlace,
+    usePlaceProjects,
+    usePlaceUsers
+} from "../../modules/place";
 import ProjectCard from "../../components/ProjectCard";
-import {usePlace, usePlaceProjects} from "../../modules/place/hook";
+import PenIcon from "@material-ui/icons/Edit";
+import {Avatar, Box, Button, Container, Typography} from "@mui/material";
+import Image from "../../components/Image";
+import SaveIcon from "@material-ui/icons/Save";
 
 
 const useStyles = makeStyles((theme: Theme) => ({
+    container: {
+        backgroundColor: theme.palette.background.paper,
+        borderRadius: `${theme.spacing(4)}px ${theme.spacing(4)}px 0 0`,
+    },
+    block: {
+        border: `1px solid ${theme.palette.divider}`,
+        borderRadius: 12,
+        padding: 12,
+    },
+    large: {
+        width: theme.spacing(5),
+        height: theme.spacing(5),
+    },
     root: {
         flexGrow: 1,
     },
@@ -29,46 +46,94 @@ const useStyles = makeStyles((theme: Theme) => ({
 
 export default function PlaceView() {
     const classes = useStyles();
-    const [value, setValue] = React.useState(0);
-    const { id } = useParams();
-    const { data: place = {} as Place } = usePlace(Number(id))
-    const { data: projects = [] } = usePlaceProjects(Number(id))
+    const id = Number(useParams().id);
+    const { data: place = {} as Place } = usePlace(id)
+    const { data: projects = [] } = usePlaceProjects(id)
+    const { data: users = []  } = usePlaceUsers(id)
+
     const navigate = useNavigate();
 
-    const handleChange = (event: React.ChangeEvent<{}>, newValue: number) => {
-        setValue(newValue);
-    };
+    const active = users.map((user) => user.id).includes(1) // TODO: доделать после авторизации
+    const addPlaceUser = useAddPlaceUser(id)
+    const deletePlaceUser = useDeletePlaceUser(id)
+    const onClick = () => {
+        if (active) {
+            deletePlaceUser.mutate({ placeId: id })
+        } else {
+            addPlaceUser.mutate({ placeId: id })
+        }
+    }
 
     return (
         <div className={classes.root}>
-            <ForwardAppBar title={place.title}/>
-            <AppBar position="static">
-                <Tabs value={value} onChange={handleChange} aria-label="simple tabs example">
-                    <Tab label="О месте" />
-                    <Tab label="Проекты" />
-                    <Tab label="Участники" />
-                </Tabs>
-            </AppBar>
-            <TabPanel value={value} index={0}>
-                <Container maxWidth="sm" style={{ paddingTop: 20 }}>
-                    <div className={classes.root2}>
-                        <Chip variant="outlined" size="small" icon={<FaceIcon />} label="Deletable" />
-                    </div>
+            <ForwardAppBar title={place.title} icon={<PenIcon style={{ color: 'white' }}/>} onClick={() => navigate(`/place/${place.id}/edit` )}/>
+            <div className={classes.container}>
+                <Box sx={{ margin: '0 18px', paddingTop: 3}}>
+                    <Image alt={place.title} src={place.image} borderRadius={'24px 24px 0 0'} />
+                </Box>
+                <Container disableGutters sx={{ padding: '24px 18px',
+                    '& > * + *': {
+                        marginTop: 2,
+                    }
+                }}>
+                    <Typography variant="h5">
+                        {place.title}
+                    </Typography>
+                    <Typography>
+                        {place.description}
+                    </Typography>
+                    <Box className={classes.block}>
+                        <Button
+                            variant="contained"
+                            color="primary"
+                            size="large"
+                            startIcon={<SaveIcon />}
+                            onClick={onClick}
+                        >
+                            {active ? 'Покинуть пространство' : 'Участвовать в пространстве'}
+                        </Button>
+                    </Box>
                 </Container>
-            </TabPanel>
-            <TabPanel value={value} index={1}>
-                <Container maxWidth="lg" style={{ paddingTop: 20 }}>
-                    <Grid container spacing={2} alignItems="stretch">
-                        {projects.map((project) =>                     <Grid item xs={3}>
-                            <ProjectCard {...project} onClick={() => navigate(`/project/${project.id}`)} /></Grid>)}
-                    </Grid>
-                </Container>
-            </TabPanel>
-            <TabPanel value={value} index={2}>
-                <Container maxWidth="sm" style={{ paddingTop: 20 }}>
-                    Список участников группы
-                </Container>
-            </TabPanel>
+            </div>
+            <div className={classes.block}>
+                <Typography variant="h5">
+                    Проекты
+                </Typography>
+                {projects.map((project) => (
+                    <ProjectCard {...project} onClick={() => navigate(`/project/${project.id}`)} />
+                ))}
+                <Button
+                    variant="contained"
+                    color="primary"
+                    size="large"
+                    startIcon={<SaveIcon />}
+                    onClick={() => navigate(`/project`)}
+                >
+                    Создать проект
+                </Button>
+            </div>
+            <div className={classes.block}>
+                <Typography variant="h5">
+                    Участники
+                </Typography>
+                {users.map((user) => (
+                    <Box sx={{padding: 1, display: "flex"}}>
+                        <Avatar
+                            alt={user.title}
+                            src={user.image}
+                            className={classes.large}
+                        />
+                        <Box sx={{flexGrow:1, paddingLeft: 2}}>
+                            <Typography variant="subtitle1">
+                                {user.title}
+                            </Typography>
+                            <Typography>
+                                Вдохновитель
+                            </Typography>
+                        </Box>
+                    </Box>
+                ))}
+            </div>
         </div>
     );
 }

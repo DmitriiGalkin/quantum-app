@@ -16,7 +16,7 @@ import {
     useProjectUsers
 } from "../../modules/project";
 import Image from "../../components/Image";
-import {getMeetsGroup} from "../helper";
+import {getMeetsGroup} from "../../tools/helper";
 import DateMeets from "../../components/DateMeets";
 import {Meet} from "../../modules/meet";
 
@@ -43,8 +43,8 @@ export default function ProjectView() {
     const { data: project = {} as Project } = useProject(Number(id))
     const { data: meets = [] } = useProjectMeets(Number(id))
     const { data: users = [], refetch } = useProjectUsers(Number(id))
-    const addProjectUser = useAddProjectUser(project.id)
-    const deleteProjectUser = useDeleteProjectUser(project.id)
+    const addProjectUser = useAddProjectUser(Number(id))
+    const deleteProjectUser = useDeleteProjectUser(Number(id))
     const active = users.map((user) => user.id).includes(1) // TODO: доделать после авторизации
     const meetsGroup = getMeetsGroup(meets)
 

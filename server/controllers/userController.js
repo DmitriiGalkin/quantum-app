@@ -74,3 +74,11 @@ exports.findByProjectId = function(req, res) {
         res.json(employee);
     });
 };
+exports.findByPlaceId = function(req, res) {
+    User.findByPlaceId(req.params.id, function(err, employee) {
+        if (err)
+            res.send(err);
+        res.json(employee);
+    });
+};
+

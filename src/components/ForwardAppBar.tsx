@@ -23,7 +23,7 @@ const useStyles = makeStyles((theme: Theme) =>
 
 export function ForwardAppBar({ title, icon, onClick }: { title?: string, icon?: JSX.Element, onClick?: () => void }) {
     const classes = useStyles();
-    onClick && onClick()
+    // onClick && onClick()
 
     return (
         <Container>

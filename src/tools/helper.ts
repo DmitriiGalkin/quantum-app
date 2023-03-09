@@ -1,4 +1,4 @@
-import {convertToMeetsGroupTime} from "../tools/date";
+import {convertToMeetsGroupTime} from "./date";
 import {Meet} from "../modules/meet";
 
 export function groupBy<K, V>(list: Array<V>, keyGetter: (input: V) => K): Map<K, Array<V>> {

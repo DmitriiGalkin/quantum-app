@@ -1,14 +1,17 @@
 import React, {useState} from 'react';
-import {Typography} from "@mui/material";
-import StepPlace from "./SelectPlace";
-import ProjectStep from "./ProjectStep";
-import StepConfirmation from "./ProjectConfirmation";
+import {Box, Typography} from "@mui/material";
 import {Project, useAddProject, useProject, useUpdateProject} from "../../modules/project";
 import QStepper from "../../components/QStepper";
 import ForwardAppBar from "../../components/ForwardAppBar";
 import {TabPanel} from "../../components/tabs";
 import QContainer from "../../components/QContainer";
 import {useParams} from "react-router-dom";
+import TextField from "@material-ui/core/TextField";
+import {CardActionArea, CardContent, Grid} from "@material-ui/core";
+import CardMedia from "@material-ui/core/CardMedia";
+import {usePlaces} from "../../modules/place";
+import {makeStyles, Theme} from "@material-ui/core/styles";
+import {red} from "@material-ui/core/colors";
 
 const DEFAULT_PROJECT: Project = {
     id: 12,
@@ -17,9 +20,37 @@ const DEFAULT_PROJECT: Project = {
     description: 'описание нового проекта',
     placeId: null,
 }
+const useStyles = makeStyles((theme: Theme) => ({
+    root: {
+        width: 300,
+    },
+    large: {
+        width: theme.spacing(7),
+        height: theme.spacing(7),
+    },
+    media: {
+        height: 0,
+        paddingTop: '56.25%', // 16:9
+    },
+    expand: {
+        transform: 'rotate(0deg)',
+        marginLeft: 'auto',
+        transition: theme.transitions.create('transform', {
+            duration: theme.transitions.duration.shortest,
+        }),
+    },
+    expandOpen: {
+        transform: 'rotate(180deg)',
+    },
+    avatar: {
+        backgroundColor: red[500],
+    },
+}));
 export default function CreateProjectStepperDialog({ isEdit }: {isEdit?: boolean}) {
+    const classes = useStyles();
     const { id } = useParams();
-    const { data: projectOld } = useProject(Number(id))
+    const { data: places = [] } = usePlaces()
+    const { data: projectOld } = useProject(id ? Number(id) : 0)
     const [project, setProject] = useState(projectOld || DEFAULT_PROJECT)
     const [activeStep, setActiveStep] = React.useState(0);
     const addProject = useAddProject()
@@ -36,24 +67,67 @@ export default function CreateProjectStepperDialog({ isEdit }: {isEdit?: boolean
         setActiveStep((prevActiveStep) => prevActiveStep - 1);
     };
 
-    const props = {
-        project,
-        setProject,
-        handleBack,
-        handleNext
-    }
     return (
         <div>
             <ForwardAppBar title={isEdit ? 'Редактирование проекта' : "Создание проекта"}/>
             <QContainer>
                 <TabPanel value={activeStep} index={0}>
-                    <StepPlace {...props}/>
-                </TabPanel>
+                    <div>
+                        <Grid container spacing={2} alignItems="stretch">
+                            {places.map((place) =>
+                                <Grid item lg={4} xs={12} key={place.id} onClick={() => {
+                                    setProject({ ...project, placeId: place.id })
+                                }}>
+                                    <Box sx={{
+                                        flexGrow: 1,
+                                        backgroundColor: (theme) => project.placeId === place.id ? 'rgba(255,204,0,0.1)' : theme.palette.background.paper,
+                                    }}>
+                                        <CardActionArea>
+                                            <CardMedia
+                                                className={classes.media}
+                                                image={place.image}
+                                                title={place.title}
+                                            />
+                                            <CardContent>
+                                                <Typography gutterBottom variant="h5" component="h2">
+                                                    {place.title}
+                                                </Typography>
+                                                <Typography variant="body2" color="textSecondary" component="p">
+                                                    {place.description}
+                                                </Typography>
+                                            </CardContent>
+                                        </CardActionArea>
+                                    </Box>
+                                </Grid>
+                            )}
+                        </Grid>
+                    </div>                </TabPanel>
                 <TabPanel value={activeStep} index={1}>
-                    <ProjectStep {...props}/>
+                    <div>
+                        <TextField
+                            name='title'
+                            label="Название"
+                            variant="standard"
+                            fullWidth
+                            value={project.title}
+                            onChange={(e) => setProject({ ...project, title: e.target.value})}
+                        />
+                        <TextField
+                            name='description'
+                            label="Описание"
+                            variant="standard"
+                            fullWidth
+                            value={project.description}
+                            onChange={(e) => setProject({ ...project, description: e.target.value})}
+                        />
+                    </div>
                 </TabPanel>
                 <TabPanel value={activeStep} index={2}>
-                    <StepConfirmation {...props}/>
+                    <div className={classes.root}>
+                        Проверили все ли верно?
+                        {project.title}
+                        {project.description}
+                    </div>
                 </TabPanel>
                 <TabPanel value={activeStep} index={3}>
                     <Typography>
