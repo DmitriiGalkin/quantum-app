@@ -17,7 +17,7 @@ export default function RegistrationPage({ isEdit }: {isEdit?: boolean}) {
 
     const handleNext = () => {
         setActiveStep((prevActiveStep) => prevActiveStep + 1);
-        if (activeStep === 0) {
+        if (activeStep === 1) {
             isEdit ? updateUser.mutate(user) : addUser.mutate(user)
         }
     };
@@ -25,7 +25,7 @@ export default function RegistrationPage({ isEdit }: {isEdit?: boolean}) {
         setActiveStep((prevActiveStep) => prevActiveStep - 1);
     };
     const config = genConfig(user.title)
-
+    console.log(user, 'user')
     return (
         <div>
             <ForwardAppBar title="Регистрация"/>
@@ -47,20 +47,20 @@ export default function RegistrationPage({ isEdit }: {isEdit?: boolean}) {
                             variant="standard"
                             fullWidth
                             value={user.password}
-                            onChange={(e) => setUser({ ...user, password: e.target.value, image: JSON.stringify(genConfig(e.target.value))})}
+                            onChange={(e) => setUser({ ...user, password: e.target.value })}
                         />
                     </Box>
                 </TabPanel>
                 <TabPanel value={activeStep} index={1}>
                     <Box>
-                        <Avatar style={{ width: '12rem', height: '12мrem' }} {...config} />
+                        <Avatar style={{ width: '12rem', height: '12rem' }} {...config} />
                         <TextField
                             name='title'
                             label="Имя и фамилия"
                             variant="standard"
                             fullWidth
                             value={user.title}
-                            onChange={(e) => setUser({ ...user, title: e.target.value, })}
+                            onChange={(e) => setUser({ ...user, title: e.target.value, image: JSON.stringify(genConfig(e.target.value)) })}
                         />
                     </Box>
                 </TabPanel>

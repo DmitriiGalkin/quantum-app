@@ -5,13 +5,15 @@ import {Box, Typography} from "@mui/material";
 import {convertToMeetDatetime} from "../tools/date";
 import {Project} from "../modules/project";
 import LocationOnIcon from '@mui/icons-material/LocationOn';
+import {useUnit} from "../tools/hooks";
 
 interface ProjectCardProps extends Project {
     selected?: boolean
     onClick: () => void
 }
 export default function ProjectCard(project: ProjectCardProps) {
-    const active = project.users?.find((user) => user.id === 1)
+    const unit = useUnit()
+    const active = project.users?.find((user) => user.id === unit.id)
 
     const firstMeetDateTitle = convertToMeetDatetime(project.meet?.datetime)
     return (

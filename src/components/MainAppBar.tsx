@@ -23,7 +23,7 @@ import {
 } from "@mui/material";
 
 import {useNavigate} from "react-router-dom";
-import {useAuth} from "../tools/hooks";
+import {useAuth, useUnit} from "../tools/hooks";
 import {makeStyles} from "@mui/styles";
 
 const useStyles = makeStyles((theme: Theme) => ({
@@ -34,6 +34,7 @@ const useStyles = makeStyles((theme: Theme) => ({
 
 export default function MainAppBar() {
     const classes = useStyles();
+    const user = useUnit();
 
     const navigate = useNavigate();
     const [open, setOpen] = React.useState(false);
@@ -73,7 +74,7 @@ export default function MainAppBar() {
                 >
                     <List>
                         <ListItem disablePadding>
-                            <ListItemButton onClick={() => navigate('/user/1')} >
+                            <ListItemButton onClick={() => navigate('/user/'+user.id)} >
                                 <ListItemIcon>
                                     <AccountCircleIcon />
                                 </ListItemIcon>

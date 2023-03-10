@@ -4,6 +4,7 @@ var dbConn = require('../db.config');
 var User = function(user){
     this.email = user.email;
     this.password = user.password;
+    this.image = user.image;
     this.title = user.title;
     this.points = user.points;
     this.created_at = new Date();

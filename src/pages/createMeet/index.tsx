@@ -7,20 +7,23 @@ import {DEFAULT_MEET, getProjectDefaultDatetime, valuetext, valuetext2} from "./
 import QStepper from "../../components/QStepper";
 import QContainer from "../../components/QContainer";
 import ProjectCard from "../../components/ProjectCard";
-import {User, useUser, useUserProjects} from "../../modules/user";
+import {useUserProjects} from "../../modules/user";
 import Day from "../../components/Day";
 import {convertToMeetsGroupTime2, toServerDatetime} from "../../tools/date";
 import {Project, useProject} from "../../modules/project";
 import {CalendarPicker} from "@mui/x-date-pickers";
 import dayjs, {Dayjs} from "dayjs";
+import {useUnit} from "../../tools/hooks";
 
 export default function CreateMeetView() {
     const [meet, setMeet] = useState(DEFAULT_MEET)
     const [activeStep, setActiveStep] = React.useState(0);
     const addMeet = useAddMeet()
-    const { data: projects = [] } = useUserProjects(1)
+    const user = useUnit();
+
+    const { data: projects = [] } = useUserProjects(user.id)
     const { data: project = {} as Project } = useProject(meet.projectId || 0)
-    const { data: user = {} as User } = useUser(1)
+    //const { data: user = {} as User } = useUser(1)
 
     const handleNext = () => {
         setActiveStep((prevActiveStep) => prevActiveStep + 1);

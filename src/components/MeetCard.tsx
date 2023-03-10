@@ -3,6 +3,7 @@ import {Meet, useAddMeetUser, useDeleteMeetUser} from "../modules/meet";
 import {convertToMeetTime} from "../tools/date";
 import {Avatar, AvatarGroup, Box, Typography} from "@mui/material";
 import {useUnit} from "../tools/hooks";
+import QAvatar from "./QAvatar";
 
 export default function MeetCard(meet: Meet) {
     const unit = useUnit()
@@ -29,7 +30,7 @@ export default function MeetCard(meet: Meet) {
                     </Typography>
                     <Box sx={{ display: 'flex', paddingTop: 1 }}>
                         <AvatarGroup max={active ? 5 : 4} >
-                            {meet.users?.map((user) => <Avatar key={user.id} alt={user.title} src={user.image} sx={{ width: 24, height: 24 }}/>)}
+                            {meet.users?.map((user) => <QAvatar key={user.id} {...user} />)}
                         </AvatarGroup>
                     </Box>
                 </Box>

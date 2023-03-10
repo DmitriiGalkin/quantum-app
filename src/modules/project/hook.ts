@@ -3,6 +3,7 @@ import {useMutation, useQuery, useQueryClient, UseQueryResult} from "@tanstack/r
 import {User} from "../user";
 import service, {UseMutate} from "../../tools/service";
 import {Meet} from "../meet";
+import {useUnit} from "../../tools/hooks";
 
 export const useProjects = (): UseQueryResult<Project[]> => {
     return useQuery(['projects'], () => service.get(`/project`),)
@@ -29,7 +30,9 @@ interface ProjectUser {
 
 export const useAddProjectUser = (projectId?: number): UseMutate<ProjectUser> => {
     const queryClient = useQueryClient()
-    return useMutation(({ userId = 1, projectId }) => service.post("/project/" + projectId + '/user/' + userId), {
+    const user = useUnit();
+
+    return useMutation(({ projectId }) => service.post("/project/" + projectId + '/user/' + user.id), {
         onSuccess() {
             queryClient.invalidateQueries(['projectUsers', projectId])
         },
@@ -37,7 +40,9 @@ export const useAddProjectUser = (projectId?: number): UseMutate<ProjectUser> =>
 }
 export const useDeleteProjectUser = (projectId?: number): UseMutate<ProjectUser> => {
     const queryClient = useQueryClient()
-    return useMutation(({ userId = 1, projectId }) => service.delete("/project/" + projectId + '/user/' + userId), {
+    const user = useUnit();
+
+    return useMutation(({ projectId }) => service.delete("/project/" + projectId + '/user/' + user.id), {
         onSuccess() {
             queryClient.invalidateQueries(['projectUsers', projectId])
         },

@@ -16,6 +16,7 @@ import {Avatar, Box, Button, Container, Typography, Theme} from "@mui/material";
 import Image from "../components/Image";
 import SaveIcon from "@mui/icons-material/Save";
 import {useUnit} from "../tools/hooks";
+import QAvatar from "../components/QAvatar";
 
 
 const useStyles = makeStyles((theme: Theme) => ({
@@ -103,7 +104,7 @@ export default function PlacePage() {
                     Проекты
                 </Typography>
                 {projects.map((project) => (
-                    <ProjectCard {...project} onClick={() => navigate(`/project/${project.id}`)} />
+                    <ProjectCard key={project.id} {...project} onClick={() => navigate(`/project/${project.id}`)} />
                 ))}
                 <Button
                     variant="contained"
@@ -121,11 +122,7 @@ export default function PlacePage() {
                 </Typography>
                 {users.map((user) => (
                     <Box sx={{padding: 1, display: "flex"}}>
-                        <Avatar
-                            alt={user.title}
-                            src={user.image}
-                            className={classes.large}
-                        />
+                        <QAvatar {...user} />
                         <Box sx={{flexGrow:1, paddingLeft: 2}}>
                             <Typography variant="subtitle1">
                                 {user.title}
