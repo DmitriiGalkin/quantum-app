@@ -15,6 +15,7 @@ import PenIcon from '@mui/icons-material/Edit';
 import {Avatar, Box, Button, Container, Typography, Theme} from "@mui/material";
 import Image from "../components/Image";
 import SaveIcon from "@mui/icons-material/Save";
+import {useUnit} from "../tools/hooks";
 
 
 const useStyles = makeStyles((theme: Theme) => ({
@@ -53,7 +54,9 @@ export default function PlacePage() {
 
     const navigate = useNavigate();
 
-    const active = users.map((user) => user.id).includes(1) // TODO: доделать после авторизации
+    const user = useUnit();
+
+    const active = users.map((user) => user.id).includes(user.id)
     const addPlaceUser = useAddPlaceUser(id)
     const deletePlaceUser = useDeletePlaceUser(id)
     const onClick = () => {
