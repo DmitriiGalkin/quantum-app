@@ -128,7 +128,7 @@ export default function CreateProjectStepperDialog({ isEdit }: {isEdit?: boolean
                     </Typography>
                 </TabPanel>
             </QContainer>
-            <QStepper activeStep={activeStep} handleBack={handleBack} handleNext={handleNext}/>
+            <QStepper steps={4} activeStep={activeStep} handleBack={handleBack} handleNext={handleNext}/>
         </div>
     );
 }

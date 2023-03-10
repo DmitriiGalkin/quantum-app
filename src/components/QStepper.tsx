@@ -15,15 +15,16 @@ interface QStepperProps {
     activeStep: number
     handleBack: () => void
     handleNext: () => void
+    steps: number
 }
-export default function QStepper({activeStep, handleBack, handleNext}: QStepperProps) {
+export default function QStepper({activeStep, handleBack, handleNext, steps}: QStepperProps) {
     const classes = useStyles();
 
     return (
         <Paper className={classes.bottomNavigation} elevation={3} style={{zIndex: 10 }}>
             <MobileStepper
-                variant="text"
-                steps={3}
+                variant="progress"
+                steps={steps}
                 position="static"
                 activeStep={activeStep}
                 nextButton={
@@ -37,7 +38,7 @@ export default function QStepper({activeStep, handleBack, handleNext}: QStepperP
                     </Button>
                 }
                 backButton={
-                    <Button size="small" onClick={handleBack} disabled={false}>
+                    <Button size="small" onClick={handleBack} disabled={activeStep===0}>
                         <KeyboardArrowLeft />
                         Назад
                     </Button>

@@ -1,17 +1,16 @@
-import React, {useState} from 'react';
+import React, {useRef, useState} from 'react';
 import ForwardAppBar from "../components/ForwardAppBar";
 import {TabPanel} from "../components/tabs";
-import {useAddUser, User, useUpdateUser, useUser} from "../modules/user";
+import {useAddUser, User, useUpdateUser} from "../modules/user";
 import QStepper from "../components/QStepper";
 import QContainer from "../components/QContainer";
 import {Box, TextField, Typography} from "@mui/material";
-import {useParams} from "react-router-dom";
+import Avatar, { genConfig } from 'react-nice-avatar'
 
 const DEFAULT_USER = {} as User
-export default function CreateUserPage({ isEdit }: {isEdit?: boolean}) {
-    const { id } = useParams();
-    const { data: userOld } = useUser(id ? Number(id) : 0)
-    const [user, setUser] = useState(userOld || DEFAULT_USER)
+export default function RegistrationPage({ isEdit }: {isEdit?: boolean}) {
+
+    const [user, setUser] = useState(DEFAULT_USER)
     const [activeStep, setActiveStep] = React.useState(0);
     const addUser = useAddUser()
     const updateUser = useUpdateUser()
@@ -25,10 +24,12 @@ export default function CreateUserPage({ isEdit }: {isEdit?: boolean}) {
     const handleBack = () => {
         setActiveStep((prevActiveStep) => prevActiveStep - 1);
     };
+    const config = genConfig(user.title)
 
     return (
         <div>
             <ForwardAppBar title="Регистрация"/>
+            <img src="/img.png" alt="мальчик" style={{ width: '100%' }}/>
             <QContainer>
                 <TabPanel value={activeStep} index={0}>
                     <Box>
@@ -46,19 +47,24 @@ export default function CreateUserPage({ isEdit }: {isEdit?: boolean}) {
                             variant="standard"
                             fullWidth
                             value={user.password}
-                            onChange={(e) => setUser({ ...user, password: e.target.value})}
+                            onChange={(e) => setUser({ ...user, password: e.target.value, image: JSON.stringify(genConfig(e.target.value))})}
                         />
+                    </Box>
+                </TabPanel>
+                <TabPanel value={activeStep} index={1}>
+                    <Box>
+                        <Avatar style={{ width: '12rem', height: '12мrem' }} {...config} />
                         <TextField
                             name='title'
                             label="Имя и фамилия"
                             variant="standard"
                             fullWidth
                             value={user.title}
-                            onChange={(e) => setUser({ ...user, title: e.target.value})}
+                            onChange={(e) => setUser({ ...user, title: e.target.value, })}
                         />
                     </Box>
                 </TabPanel>
-                <TabPanel value={activeStep} index={1}>
+                <TabPanel value={activeStep} index={2}>
                     <Typography>
                         Участник создан!
                         - найти пространства
@@ -66,7 +72,7 @@ export default function CreateUserPage({ isEdit }: {isEdit?: boolean}) {
                     </Typography>
                 </TabPanel>
             </QContainer>
-            <QStepper steps={2} activeStep={activeStep} handleBack={handleBack} handleNext={handleNext}/>
+            <QStepper steps={3} activeStep={activeStep} handleBack={handleBack} handleNext={handleNext}/>
         </div>
     );
 }

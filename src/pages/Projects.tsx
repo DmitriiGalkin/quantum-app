@@ -1,6 +1,6 @@
 import React from 'react';
 import ProjectCard from "../components/ProjectCard";
-import {Box, Fab, Theme} from "@mui/material";
+import {Box, Fab, Link, Theme} from "@mui/material";
 import {useNavigate} from "react-router-dom";
 import QZoom from "../components/QZoom";
 import AddIcon from "@mui/icons-material/Add";
@@ -29,7 +29,7 @@ export default function ProjectsPage() {
                     padding: 2,
                     marginBottom: 2,
                 }}>
-                    Нет ни одного активного проекта в ваших пространствах, - своетую подписаться на <a onClick={() => navigate('/map')}>пространство</a>
+                    Нет ни одного активного проекта в ваших пространствах, - своетую подписаться на <Link onClick={() => navigate('/map')}>пространство</Link>
                 </Box>
             )}
             <Box sx={{ display: 'flex', flexDirection: 'column', border: '1px solid #E1E3E8',

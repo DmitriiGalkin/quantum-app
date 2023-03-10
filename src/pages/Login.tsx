@@ -31,7 +31,10 @@ export default function LoginPage() {
     const handleMouseDownPassword = () => setShowPassword(!showPassword);
 
     return (
-        <Box sx={{mt:6}} className={classes.content}>
+        <>
+            <img src="/img.png" alt="мальчик" style={{ width: '100%' }}/>
+            <Box sx={{mt:6}} className={classes.content}>
+
                 <Container style={{ padding: '18px' }}>
                     <Typography variant="h5">
                         Привет, участник
@@ -40,60 +43,61 @@ export default function LoginPage() {
                         Пожалуйста авторизуйся
                     </Typography>
                     <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
-                    <TextField
-                        margin="normal"
-                        required
-                        fullWidth
-                        id="email"
-                        label="Номер мобильного телефона/Почта"
-                        name="email"
-                        autoComplete="email"
-                        variant="standard"
-                        autoFocus
-                    />
-                    <TextField
-                        margin="normal"
-                        required
-                        fullWidth
-                        name="password"
-                        label="Password"
-                        id="password"
-                        variant="standard"
-                        autoComplete="current-password"
-                        type={showPassword ? "text" : "password"} // <-- This is where the magic happens
-                        InputProps={{
-                            endAdornment: (
-                                <InputAdornment position="end">
-                                    <IconButton
-                                        aria-label="toggle password visibility"
-                                        onClick={handleClickShowPassword}
-                                        onMouseDown={handleMouseDownPassword}
-                                    >
-                                        {showPassword ? <VisibilityIcon /> : <VisibilityOffIcon />}
-                                    </IconButton>
-                                </InputAdornment>
-                            )
-                        }}
-                    />
-                    <Button
-                        type="submit"
-                        fullWidth
-                        variant="contained"
-                        sx={{ mt: 3, mb: 2 }}
-                    >
-                        Войти
-                    </Button>
-                    <Grid container>
-                        <Grid item>
-                            <RouterLink to="/user">
-                                <Link href="#" variant="body2">
-                                    {"Нет аккаунта? Быстрая регистрация"}
-                                </Link>
-                            </RouterLink>
+                        <TextField
+                            margin="normal"
+                            required
+                            fullWidth
+                            id="email"
+                            label="Номер мобильного телефона/Почта"
+                            name="email"
+                            autoComplete="email"
+                            variant="standard"
+                            autoFocus
+                        />
+                        <TextField
+                            margin="normal"
+                            required
+                            fullWidth
+                            name="password"
+                            label="Password"
+                            id="password"
+                            variant="standard"
+                            autoComplete="current-password"
+                            type={showPassword ? "text" : "password"} // <-- This is where the magic happens
+                            InputProps={{
+                                endAdornment: (
+                                    <InputAdornment position="end">
+                                        <IconButton
+                                            aria-label="toggle password visibility"
+                                            onClick={handleClickShowPassword}
+                                            onMouseDown={handleMouseDownPassword}
+                                        >
+                                            {showPassword ? <VisibilityIcon /> : <VisibilityOffIcon />}
+                                        </IconButton>
+                                    </InputAdornment>
+                                )
+                            }}
+                        />
+                        <Button
+                            type="submit"
+                            fullWidth
+                            variant="contained"
+                            sx={{ mt: 3, mb: 2 }}
+                        >
+                            Войти
+                        </Button>
+                        <Grid container>
+                            <Grid item>
+                                <RouterLink to="/registration">
+                                    <Link href="#" variant="body2">
+                                        {"Нет аккаунта? Быстрая регистрация"}
+                                    </Link>
+                                </RouterLink>
+                            </Grid>
                         </Grid>
-                    </Grid>
-                </Box>
+                    </Box>
                 </Container>
             </Box>
+        </>
     )
 }

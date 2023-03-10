@@ -45,7 +45,7 @@ export default function CreatePlacePage() {
                     </Typography>
                 </TabPanel>
             </QContainer>
-            <QStepper activeStep={activeStep} handleBack={handleBack} handleNext={handleNext}/>
+            <QStepper steps={2} activeStep={activeStep} handleBack={handleBack} handleNext={handleNext}/>
         </div>
     );
 }

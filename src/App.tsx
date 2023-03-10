@@ -5,6 +5,7 @@ import Map from "./pages/Map";
 import User from "./pages/User";
 import Task from "./pages/task";
 import Login from "./pages/Login";
+import Registration from "./pages/Registration";
 import CreateMeet from "./pages/createMeet";
 import CreateUser from "./pages/CreateUser";
 import CreateProject from "./pages/CreateProject";
@@ -49,7 +50,6 @@ export const router = createBrowserRouter(
                     <Route path="project" element={<CreateProject />} />
                     <Route path="project/:id/edit" element={<CreateProject isEdit />} />
                     <Route path="project/:id" element={<Project />} />
-                    <Route path="user" element={<CreateUser />} />
                     <Route path="user/:id/edit" element={<CreateUser isEdit />} />
                     <Route path="user/:id" element={<User />} />
                     <Route path="place" element={<CreatePlace />} />
@@ -59,7 +59,10 @@ export const router = createBrowserRouter(
             </Route>
             <Route element={<HomeLayout />}>
                 <Route path="/login" element={<Login />} />
+                <Route path="/registration" element={<Registration />} />
             </Route>
         </Route>
     )
 );
+
+//                    <Route path="user" element={<CreateUser />} />

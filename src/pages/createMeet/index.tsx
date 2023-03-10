@@ -141,7 +141,7 @@ export default function CreateMeetView() {
                     </Typography>
                 </TabPanel>
             </QContainer>
-            <QStepper activeStep={activeStep} handleBack={handleBack} handleNext={handleNext}/>
+            <QStepper steps={4} activeStep={activeStep} handleBack={handleBack} handleNext={handleNext}/>
         </div>
     );
 }

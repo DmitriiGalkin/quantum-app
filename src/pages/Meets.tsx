@@ -3,7 +3,7 @@ import {Meet, useMeets} from "../modules/meet";
 
 import Day from "../components/Day";
 import {getMeetsGroup} from "../tools/helper";
-import {Fab, Theme} from "@mui/material";
+import {Box, Fab, Link, Theme} from "@mui/material";
 import QZoom from "../components/QZoom";
 import AddIcon from "@mui/icons-material/Add";
 import {useNavigate} from "react-router-dom";
@@ -33,6 +33,15 @@ export default function MeetsPage() {
             {meetsGroup.map(([date, meets]) => (
                 <Day key={date} date={date} meets={meets as Meet[]}/>
             ))}
+            {!meetsGroup.length && (
+                <Box sx={{ display: 'flex', flexDirection: 'column', border: '1px solid #E1E3E8',
+                    borderRadius: 2,
+                    padding: 2,
+                    marginBottom: 2,
+                }}>
+                    Нет ни одной запланированной встречи. Возможно (а на сервере мы знаем точно) по вашим проектам просто нет встреч, а возможно вы е подписаны ни на одно пространство. Добавить <Link onClick={() => navigate('/map')}>пространство</Link>
+                </Box>
+            )}
             <QZoom>
                 <Fab variant="extended" color="primary" aria-label="add" className={classes.margin} onClick={() => navigate(`/meet`)}>
                     <AddIcon className={classes.extendedIcon} />

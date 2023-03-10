@@ -25,4 +25,9 @@
 
 body {
     font-size: 14px;
+    height: 100%;
+}
+
+#root {
+    height: 100%;
 }
