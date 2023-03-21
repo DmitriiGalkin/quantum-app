@@ -1,10 +1,10 @@
 import React from 'react';
 import {Box} from "@mui/material";
 import TaskCard from "../components/TaskCard";
-import {useTasks} from "../modules/task";
+import {useOnlyUserTasks} from "../modules/task";
 
 export default function TasksPage() {
-    const { data: tasks = [] } = useTasks()
+    const { data: tasks = [] } = useOnlyUserTasks()
 
     return (
         <>

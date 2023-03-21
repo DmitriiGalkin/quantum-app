@@ -10,8 +10,13 @@ export const useUser = (id: number): UseQueryResult<User> => {
     return useQuery(['user', id], () => service.get(`/user/${id}`),)
 }
 export const useUserUniques = (id: number): UseQueryResult<Unique[]> => {
-    return useQuery(['userUniques', id], () => service.get(`/user/${id}/unique`),)
+    return useQuery(['userUniques', id], () => service.get(`/user/${id}/uniques`),)
 }
+export const useOnlyUserUniques = (): UseQueryResult<Unique[]> => {
+    const user = useUnit();
+    return useQuery(['userUniques', user.id], () => service.get(`/user/${user.id}/uniques`))
+}
+
 export const useUserProjects = (id: number): UseQueryResult<Project[]> => {
     return useQuery(['userProjects', id], () => service.get(`/user/${id}/project`),)
 }
@@ -33,9 +38,9 @@ export const useUserByLogin = (): UseMutate<LoginData> => useMutation((data) => 
 
 export const useUserMeet = (): UseQueryResult<Meet[]> => {
     const user = useUnit();
-    return useQuery(['userMeets', user.id], () => service.get(`/user/${user.id}/allMeet`))
+    return useQuery(['userMeets', user.id], () => service.get(`/user/${user.id}/meets`))
 }
 export const useOnlyUserProjects = (): UseQueryResult<Project[]> => {
     const user = useUnit();
-    return useQuery(['onlyUserProjects', user.id], () => service.get(`/user/${user.id}/allProject`))
+    return useQuery(['onlyUserProjects', user.id], () => service.get(`/user/${user.id}/projects`))
 }

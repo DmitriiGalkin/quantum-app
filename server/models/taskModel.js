@@ -21,6 +21,14 @@ Task.findById = function (id, result) {
         result(null, res);
     });
 };
+Task.findAllByUserId = function (id, result) {
+    dbConn.query("Select * from task where userId = ? ", id, function (err, res) {
+        if (err) result(null, err);
+        result(null, res);
+    });
+};
+
+
 Task.update = function(id, task, result){
     dbConn.query("UPDATE task SET results=? WHERE id = ?", [task.result, id], function (err, res) {
         if(err) result(null, err);

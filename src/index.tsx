@@ -6,56 +6,15 @@ import {QueryClient, QueryClientProvider,} from '@tanstack/react-query'
 import {createTheme, CssBaseline, ThemeProvider} from "@mui/material";
 import {AdapterDayjs} from '@mui/x-date-pickers/AdapterDayjs';
 import {LocalizationProvider} from '@mui/x-date-pickers';
-import "dayjs/locale/ru";
 import {router} from "./App";
+import THEME from "./theme";
 
-const theme = createTheme({
-    typography: {
-        fontFamily: 'Manrope, Arial',
-        h5: {
-            fontSize: 16,
-            fontWeight: 700,
-        },
-        h6: {
-            fontSize: 15,
-            fontWeight: 500,
-        },
-        body1: {
-            fontSize: 14,
-            fontWeight: 400,
-        },
-        subtitle1: {
-            fontSize: 14,
-            fontWeight: 700,
-        }
-    },
-    spacing: 6,
-    palette: {
-        background: {
-            default: "#FFCC00",
-        },
-        primary: {
-            main: '#FF9503',
-            contrastText: '#674100',
-        },
-        secondary: {
-            main: '#FFCE00',
-            contrastText: '#674100',
-        },
-        text: {
-            primary: '#777777',
-            // hint: '#FF9503',
-            secondary: '#A5A5A5',
-            disabled: '#C1C1C1',
-        },
-    }
-});
-
+const theme = createTheme(THEME);
 const queryClient = new QueryClient()
-
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 );
+
 root.render(
   <React.StrictMode>
       <ThemeProvider theme={theme}>

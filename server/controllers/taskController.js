@@ -26,3 +26,10 @@ exports.update = function(req, res) {
         });
     }
 };
+
+exports.findTasksByUserId = function(req, res) {
+    Task.findAllByUserId(req.params.id, function(err, tasks) {
+        if (err) res.send(err);
+        res.send(tasks);
+    });
+};
