@@ -1,5 +1,5 @@
 import React from 'react';
-import {Box, IconButton, Typography} from "@mui/material";
+import {Alert, Box, IconButton, Stack, Typography} from "@mui/material";
 import {useEditUser, useOnlyUserUniques, useUser, useUserUniques} from "../modules/user";
 import AutoAwesomeIcon from "@mui/icons-material/AutoAwesome";
 import ArrowUpward from "@mui/icons-material/ArrowUpward";
@@ -29,30 +29,29 @@ export default function UniquesPage() {
                 </Typography>
             </div>
             <Box sx={{
-                display: 'flex',
-                flexDirection: 'column',
                 border: '1px solid #E1E3E8',
                 borderRadius: 2,
-                padding: 2,
-                '& > * + *': {
-                    marginTop: 1,
-                }
             }}
             >
-                {uniques.map((unique) => (
-                    <Box key={unique.id} sx={{ display: 'flex' }}>
-                        <Typography variant="subtitle1" color="primary" style={{ flexGrow: 1 }}>
-                            {unique.title}
-                        </Typography>
-                        <Typography variant="subtitle1" sx={{ paddingRight: 1}}>
-                            {unique.points}
-                        </Typography>
-                        <AutoAwesomeIcon style={{ width: 20, height: 20 }} color="primary"/>
-                        {userD?.points && <IconButton onClick={() => toTop({ user: userD, unique, points: 1 })}>
-                            <ArrowUpward/>
-                        </IconButton>}
-                    </Box>
-                ))}
+                <Stack spacing={2}>
+                    {uniques.map((unique) => (
+                        <Box key={unique.id} sx={{ display: 'flex', padding: 1 }}>
+                            <Typography variant="subtitle1" color="primary" style={{ flexGrow: 1 }}>
+                                {unique.title}
+                            </Typography>
+                            <Typography variant="subtitle1" sx={{ paddingRight: 1}}>
+                                {unique.points}
+                            </Typography>
+                            <AutoAwesomeIcon style={{ width: 20, height: 20 }} color="primary"/>
+                            {userD?.points && <IconButton size="small" onClick={() => toTop({ user: userD, unique, points: 1 })}>
+                                <ArrowUpward/>
+                            </IconButton>}
+                        </Box>
+                    ))}
+                    <Alert variant="outlined" severity="warning">
+                        Кто я?
+                    </Alert>
+                </Stack>
             </Box>
         </>
     );

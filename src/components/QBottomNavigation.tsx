@@ -1,4 +1,4 @@
-import {BottomNavigation, BottomNavigationAction, Paper, Theme} from "@mui/material";
+import {Badge, BottomNavigation, BottomNavigationAction, Paper, Theme} from "@mui/material";
 import GroupsIcon from "@mui/icons-material/Groups";
 import RocketIcon from "@mui/icons-material/Rocket";
 import EmojiEventsIcon from "@mui/icons-material/EmojiEvents";
@@ -44,7 +44,9 @@ export default function QBottomNavigation() {
                 onChange={(event, newValue) => onChange(newValue)}
                 showLabels
             >
-                <BottomNavigationAction label="Встречи" icon={<GroupsIcon />} />
+                <BottomNavigationAction label="Встречи" icon={<Badge variant="dot" color="secondary">
+                    <GroupsIcon />
+                </Badge>} />
                 <BottomNavigationAction label="Проекты" icon={<RocketIcon />} />
                 <BottomNavigationAction label="Задания" icon={<EmojiEventsIcon />} />
                 <BottomNavigationAction label="Ценности" icon={<AutoAwesomeIcon />} />

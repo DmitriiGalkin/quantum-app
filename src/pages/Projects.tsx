@@ -1,6 +1,6 @@
 import React from 'react';
 import ProjectCard from "../components/ProjectCard";
-import {Box, Fab, Link, Theme} from "@mui/material";
+import {Alert, Box, Fab, Link, Stack, Theme} from "@mui/material";
 import {useNavigate} from "react-router-dom";
 import QZoom from "../components/QZoom";
 import AddIcon from "@mui/icons-material/Add";
@@ -21,29 +21,21 @@ export default function ProjectsPage() {
     const { data: projects = [] } = useOnlyUserProjects()
 
     return (
-        <div>
+        <Stack spacing={2}>
             {projects.map((project) => <ProjectCard key={project.id} {...project} onClick={() => navigate(`/project/${project.id}`)}/>)}
             {!projects.length && (
-                <Box sx={{ display: 'flex', flexDirection: 'column', border: '1px solid #E1E3E8',
-                    borderRadius: 2,
-                    padding: 2,
-                    marginBottom: 2,
-                }}>
+                <Alert variant="outlined" severity="warning">
                     Нет ни одного активного проекта в ваших пространствах, - своетую подписаться на <Link onClick={() => navigate('/map')}>пространство</Link>
-                </Box>
+                </Alert>
             )}
-            <Box sx={{ display: 'flex', flexDirection: 'column', border: '1px solid #E1E3E8',
-                borderRadius: 2,
-                padding: 2,
-                marginBottom: 2,
-            }}>
+            <Alert variant="outlined" severity="success">
                 Список релевантных проектов: новые проекты, проекты поблизости, проекты по схожим тегам, проекты по схожим пространствам
-            </Box>
+            </Alert>
             <QZoom>
                 <Fab variant="extended" color="primary" aria-label="add" className={classes.margin} onClick={() => navigate(`/project`)}>
                     <AddIcon className={classes.extendedIcon} />
                 </Fab>
             </QZoom>
-        </div>
+        </Stack>
     );
 }
